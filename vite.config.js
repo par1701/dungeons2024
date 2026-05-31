@@ -4,5 +4,5 @@ import react from "@vitejs/plugin-react";
 // Cambia "dnd-sheet" por el nombre exacto de tu repositorio en GitHub
 export default defineConfig({
   plugins: [react()],
-  base: "/dnd-sheet/",
+  base: "/dungeons2024/",
 });
