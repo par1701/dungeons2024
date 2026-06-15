@@ -168,6 +168,23 @@ const DADO_CLASE = {
   "Mago": "d6", "Monje": "d10", "Paladín": "d10", "Pícaro": "d8",
   "Artificiero": "d8",
 };
+
+// ops: IDs de habilidades elegibles | null = cualquiera | n: número a elegir
+const PROF_CLASE = {
+  "Bárbaro":    { salv:["fue","con"], ops:["trato_animales","atletismo","intimidacion","naturaleza","percepcion","supervivencia"], n:2 },
+  "Bardo":      { salv:["des","car"], ops:null, n:3 },
+  "Brujo":      { salv:["sab","car"], ops:["arcanos","engano","historia","intimidacion","investigacion","naturaleza","religion"], n:2 },
+  "Clérigo":    { salv:["sab","car"], ops:["historia","perspicacia","medicina","persuasion","religion"], n:2 },
+  "Druida":     { salv:["int","sab"], ops:["arcanos","trato_animales","perspicacia","medicina","naturaleza","percepcion","religion","supervivencia"], n:2 },
+  "Explorador": { salv:["fue","des"], ops:["trato_animales","atletismo","perspicacia","investigacion","naturaleza","percepcion","sigilo","supervivencia"], n:3 },
+  "Guerrero":   { salv:["fue","con"], ops:["acrobacia","trato_animales","atletismo","historia","perspicacia","intimidacion","percepcion","supervivencia"], n:2 },
+  "Hechicero":  { salv:["con","car"], ops:["arcanos","engano","perspicacia","intimidacion","persuasion","religion"], n:2 },
+  "Mago":       { salv:["int","sab"], ops:["arcanos","historia","perspicacia","investigacion","medicina","religion"], n:2 },
+  "Monje":      { salv:["fue","des"], ops:["acrobacia","atletismo","historia","perspicacia","religion","sigilo"], n:2 },
+  "Paladín":    { salv:["sab","car"], ops:["atletismo","perspicacia","intimidacion","medicina","persuasion","religion"], n:2 },
+  "Pícaro":     { salv:["des","int"], ops:["acrobacia","atletismo","engano","perspicacia","intimidacion","investigacion","percepcion","actuacion","persuasion","juego_manos","sigilo"], n:4 },
+  "Artificiero":{ salv:["con","int"], ops:["arcanos","historia","investigacion","medicina","naturaleza","percepcion","juego_manos"], n:2 },
+};
 const MAESTRIAS    = ["—","Lento","Empuje","Volteo","Corte","Pinchazo","Rápido","Flex","Alerta"];
 
 // Subclases por clase (PHB 2024 marcadas con ✦, suplementos sin marca)
@@ -551,7 +568,7 @@ const mkChar = () => ({
   nombre: "", jugador: "", especie: "",
   progresion: [{ clase: "", subclase: "", niveles: 1 }],
   trasfondo: "", xp: 0, alineamiento: "", divinidad: "", inspiracion: false,
-  trasfondoAplicado: "", asiAplicado: {},
+  trasfondoAplicado: "", asiAplicado: {}, profClases: {},
   fue: 10, des: 10, con: 10, int: 10, sab: 10, car: 10,
   salv: Object.fromEntries(ATTRS.map(a => [a, false])),
   hab:  mkHabMap(),
@@ -725,7 +742,7 @@ const btnSmall = {
   flexShrink: 0,
 };
 
-function TabBasico({ char, u, un, handleTrasfondo }) {
+function TabBasico({ char, u, un, handleTrasfondo, handleProgClase, handleProgHab }) {
   const datosT = DATOS_TRASFONDO[char.trasfondo];
   const nTotal = nivelTotal(char.progresion);
   const prof   = calcProf(nTotal);
@@ -774,54 +791,101 @@ function TabBasico({ char, u, un, handleTrasfondo }) {
           <Lbl>Clase</Lbl><Lbl>Subclase</Lbl><Lbl>Niveles</Lbl><span/>
         </div>
 
-        {char.progresion.map((p, i) => (
-          <div key={i} style={{ display: "grid",
-            gridTemplateColumns: "1fr 1fr 88px auto", gap: 6, marginBottom: 8,
-            alignItems: "center" }}>
+        {char.progresion.map((p, i) => {
+          const profData  = PROF_CLASE[p.clase];
+          const habEleg   = char.profClases[p.clase]?.hab || [];
+          const opciones  = profData ? (profData.ops || HABS.map(h => h.id)) : [];
 
-            <select value={p.clase}
-              onChange={e => { updProg(i, "clase", e.target.value); updProg(i, "subclase", ""); }}
-              style={{ ...baseInput, cursor: "pointer" }}>
-              <option value="">— elige —</option>
-              {CLASES.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
+          return (
+            <div key={i} style={{ marginBottom: 10 }}>
+              {/* Fila principal */}
+              <div style={{ display: "grid",
+                gridTemplateColumns: "1fr 1fr 88px auto", gap: 6, marginBottom: 4,
+                alignItems: "center" }}>
 
-            <div>
-              <input value={p.subclase}
-                onChange={e => updProg(i, "subclase", e.target.value)}
-                list={`sc-${i}`}
-                placeholder={p.clase ? "Subclase…" : "—"}
-                disabled={!p.clase}
-                style={{ ...baseInput, color: p.clase ? P.text : P.textDim }} />
-              <datalist id={`sc-${i}`}>
-                {(SUBCLASES[p.clase] || []).map(s => <option key={s} value={s} />)}
-              </datalist>
-            </div>
+                <select value={p.clase}
+                  onChange={e => handleProgClase(i, e.target.value)}
+                  style={{ ...baseInput, cursor: "pointer" }}>
+                  <option value="">— elige —</option>
+                  {CLASES.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              <button onClick={() => updProg(i, "niveles", Math.max(1, p.niveles - 1))}
-                style={{ ...btnSmall, color: P.crimsonLt, border: `1px solid ${P.border}` }}>−</button>
-              <div style={{ flex: 1, textAlign: "center", fontWeight: 700,
-                color: P.gold, fontSize: 16 }}>{p.niveles}</div>
-              <button onClick={() => {
-                  const resto = 20 - nTotal + p.niveles;
-                  updProg(i, "niveles", Math.min(resto, p.niveles + 1));
-                }}
-                style={{ ...btnSmall, color: P.goldLt, border: `1px solid ${P.border}` }}>+</button>
-            </div>
+                <div>
+                  <input value={p.subclase}
+                    onChange={e => updProg(i, "subclase", e.target.value)}
+                    list={`sc-${i}`}
+                    placeholder={p.clase ? "Subclase…" : "—"}
+                    disabled={!p.clase}
+                    style={{ ...baseInput, color: p.clase ? P.text : P.textDim }} />
+                  <datalist id={`sc-${i}`}>
+                    {(SUBCLASES[p.clase] || []).map(s => <option key={s} value={s} />)}
+                  </datalist>
+                </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ fontSize: 10, color: P.textDim, minWidth: 22 }}>
-                {p.clase ? DADO_CLASE[p.clase] : ""}
-              </span>
-              {char.progresion.length > 1 && (
-                <button onClick={() => delClase(i)}
-                  style={{ background: "transparent", border: "none",
-                    color: P.crimsonLt, cursor: "pointer", fontSize: 15, padding: 0 }}>✕</button>
+                <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <button onClick={() => updProg(i, "niveles", Math.max(1, p.niveles - 1))}
+                    style={{ ...btnSmall, color: P.crimsonLt, border: `1px solid ${P.border}` }}>−</button>
+                  <div style={{ flex: 1, textAlign: "center", fontWeight: 700,
+                    color: P.gold, fontSize: 16 }}>{p.niveles}</div>
+                  <button onClick={() => {
+                      const resto = 20 - nTotal + p.niveles;
+                      updProg(i, "niveles", Math.min(resto, p.niveles + 1));
+                    }}
+                    style={{ ...btnSmall, color: P.goldLt, border: `1px solid ${P.border}` }}>+</button>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <span style={{ fontSize: 10, color: P.textDim, minWidth: 22 }}>
+                    {p.clase ? DADO_CLASE[p.clase] : ""}
+                  </span>
+                  {char.progresion.length > 1 && (
+                    <button onClick={() => delClase(i)}
+                      style={{ background: "transparent", border: "none",
+                        color: P.crimsonLt, cursor: "pointer", fontSize: 15, padding: 0 }}>✕</button>
+                  )}
+                </div>
+              </div>
+
+              {/* Panel de proficiencias de la clase */}
+              {profData && (
+                <div style={{
+                  background: P.surface, border: `1px solid ${P.borderDim}`,
+                  borderRadius: 4, padding: "8px 10px", fontSize: 12,
+                }}>
+                  <div style={{ marginBottom: 6, color: P.textDim }}>
+                    <span style={{ color: P.gold }}>✦ Salvaciones auto-aplicadas: </span>
+                    {profData.salv.map(s => ATTR_NOMBRE[s]).join(", ")}
+                    <span style={{ marginLeft: 10, color: habEleg.length >= profData.n ? "#7fc47f" : P.textDim }}>
+                      · Habilidades: {habEleg.length}/{profData.n}
+                      {habEleg.length >= profData.n ? " ✓" : " (elige)"}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 14px" }}>
+                    {opciones.map(habId => {
+                      const hab = HABS.find(h => h.id === habId);
+                      if (!hab) return null;
+                      const checked   = habEleg.includes(habId);
+                      const bloqueado = !checked && habEleg.length >= profData.n;
+                      return (
+                        <label key={habId} style={{
+                          display: "flex", alignItems: "center", gap: 5,
+                          cursor: bloqueado ? "not-allowed" : "pointer",
+                          opacity: bloqueado ? 0.35 : 1, color: checked ? P.goldLt : P.text,
+                        }}>
+                          <input type="checkbox" checked={checked}
+                            disabled={bloqueado}
+                            onChange={e => handleProgHab(p.clase, habId, e.target.checked)}
+                            style={{ accentColor: P.gold, cursor: "pointer" }} />
+                          {hab.nombre}
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
               )}
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         <div style={{ display: "flex", gap: 16, alignItems: "center", marginTop: 4, flexWrap: "wrap" }}>
           {nTotal < 20 && <Btn onClick={addClase} variant="gold">+ Multiclase</Btn>}
@@ -1671,6 +1735,69 @@ export default function DnDCreator() {
   const u  = (k, v)          => setChar(c => ({ ...c, [k]: v }));
   const un = (k, sk, v)      => setChar(c => ({ ...c, [k]: { ...c[k], [sk]: v } }));
 
+  // Cambio de clase en una fila de progresión:
+  // deshace salvaciones/habilidades de la clase anterior y aplica las de la nueva
+  const handleProgClase = (i, nuevaClase) => {
+    setChar(c => {
+      const viejaClase = c.progresion[i]?.clase;
+      const next = {
+        ...c,
+        salv: { ...c.salv },
+        hab:  { ...c.hab  },
+        profClases: { ...c.profClases },
+      };
+
+      // Deshacer proficiencias de la clase anterior
+      if (viejaClase && next.profClases[viejaClase]) {
+        const prev = next.profClases[viejaClase];
+        for (const s of (prev.salv || [])) {
+          const otraLaDa = c.progresion.some(
+            (p, idx) => idx !== i && PROF_CLASE[p.clase]?.salv.includes(s)
+          );
+          if (!otraLaDa) next.salv[s] = false;
+        }
+        const habTrasfondo = DATOS_TRASFONDO[c.trasfondo]?.habilidades || [];
+        for (const h of (prev.hab || [])) {
+          if (!habTrasfondo.includes(h)) next.hab[h] = false;
+        }
+        delete next.profClases[viejaClase];
+      }
+
+      next.progresion = c.progresion.map((p, idx) =>
+        idx === i ? { ...p, clase: nuevaClase, subclase: "" } : p
+      );
+
+      if (nuevaClase && PROF_CLASE[nuevaClase]) {
+        const prof = PROF_CLASE[nuevaClase];
+        for (const s of prof.salv) next.salv[s] = true;
+        next.profClases[nuevaClase] = { salv: prof.salv, hab: [] };
+      }
+
+      return next;
+    });
+  };
+
+  // Selección de habilidades de clase (con límite n)
+  const handleProgHab = (clase, habId, checked) => {
+    const prof = PROF_CLASE[clase];
+    if (!prof) return;
+    setChar(c => {
+      const actual = c.profClases[clase]?.hab || [];
+      if (checked && actual.length >= prof.n && !actual.includes(habId)) return c;
+      const nuevaHab = checked
+        ? [...actual.filter(h => h !== habId), habId]
+        : actual.filter(h => h !== habId);
+      return {
+        ...c,
+        hab: { ...c.hab, [habId]: checked },
+        profClases: {
+          ...c.profClases,
+          [clase]: { ...(c.profClases[clase] || {}), hab: nuevaHab },
+        },
+      };
+    });
+  };
+
   // Cambio de trasfondo: deshace el anterior y aplica el nuevo
   const handleTrasfondo = (nuevo) => {
     setChar(c => {
@@ -2132,7 +2259,7 @@ export default function DnDCreator() {
     setTimeout(() => { win.focus(); win.print(); }, 600);
   };
 
-  const tabProps = { char, u, un, handleTrasfondo };
+  const tabProps = { char, u, un, handleTrasfondo, handleProgClase, handleProgHab };
 
   return (
     <div style={{ background: P.bg, minHeight: "100vh", color: P.text,
