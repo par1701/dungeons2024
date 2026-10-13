@@ -1241,16 +1241,9 @@ const OBJETOS_MAGICOS_DB = [
   { nombre:"Pergamino de conjuro (niv. 3)",cat:"Pergamino",   rar:"Poco común",  sint:false, desc:"Conjuro de nivel 3. CD 15, ataque +7." },
   { nombre:"Pergamino de conjuro (niv. 4)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 4. CD 15, ataque +7." },
   { nombre:"Pergamino de conjuro (niv. 5)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 5. CD 17, ataque +9." },
-  // ── Armas mágicas (usa el campo Bono +X en la tabla de armas para +1/+2/+3) ──
-  { nombre:"Espada llameante",             cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada larga +2 que puedes encender como acción bonus (2d6 fuego adicional). Emite luz brillante 12 m / tenue 12 m adicionales." },
-  { nombre:"Espada solar",                 cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada larga +2. 1d8 radiante adicional. Rayo de luz 1/turno: 4d6 radiante." },
-  { nombre:"Matagigantes",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada larga/hacha. +2d6 daño contra gigantes." },
-  { nombre:"Matadragones",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada. +3d6 daño contra dragones; el objetivo debe salvar o queda aterrorizado." },
-  { nombre:"Lanza del cazador",            cat:"Arma",        rar:"Poco común",  sint:false, desc:"Lanza +1. +1d6 contra una especie elegida al crearla." },
-  { nombre:"Arco de velocidad",            cat:"Arma",        rar:"Muy raro",    sint:true,  desc:"Arco +2. Ataque adicional con acción adicional (sin coste de acción)." },
-  { nombre:"Dardos de acecho",             cat:"Arma",        rar:"Poco común",  sint:false, desc:"Dardo +1. Puedes hacer 2 ataques con acción adicional una vez/turno." },
-  { nombre:"Vorpal",                       cat:"Arma",        rar:"Legendario",  sint:true,  desc:"Espada +3. En un 20 natural, corta la cabeza del objetivo (si tiene cabeza y no es inmune a cortes)." },
-  { nombre:"Cuchilla de destrucción",      cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada +3. Ignora resistencias a daño. Si hay objetos en el área, pueden destruirse." },
+  // ── Armas mágicas: usa "Bon. mág." (+1/+2/+3) y "Prop. mágica" en la tabla de armas.
+  // Ejemplos de propiedad: Matagigantes, Matadragones, Vorpal, Llameante, Solar,
+  // Lanza del Cazador, Arco de Velocidad, Cuchilla de Destrucción, etc.
   // ── Armaduras mágicas (usa el campo Bono +X en la tabla de armaduras para +1/+2/+3) ──
   { nombre:"Armadura de invulnerabilidad", cat:"Armadura",    rar:"Legendario",  sint:true,  desc:"Armadura de placas. 1/día: inmunidad a daño no mágico durante 10 minutos." },
   { nombre:"Armadura de escamas de dragón",cat:"Armadura",    rar:"Muy raro",    sint:true,  desc:"+1 CA. Ventaja en sal. contra Aliento de dragón del mismo tipo. Resistencia al daño de ese tipo." },
@@ -2616,6 +2609,7 @@ function TabEquipo({ char, u, un }) {
                   <th style={thStyle}>Propiedades</th>
                   <th style={thStyle}>Maestría</th>
                   <th style={{ ...thStyle, width: 60 }}>Bon. mág.</th>
+                  <th style={{ ...thStyle, minWidth: 120 }}>Prop. mágica</th>
                   <th style={{ ...thStyle, width: 30 }}></th>
                 </tr>
               </thead>
@@ -2634,6 +2628,12 @@ function TabEquipo({ char, u, un }) {
                         onChange={v => u("armas", (char.armas||[]).map((x,j) => j===i ? {...x, bonus:v} : x))}
                         min={0} max={3}
                         style={{ width: 50, textAlign: "center" }} />
+                    </td>
+                    <td style={tdStyle}>
+                      <input value={a.propMagica || ""}
+                        onChange={e => u("armas", (char.armas||[]).map((x,j) => j===i ? {...x, propMagica: e.target.value} : x))}
+                        style={{ ...baseInput, fontSize: 11, padding: "2px 4px", width: "100%" }}
+                        placeholder="Matagigantes, Llameante…" />
                     </td>
                     <td style={tdStyle}>
                       <button onClick={() => u("armas", (char.armas||[]).filter((_,j) => j!==i))}
