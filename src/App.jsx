@@ -128,6 +128,8 @@ const CLASES = [
 ];
 
 const TRASFONDOS = [
+  // ── Personalizado ─────────────────────────────────────
+  "Personalizado",
   // ── PHB 2024 ──────────────────────────────────────────
   "Acólito",
   "Artesano",
@@ -512,6 +514,8 @@ const DATOS_TRASFONDO = {
   "Sabio":      { asi: { int: 2, sab: 1 }, habilidades: ["arcanos", "historia"],            herramienta: "Suministros de calígrafo",           dote: "✦ Iniciado en la magia" },
   "Soldado":    { asi: { fue: 2, con: 1 }, habilidades: ["atletismo", "intimidacion"],      herramienta: "Juego de mesa (elige)",               dote: "✦ Atacante salvaje" },
   "Viajero":    { asi: { des: 2, sab: 1 }, habilidades: ["perspicacia", "sigilo"],          herramienta: "Herramientas de ladrón",             dote: "✦ Afortunado" },
+  // Trasfondo personalizado: el jugador asigna todo manualmente
+  "Personalizado": { asi: {}, habilidades: [], herramienta: "(libre)", dote: "(elige)" },
 };
 
 // ─── Armas PHB 2024 ───────────────────────────────────────────────────────────
@@ -723,7 +727,7 @@ const RASGOS_CLASE = {
   "Bárbaro": {
     1:  ["Rabia (2/descanso largo)","Defensa sin Armadura (10+mod DES+mod CON)"],
     2:  ["Ataque Desenfrenado","Sentido del Peligro"],
-    3:  ["Camino del Bárbaro (subclase)","Primal Knowledge"],
+    3:  ["Camino del Bárbaro (subclase)","Conocimiento Primigenio"],
     4:  ["Mejora de Puntuación de Característica"],
     5:  ["Ataque Extra","Movimiento Rápido (+3 m)"],
     6:  ["Rasgo de Camino del Bárbaro"],
@@ -740,7 +744,7 @@ const RASGOS_CLASE = {
     17: ["Rabia Brutal mejorada"],
     18: ["Poder Indomable"],
     19: ["Mejora de Puntuación de Característica (Épica)"],
-    20: ["Campeón Primal"],
+    20: ["Campeón Primigenio"],
   },
   "Bardo": {
     1:  ["Competencias de Bardo","Lanzamiento de Conjuros","Inspiración Bárdica (1d6)"],
@@ -788,7 +792,7 @@ const RASGOS_CLASE = {
   },
   "Druida": {
     1:  ["Drúidico","Lanzamiento de Conjuros"],
-    2:  ["Forma Salvaje (CR ¼)","Círculo Druídico (subclase)","Forma Salvaje Wildshape"],
+    2:  ["Forma Salvaje (CR ¼)","Círculo Druídico (subclase)"],
     3:  ["Forma Salvaje (CR ½)"],
     4:  ["Mejora de Puntuación de Característica","Forma Salvaje mejorada"],
     5:  ["Forma Salvaje (CR 1)"],
@@ -1028,7 +1032,7 @@ const RASGOS_SUBCLASE = {
   "Caballero Arcano": {
     3: ["Lanzamiento de Conjuros (Abjuración+Evocación)","Vínculo con Arma"],
     7: ["Golpe de Guerra"],
-    10:["Conjuro de Eldritch","Vínculo con Arma Adicional"],
+    10:["Conjuro del Más Allá","Vínculo con Arma Adicional"],
     15:["Carga Arcana"],
     18:["Maestría en Conjuros Mejorada"],
   },
@@ -1196,7 +1200,7 @@ const RASGOS_SUBCLASE = {
   },
   // ── Artificiero ───────────────────────────────────────────────────────────
   "Artillero": {
-    3: ["Cañón de Eldritch","Artillería Mejorada"],
+    3: ["Cañón Arcano","Artillería Mejorada"],
     5: ["Cañón Arcano (Ataque Extra con el cañón)"],
     9: ["Explosivo Arcano"],
     15:["Maestro de Artillería"],
@@ -1204,10 +1208,101 @@ const RASGOS_SUBCLASE = {
   "Herrero de Batalla": {
     3: ["Armadura de Batalla (con integración de arma)","Arma de Defensa"],
     5: ["Arma Adicional de Defensa"],
-    9: ["Arcane Jolt"],
+    9: ["Descarga Arcana"],
     15:["Maestro Mejorado"],
   },
 };
+
+// ─── Objetos Mágicos DMG 2024 ────────────────────────────────────────────────
+// cat: Arma/Armadura/Varita/Anillo/Maravilloso/Pociones/Pergamino/Varilla/Báculo/Otros
+// rar: Común/Poco común/Raro/Muy raro/Legendario | sint: requiere sintonización
+const OBJETOS_MAGICOS_DB = [
+  // ── Pociones ─────────────────────────────────────────────────────────────────
+  { nombre:"Poción de curación",           cat:"Pociones",    rar:"Común",       sint:false, desc:"Recuperas 2d4+2 PG al beberla." },
+  { nombre:"Poción de curación mayor",     cat:"Pociones",    rar:"Poco común",  sint:false, desc:"Recuperas 4d4+4 PG al beberla." },
+  { nombre:"Poción de curación superior",  cat:"Pociones",    rar:"Raro",        sint:false, desc:"Recuperas 8d4+8 PG al beberla." },
+  { nombre:"Poción de curación suprema",   cat:"Pociones",    rar:"Muy raro",    sint:false, desc:"Recuperas 10d4+20 PG al beberla." },
+  { nombre:"Poción de gigante de la colina",cat:"Pociones",   rar:"Poco común",  sint:false, desc:"FUE 21 durante 1 hora (si tu FUE es menor)." },
+  { nombre:"Poción de gigante de la piedra",cat:"Pociones",   rar:"Raro",        sint:false, desc:"FUE 23 durante 1 hora." },
+  { nombre:"Poción de gigante de la escarcha",cat:"Pociones", rar:"Raro",        sint:false, desc:"FUE 23 durante 1 hora." },
+  { nombre:"Poción de gigante del fuego",  cat:"Pociones",    rar:"Raro",        sint:false, desc:"FUE 25 durante 1 hora." },
+  { nombre:"Poción de gigante de las nubes",cat:"Pociones",   rar:"Muy raro",    sint:false, desc:"FUE 27 durante 1 hora." },
+  { nombre:"Poción de gigante de las tormentas",cat:"Pociones",rar:"Legendario", sint:false, desc:"FUE 29 durante 1 hora." },
+  { nombre:"Poción de heroísmo",           cat:"Pociones",    rar:"Poco común",  sint:false, desc:"Ganas 10 PG temporales y el estado Bendecido durante 1 hora." },
+  { nombre:"Poción de invisibilidad",      cat:"Pociones",    rar:"Muy raro",    sint:false, desc:"Te vuelves invisible durante 1 hora (termina si atacas o lanzas conjuro)." },
+  { nombre:"Poción de resistencia",        cat:"Pociones",    rar:"Poco común",  sint:false, desc:"Resistencia a un tipo de daño durante 1 hora." },
+  { nombre:"Poción de velocidad",          cat:"Pociones",    rar:"Raro",        sint:false, desc:"Como bajo efecto del conjuro Apresuramiento durante 1 minuto." },
+  { nombre:"Poción de vuelo",              cat:"Pociones",    rar:"Muy raro",    sint:false, desc:"Velocidad de vuelo 18 m durante 1 hora." },
+  { nombre:"Poción de veneno",             cat:"Pociones",    rar:"Poco común",  sint:false, desc:"Veneno: 3d6 veneno y Envenenado 1 hora (sal. CON CD 10 niega)." },
+  // ── Pergaminos de conjuro ─────────────────────────────────────────────────────
+  { nombre:"Pergamino de conjuro (truco)", cat:"Pergamino",   rar:"Común",       sint:false, desc:"Contiene un conjuro de nivel 0. Cualquier clase puede intentar usarlo." },
+  { nombre:"Pergamino de conjuro (niv. 1)",cat:"Pergamino",   rar:"Común",       sint:false, desc:"Conjuro de nivel 1. CD de conjuro 13, ataque +5." },
+  { nombre:"Pergamino de conjuro (niv. 2)",cat:"Pergamino",   rar:"Poco común",  sint:false, desc:"Conjuro de nivel 2. CD 13, ataque +5." },
+  { nombre:"Pergamino de conjuro (niv. 3)",cat:"Pergamino",   rar:"Poco común",  sint:false, desc:"Conjuro de nivel 3. CD 15, ataque +7." },
+  { nombre:"Pergamino de conjuro (niv. 4)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 4. CD 15, ataque +7." },
+  { nombre:"Pergamino de conjuro (niv. 5)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 5. CD 17, ataque +9." },
+  // ── Armas mágicas ─────────────────────────────────────────────────────────────
+  { nombre:"Arma +1",                      cat:"Arma",        rar:"Poco común",  sint:false, desc:"+1 a tiradas de ataque y daño." },
+  { nombre:"Arma +2",                      cat:"Arma",        rar:"Raro",        sint:false, desc:"+2 a tiradas de ataque y daño." },
+  { nombre:"Arma +3",                      cat:"Arma",        rar:"Muy raro",    sint:false, desc:"+3 a tiradas de ataque y daño." },
+  { nombre:"Espada llameante",             cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada +2 que puedes encender (2d6 fuego adicional). Emite luz brillante 12 m." },
+  { nombre:"Espada solar",                 cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada larga +2. 1d8 radiante adicional. Rayo de luz 1/turno: 4d6 radiante." },
+  { nombre:"Matagigantes",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada larga/hacha. +2d6 daño contra gigantes." },
+  { nombre:"Matadragones",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada. +3d6 daño contra dragones; el objetivo debe salvar o queda aterrorizado." },
+  { nombre:"Lanza del cazador",            cat:"Arma",        rar:"Poco común",  sint:false, desc:"Lanza +1. +1d6 contra una especie elegida al crearla." },
+  { nombre:"Arco de velocidad",            cat:"Arma",        rar:"Muy raro",    sint:true,  desc:"Arco +2. Ataque adicional con acción adicional (sin coste de acción)." },
+  { nombre:"Dardos de acecho",             cat:"Arma",        rar:"Poco común",  sint:false, desc:"Dardo +1. Puedes hacer 2 ataques con acción adicional una vez/turno." },
+  { nombre:"Vorpal",                       cat:"Arma",        rar:"Legendario",  sint:true,  desc:"Espada +3. En un 20 natural, corta la cabeza del objetivo (si tiene cabeza y no es inmune a cortes)." },
+  { nombre:"Cuchilla de destrucción",      cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada +3. Ignora resistencias a daño. Si hay objetos en el área, pueden destruirse." },
+  // ── Armaduras mágicas ─────────────────────────────────────────────────────────
+  { nombre:"Armadura +1",                  cat:"Armadura",    rar:"Raro",        sint:false, desc:"+1 a la CA." },
+  { nombre:"Armadura +2",                  cat:"Armadura",    rar:"Muy raro",    sint:false, desc:"+2 a la CA." },
+  { nombre:"Armadura +3",                  cat:"Armadura",    rar:"Legendario",  sint:false, desc:"+3 a la CA." },
+  { nombre:"Armadura de invulnerabilidad", cat:"Armadura",    rar:"Legendario",  sint:true,  desc:"Armadura de placas. 1/día: inmunidad a daño no mágico durante 10 minutos." },
+  { nombre:"Armadura de escamas de dragón",cat:"Armadura",    rar:"Muy raro",    sint:true,  desc:"+1 CA. Ventaja en sal. contra Aliento de dragón del mismo tipo. Resistencia al daño de ese tipo." },
+  { nombre:"Armadura adamantina",          cat:"Armadura",    rar:"Poco común",  sint:false, desc:"Los impactos contra ti nunca son críticos." },
+  { nombre:"Armadura de mitril",           cat:"Armadura",    rar:"Poco común",  sint:false, desc:"Cualquier desventaja de armadura media o pesada desaparece. Sin requisito de FUE." },
+  // ── Anillos ───────────────────────────────────────────────────────────────────
+  { nombre:"Anillo de protección",         cat:"Anillo",      rar:"Raro",        sint:true,  desc:"+1 CA y a todas las tiradas de salvación." },
+  { nombre:"Anillo de invisibilidad",      cat:"Anillo",      rar:"Legendario",  sint:true,  desc:"Invisible mientras lo lleves (termina si atacas o lanzas conjuro)." },
+  { nombre:"Anillo de resistencia",        cat:"Anillo",      rar:"Raro",        sint:true,  desc:"Resistencia a un tipo de daño (según gema engarzada)." },
+  { nombre:"Anillo de guardar conjuros",   cat:"Anillo",      rar:"Raro",        sint:true,  desc:"Almacena hasta 5 niveles de conjuros. Cualquier portador puede lanzarlos (CD 17)." },
+  { nombre:"Anillo de tres deseos",        cat:"Anillo",      rar:"Legendario",  sint:true,  desc:"3 cargas. Gasta 1 para lanzar el conjuro Deseo." },
+  { nombre:"Anillo de caminar por el agua",cat:"Anillo",      rar:"Poco común",  sint:false, desc:"Puedes caminar sobre superficies líquidas como si fueran suelo firme." },
+  { nombre:"Anillo de caída de pluma",     cat:"Anillo",      rar:"Poco común",  sint:true,  desc:"Cuando caes, desciendes lentamente (18 m/asalto) sin daño al aterrizar." },
+  // ── Varitas ───────────────────────────────────────────────────────────────────
+  { nombre:"Varita de proyectiles mágicos",cat:"Varita",      rar:"Común",       sint:false, desc:"7 cargas. Gasta 1 para lanzar Proyectil mágico (5 dardos). Recarga 1d6+1/día." },
+  { nombre:"Varita de bolas de fuego",     cat:"Varita",      rar:"Raro",        sint:true,  desc:"7 cargas. Gasta cargas para lanzar Bola de fuego (1 carga/nivel, CD 15). Recarga 1d6+1/día." },
+  { nombre:"Varita del mago de guerra +1", cat:"Varita",      rar:"Poco común",  sint:true,  desc:"+1 ataque de conjuro. Al lanzar Proyectil mágico, añade +1 dardo." },
+  { nombre:"Varita del mago de guerra +2", cat:"Varita",      rar:"Raro",        sint:true,  desc:"+2 ataque de conjuro." },
+  { nombre:"Varita del mago de guerra +3", cat:"Varita",      rar:"Muy raro",    sint:true,  desc:"+3 ataque de conjuro." },
+  { nombre:"Varita de metamagia",          cat:"Varita",      rar:"Raro",        sint:true,  desc:"5 cargas. Gasta 1 para ignorar componentes M (no consumibles) en un conjuro." },
+  // ── Báculos ───────────────────────────────────────────────────────────────────
+  { nombre:"Báculo de curación",           cat:"Báculo",      rar:"Raro",        sint:true,  desc:"10 cargas. Gasta para lanzar Curar heridas (1c), Restaurar menor (2c) o Restaurar mayor (5c). Recarga 1d6+4/día." },
+  { nombre:"Báculo de poder",              cat:"Báculo",      rar:"Muy raro",    sint:true,  desc:"20 cargas. Puede lanzar múltiples conjuros. Puede usar como +2 a ataque/daño. Recarga 2d8+4/día." },
+  { nombre:"Báculo del mago",              cat:"Báculo",      rar:"Raro",        sint:true,  desc:"20 cargas. Lanza hasta 10 conjuros distintos (1–7 cargas). Recarga 2d8+4/día." },
+  // ── Objetos maravillosos ──────────────────────────────────────────────────────
+  { nombre:"Bolsa de transporte",          cat:"Maravilloso", rar:"Poco común",  sint:false, desc:"Espacio interior de 4×4×4 pies. Puede contener hasta 500 lb / 64 pies³. Pesa siempre 15 lb." },
+  { nombre:"Capa de invisibilidad",        cat:"Maravilloso", rar:"Legendario",  sint:true,  desc:"Invisible mientras la lleves. Termina si atacas, lanzas conjuro o te la quitas." },
+  { nombre:"Capa de protección",           cat:"Maravilloso", rar:"Poco común",  sint:true,  desc:"+1 CA y a todas las tiradas de salvación." },
+  { nombre:"Capa de desplazamiento",       cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Proyecta una imagen desplazada de ti. Los atacantes tienen desventaja hasta que te impacten." },
+  { nombre:"Botas de velocidad",           cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Tu velocidad se duplica. Puedes hacer una acción adicional por turno (1 hora). Recarga tras descanso largo." },
+  { nombre:"Botas élvicas",               cat:"Maravilloso", rar:"Poco común",  sint:true,  desc:"Tus pasos no hacen ruido. Ventaja en pruebas de Sigilo con movimiento." },
+  { nombre:"Guanteletes de la fuerza del ogro",cat:"Maravilloso",rar:"Poco común",sint:true, desc:"FUE 19 mientras los lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón de la fuerza del gigante",cat:"Maravilloso",rar:"Poco común",sint:true, desc:"FUE 21-29 según variante de cinturón (colina/piedra/escarcha/fuego/nubes/tormentas)." },
+  { nombre:"Gemas de visión",              cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Visión verdadera 60 pies durante 10 minutos. 3 cargas, recarga al amanecer." },
+  { nombre:"Cabeza de carnero iridiscente",cat:"Maravilloso", rar:"Legendario",  sint:true,  desc:"3 cargas. Gasta para empujar, aturdir o matar a criaturas (CD 17 sal. CON)." },
+  { nombre:"Bolsa de truco",               cat:"Maravilloso", rar:"Poco común",  sint:false, desc:"3 usos/día. Saca un animal pequeño que sigue tus órdenes durante 1 hora." },
+  { nombre:"Cuerno de demolición",         cat:"Maravilloso", rar:"Raro",        sint:false, desc:"Soplar: los cristales y la cerámica en 18 m se rompen. Concentración de un conjuro de 5 m cuadrados." },
+  { nombre:"Espejo del conjuro",           cat:"Maravilloso", rar:"Raro",        sint:false, desc:"Refleja el siguiente conjuro de nivel 1-5 que te sea lanzado de vuelta a su origen." },
+  { nombre:"Collar de adaptación",         cat:"Maravilloso", rar:"Poco común",  sint:true,  desc:"Puedes respirar en cualquier ambiente (incluso bajo el agua o sin aire)." },
+  { nombre:"Manual de ejercitación",       cat:"Maravilloso", rar:"Muy raro",    sint:false, desc:"Al leer (48h en 6 días): FUE +2 (máximo 24) de forma permanente." },
+  { nombre:"Tomo de claridad mental",      cat:"Maravilloso", rar:"Muy raro",    sint:false, desc:"Al leer (48h en 6 días): INT +2 (máximo 24) de forma permanente." },
+  { nombre:"Tomo de comprensión",          cat:"Maravilloso", rar:"Muy raro",    sint:false, desc:"Al leer (48h en 6 días): SAB +2 (máximo 24) de forma permanente." },
+];
+
+const OBJETOS_CAT = [...new Set(OBJETOS_MAGICOS_DB.map(o => o.cat))];
+const OBJETOS_RAR_ORDEN = ["Común","Poco común","Raro","Muy raro","Legendario"];
 
 const mkHabMap = () => Object.fromEntries(HABS.map(h => [h.id, false]));
 
@@ -1216,6 +1311,9 @@ const mkChar = () => ({
   progresion: [{ clase: "", subclase: "", niveles: 1 }],
   trasfondo: "", xp: 0, alineamiento: "", divinidad: "", inspiracion: false,
   trasfondoAplicado: "", asiAplicado: {}, profClases: {},
+  trasfondoModo: "sugerido",      // "sugerido" | "tres1"
+  trasfondoAsiLibre: ["","",""],  // para modo tres1: 3 attrs con +1
+  trasfondoAsiCustom: ["",""],    // para Personalizado+sugerido: [attr+2, attr+1]
   fue: 10, des: 10, con: 10, int: 10, sab: 10, car: 10,
   salv: Object.fromEntries(ATTRS.map(a => [a, false])),
   hab:  mkHabMap(),
@@ -1226,7 +1324,7 @@ const mkChar = () => ({
   muerteExito: 0, muerteFallo: 0,
   ataques: [],
   monedas: { pp: 0, po: 0, pe: 0, pa: 0, pc: 0 },
-  armas: [], armaduras: [],
+  armas: [], armaduras: [], objetosMagicos: [],
   equipo: "", proficiencias: "", lenguas: "", rasgosEspeciales: "",
   conjAttr: "", cdConjuro: "", bonusAtaqueConjuro: "",
   conjuros: [],
@@ -1390,7 +1488,7 @@ const btnSmall = {
   flexShrink: 0,
 };
 
-function TabBasico({ char, u, un, handleTrasfondo, handleProgClase, handleProgHab }) {
+function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleProgClase, handleProgHab }) {
   const datosT = DATOS_TRASFONDO[char.trasfondo];
   const nTotal = nivelTotal(char.progresion);
   const prof   = calcProf(nTotal);
@@ -1571,24 +1669,117 @@ function TabBasico({ char, u, un, handleTrasfondo, handleProgClase, handleProgHa
             <Num value={char.xp} onChange={v => u("xp", Math.max(0, v))} min={0} />
           </Field>
         </div>
-        {datosT && (
-          <div style={{ marginTop: 10, background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
-            borderRadius: 5, padding: "10px 12px", fontSize: 12,
-            display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px" }}>
-            <div style={{ gridColumn: "1/-1", color: P.gold, fontFamily: "Cinzel, serif",
-              fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
-              ✦ Bonos aplicados automáticamente
+
+        {/* Panel de ASI de trasfondo */}
+        {char.trasfondo && (
+          <div style={{ marginTop: 10 }}>
+            {/* Toggle de modo */}
+            <div style={{ display: "flex", gap: 6, marginBottom: 8, alignItems: "center" }}>
+              <span style={{ fontSize: 11, color: P.textDim }}>Bonificación de Característica:</span>
+              {["sugerido","tres1"].map(m => (
+                <button key={m} onClick={() => handleTrasfondoModo(m)} style={{
+                  padding: "3px 10px", borderRadius: 4, fontSize: 11, cursor: "pointer",
+                  border: `1px solid ${char.trasfondoModo === m ? P.gold : P.borderDim}`,
+                  background: char.trasfondoModo === m ? `${P.gold}25` : "transparent",
+                  color: char.trasfondoModo === m ? P.gold : P.textDim,
+                }}>
+                  {m === "sugerido" ? "+2 / +1 sugerido" : "Tres +1 (libre)"}
+                </button>
+              ))}
             </div>
-            <div><span style={{ color: P.textDim }}>ASI: </span>
-              <span>{Object.entries(datosT.asi).map(([a,v]) => `${ATTR_NOMBRE[a]} +${v}`).join(" · ")}</span>
-            </div>
-            <div><span style={{ color: P.textDim }}>Herramienta: </span><span>{datosT.herramienta}</span></div>
-            <div><span style={{ color: P.textDim }}>Competencias: </span>
-              <span>{datosT.habilidades.map(id => HABS.find(h => h.id === id)?.nombre).join(", ")}</span>
-            </div>
-            <div><span style={{ color: P.textDim }}>Dote: </span>
-              <span style={{ color: P.goldLt }}>{datosT.dote}</span>
-            </div>
+
+            {/* Modo sugerido: ASI fijo del trasfondo */}
+            {char.trasfondoModo === "sugerido" && char.trasfondo !== "Personalizado" && datosT && (
+              <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
+                borderRadius: 5, padding: "10px 12px", fontSize: 12,
+                display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px" }}>
+                <div style={{ gridColumn: "1/-1", color: P.gold, fontFamily: "Cinzel, serif",
+                  fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+                  ✦ Bonos aplicados automáticamente
+                </div>
+                <div><span style={{ color: P.textDim }}>ASI: </span>
+                  <span>{Object.entries(datosT.asi).map(([a,v]) => `${ATTR_NOMBRE[a]} +${v}`).join(" · ")}</span>
+                </div>
+                <div><span style={{ color: P.textDim }}>Herramienta: </span><span>{datosT.herramienta}</span></div>
+                <div><span style={{ color: P.textDim }}>Competencias: </span>
+                  <span>{datosT.habilidades.map(id => HABS.find(h => h.id === id)?.nombre).join(", ")}</span>
+                </div>
+                <div><span style={{ color: P.textDim }}>Dote: </span>
+                  <span style={{ color: P.goldLt }}>{datosT.dote}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Modo sugerido + Personalizado: el jugador elige +2 y +1 */}
+            {char.trasfondoModo === "sugerido" && char.trasfondo === "Personalizado" && (
+              <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
+                borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
+                <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
+                  fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
+                  ✦ Elige características para +2 y +1
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  <Field label="+2 a característica">
+                    <select value={(char.trasfondoAsiCustom||["",""])[0]}
+                      onChange={e => handleAsiCustomChange(0, e.target.value)}
+                      style={{ ...baseInput, cursor: "pointer" }}>
+                      <option value="">— elige —</option>
+                      {ATTRS.map(a => <option key={a} value={a}>{ATTR_NOMBRE[a]}</option>)}
+                    </select>
+                  </Field>
+                  <Field label="+1 a característica">
+                    <select value={(char.trasfondoAsiCustom||["",""])[1]}
+                      onChange={e => handleAsiCustomChange(1, e.target.value)}
+                      style={{ ...baseInput, cursor: "pointer" }}>
+                      <option value="">— elige —</option>
+                      {ATTRS.filter(a => a !== (char.trasfondoAsiCustom||["",""])[0]).map(a => <option key={a} value={a}>{ATTR_NOMBRE[a]}</option>)}
+                    </select>
+                  </Field>
+                </div>
+                <div style={{ marginTop: 8, color: P.textDim, fontSize: 11 }}>
+                  Las habilidades, herramienta y dote de origen se seleccionan manualmente en las pestañas correspondientes.
+                </div>
+              </div>
+            )}
+
+            {/* Modo tres +1: el jugador elige 3 características distintas */}
+            {char.trasfondoModo === "tres1" && (
+              <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
+                borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
+                <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
+                  fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
+                  ✦ Elige tres características para +1 cada una
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+                  {[0,1,2].map(idx => {
+                    const elegidas = (char.trasfondoAsiLibre||["","",""]).filter((_,j)=>j!==idx).filter(Boolean);
+                    return (
+                      <Field key={idx} label={`+1 · opción ${idx+1}`}>
+                        <select value={(char.trasfondoAsiLibre||["","",""])[idx]}
+                          onChange={e => handleAsiLibreChange(idx, e.target.value)}
+                          style={{ ...baseInput, cursor: "pointer" }}>
+                          <option value="">— elige —</option>
+                          {ATTRS.filter(a => !elegidas.includes(a)).map(a => <option key={a} value={a}>{ATTR_NOMBRE[a]}</option>)}
+                        </select>
+                      </Field>
+                    );
+                  })}
+                </div>
+                {char.trasfondo !== "Personalizado" && datosT && datosT.habilidades.length > 0 && (
+                  <div style={{ marginTop: 8, fontSize: 11 }}>
+                    <span style={{ color: P.textDim }}>Competencias (auto): </span>
+                    {datosT.habilidades.map(id => HABS.find(h=>h.id===id)?.nombre).join(", ")}
+                    {" · "}<span style={{ color: P.textDim }}>Herramienta: </span>{datosT.herramienta}
+                    {" · "}<span style={{ color: P.goldLt }}>{datosT.dote}</span>
+                  </div>
+                )}
+                {char.trasfondo === "Personalizado" && (
+                  <div style={{ marginTop: 8, color: P.textDim, fontSize: 11 }}>
+                    Las habilidades, herramienta y dote de origen se seleccionan manualmente.
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </Card>
@@ -2358,6 +2549,8 @@ function TabConjuros({ char, u }) {
 function TabEquipo({ char, u, un }) {
   const [nuevoArma, setNuevoArma] = useState("");
   const [nuevaArmadura, setNuevaArmadura] = useState("");
+  const [nuevoObjeto, setNuevoObjeto] = useState("");
+  const [filtroObjetoCat, setFiltroObjetoCat] = useState("");
 
   const monedas = [
     { k: "pp", label: "Platino",  color: "#d0d8e8" },
@@ -2379,6 +2572,13 @@ function TabEquipo({ char, u, un }) {
     if (!base) return;
     u("armaduras", [...(char.armaduras || []), { ...base, bonus: 0, equipada: false }]);
     setNuevaArmadura("");
+  };
+
+  const addObjeto = () => {
+    const base = OBJETOS_MAGICOS_DB.find(o => o.nombre === nuevoObjeto);
+    if (!base) return;
+    u("objetosMagicos", [...(char.objetosMagicos || []), { ...base, sintonizado: false, notas: "" }]);
+    setNuevoObjeto("");
   };
 
   const thStyle = { fontSize: 10, color: P.textDim, fontFamily: "Cinzel, serif",
@@ -2536,6 +2736,93 @@ function TabEquipo({ char, u, un }) {
             ))}
           </select>
           <Btn onClick={addArmadura} variant="gold" disabled={!nuevaArmadura}>+ Añadir</Btn>
+        </div>
+      </Card>
+
+      <Card>
+        <SecTitle>Objetos Mágicos</SecTitle>
+        {(char.objetosMagicos || []).length > 0 && (
+          <div style={{ overflowX: "auto", marginBottom: 10 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  {["Nombre","Tipo","Rareza","Sint.","Notas",""].map(h => (
+                    <th key={h} style={thStyle}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(char.objetosMagicos || []).map((obj, i) => (
+                  <tr key={i}>
+                    <td style={tdStyle}>
+                      <span title={obj.desc} style={{ cursor: "help", borderBottom: "1px dotted "+P.textDim }}>
+                        {obj.nombre}
+                      </span>
+                    </td>
+                    <td style={{ ...tdStyle, color: P.textDim, fontSize: 11 }}>{obj.cat}</td>
+                    <td style={{ ...tdStyle, fontSize: 11, color:
+                      obj.rar === "Legendario" ? "#e8b84b" :
+                      obj.rar === "Muy raro"  ? "#c060d0" :
+                      obj.rar === "Raro"      ? "#4090d0" :
+                      obj.rar === "Poco común"? "#50c050" : P.textDim
+                    }}>{obj.rar}</td>
+                    <td style={{ ...tdStyle, textAlign: "center" }}>
+                      {obj.sint ? (
+                        <input type="checkbox" checked={!!obj.sintonizado}
+                          onChange={e => u("objetosMagicos", (char.objetosMagicos||[]).map((x,j) =>
+                            j===i ? {...x, sintonizado: e.target.checked} : x))} />
+                      ) : <span style={{ color: P.textDim, fontSize: 10 }}>—</span>}
+                    </td>
+                    <td style={tdStyle}>
+                      <input value={obj.notas || ""} onChange={e => u("objetosMagicos",
+                        (char.objetosMagicos||[]).map((x,j) => j===i ? {...x, notas: e.target.value} : x))}
+                        style={{ ...baseInput, fontSize: 11, padding: "2px 4px", width: "100%" }}
+                        placeholder="notas..." />
+                    </td>
+                    <td style={tdStyle}>
+                      <button onClick={() => u("objetosMagicos", (char.objetosMagicos||[]).filter((_,j) => j!==i))}
+                        style={{ background: "transparent", border: "none", color: P.textDim,
+                          cursor: "pointer", fontSize: 14, padding: "0 4px" }}>✕</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {(char.objetosMagicos||[]).filter(o => o.sint && o.sintonizado).length > 0 && (
+              <div style={{ fontSize: 11, color: P.gold, marginTop: 4 }}>
+                Sintonizados: {(char.objetosMagicos||[]).filter(o => o.sint && o.sintonizado).length}/3
+              </div>
+            )}
+          </div>
+        )}
+        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <select value={filtroObjetoCat} onChange={e => { setFiltroObjetoCat(e.target.value); setNuevoObjeto(""); }}
+            style={{ ...baseInput, minWidth: 120 }}>
+            <option value="">Todas las categorías</option>
+            {OBJETOS_CAT.map(c => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <select value={nuevoObjeto} onChange={e => setNuevoObjeto(e.target.value)}
+            style={{ ...baseInput, flex: 1 }}>
+            <option value="">— Seleccionar objeto mágico —</option>
+            {OBJETOS_RAR_ORDEN.map(rar => {
+              const items = OBJETOS_MAGICOS_DB.filter(o =>
+                o.rar === rar && (!filtroObjetoCat || o.cat === filtroObjetoCat));
+              if (!items.length) return null;
+              return (
+                <optgroup key={rar} label={rar}>
+                  {items.map(o => (
+                    <option key={o.nombre} value={o.nombre}>
+                      {o.nombre}{o.sint ? " ⬥" : ""}
+                    </option>
+                  ))}
+                </optgroup>
+              );
+            })}
+          </select>
+          <Btn onClick={addObjeto} variant="gold" disabled={!nuevoObjeto}>+ Añadir</Btn>
+        </div>
+        <div style={{ fontSize: 10, color: P.textDim, marginTop: 4 }}>
+          ⬥ = Requiere sintonización · Pasa el ratón sobre el nombre para ver descripción
         </div>
       </Card>
 
@@ -2699,32 +2986,45 @@ export default function DnDCreator() {
     });
   };
 
+  // Helper: deshace el ASI de trasfondo activo
+  const _deshacerAsi = (next) => {
+    if (next.asiAplicado) {
+      for (const [attr, bonus] of Object.entries(next.asiAplicado)) {
+        next[attr] = (next[attr] || 10) - bonus;
+      }
+    }
+    next.asiAplicado = {};
+    next.trasfondoAsiLibre = ["","",""];
+    next.trasfondoAsiCustom = ["",""];
+  };
+
+  // Helper: aplica ASI sugerido de un trasfondo estándar
+  const _aplicarAsiSugerido = (next, data) => {
+    const asiAplicado = {};
+    for (const [attr, bonus] of Object.entries(data.asi)) {
+      next[attr] = (next[attr] || 10) + bonus;
+      asiAplicado[attr] = bonus;
+    }
+    next.asiAplicado = asiAplicado;
+  };
+
   // Cambio de trasfondo: deshace el anterior y aplica el nuevo
   const handleTrasfondo = (nuevo) => {
     setChar(c => {
       let next = { ...c, hab: { ...c.hab } };
 
       // 1. Deshacer ASI del trasfondo anterior
-      if (c.trasfondoAplicado && c.asiAplicado) {
-        for (const [attr, bonus] of Object.entries(c.asiAplicado)) {
-          next[attr] = (next[attr] || 10) - bonus;
-        }
-      }
+      _deshacerAsi(next);
 
-      // 2. Registrar nuevo trasfondo
+      // 2. Registrar nuevo trasfondo y resetear modo
       next.trasfondo = nuevo;
       next.trasfondoAplicado = nuevo;
-      next.asiAplicado = {};
+      next.trasfondoModo = "sugerido";
 
       const data = DATOS_TRASFONDO[nuevo];
-      if (data) {
-        // 3. Aplicar nuevos ASI
-        const asiAplicado = {};
-        for (const [attr, bonus] of Object.entries(data.asi)) {
-          next[attr] = (next[attr] || 10) + bonus;
-          asiAplicado[attr] = bonus;
-        }
-        next.asiAplicado = asiAplicado;
+      if (data && nuevo !== "Personalizado") {
+        // 3a. Modo sugerido: aplicar ASI del trasfondo
+        _aplicarAsiSugerido(next, data);
 
         // 4. Marcar competencias de habilidad
         for (const skill of data.habilidades) {
@@ -2733,9 +3033,88 @@ export default function DnDCreator() {
 
         // 5. Añadir dote de origen si no existe ya
         const yaExiste = next.dotes.some(d => d.nombre === data.dote);
-        if (!yaExiste) {
+        if (!yaExiste && data.dote && !data.dote.startsWith("(")) {
           next.dotes = [...next.dotes, { nombre: data.dote, desc: "" }];
         }
+      }
+
+      return next;
+    });
+  };
+
+  // Cambio de modo ASI (+2/+1 sugerido vs tres +1)
+  const handleTrasfondoModo = (modo) => {
+    setChar(c => {
+      let next = { ...c, hab: { ...c.hab } };
+
+      // Deshacer ASI previo
+      _deshacerAsi(next);
+      next.trasfondoModo = modo;
+
+      const data = DATOS_TRASFONDO[c.trasfondo];
+
+      if (modo === "sugerido" && data && c.trasfondo !== "Personalizado") {
+        // Re-aplicar ASI sugerido del trasfondo estándar
+        _aplicarAsiSugerido(next, data);
+      }
+      // En modo "tres1" o "Personalizado" el jugador elige manualmente
+
+      return next;
+    });
+  };
+
+  // Cambio de uno de los tres +1 libres (idx 0..2, attr = stat id o "")
+  const handleAsiLibreChange = (idx, attr) => {
+    setChar(c => {
+      let next = { ...c, hab: { ...c.hab } };
+      const prevLibre = [...(c.trasfondoAsiLibre || ["","",""])];
+      const prevAttr = prevLibre[idx];
+
+      // Deshacer el +1 anterior en este slot
+      if (prevAttr) {
+        next[prevAttr] = (next[prevAttr] || 10) - 1;
+        const newAsi = { ...next.asiAplicado };
+        newAsi[prevAttr] = (newAsi[prevAttr] || 0) - 1;
+        if (newAsi[prevAttr] === 0) delete newAsi[prevAttr];
+        next.asiAplicado = newAsi;
+      }
+
+      // Aplicar el nuevo +1
+      prevLibre[idx] = attr;
+      next.trasfondoAsiLibre = prevLibre;
+      if (attr) {
+        next[attr] = (next[attr] || 10) + 1;
+        next.asiAplicado = { ...next.asiAplicado, [attr]: (next.asiAplicado[attr] || 0) + 1 };
+      }
+
+      return next;
+    });
+  };
+
+  // Cambio de ASI personalizado sugerido (idx 0=+2, 1=+1; attr = stat id o "")
+  const handleAsiCustomChange = (idx, attr) => {
+    setChar(c => {
+      let next = { ...c, hab: { ...c.hab } };
+      const bonuses = [2, 1];
+      const bonus = bonuses[idx];
+      const prevCustom = [...(c.trasfondoAsiCustom || ["",""])];
+      const prevAttr = prevCustom[idx];
+
+      // Deshacer el bono anterior en este slot
+      if (prevAttr) {
+        next[prevAttr] = (next[prevAttr] || 10) - bonus;
+        const newAsi = { ...next.asiAplicado };
+        newAsi[prevAttr] = (newAsi[prevAttr] || 0) - bonus;
+        if (newAsi[prevAttr] === 0) delete newAsi[prevAttr];
+        next.asiAplicado = newAsi;
+      }
+
+      // Aplicar el nuevo bono
+      prevCustom[idx] = attr;
+      next.trasfondoAsiCustom = prevCustom;
+      if (attr) {
+        next[attr] = (next[attr] || 10) + bonus;
+        next.asiAplicado = { ...next.asiAplicado, [attr]: (next.asiAplicado[attr] || 0) + bonus };
       }
 
       return next;
@@ -3160,7 +3539,7 @@ export default function DnDCreator() {
     setTimeout(() => { win.focus(); win.print(); }, 600);
   };
 
-  const tabProps = { char, u, un, handleTrasfondo, handleProgClase, handleProgHab };
+  const tabProps = { char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleProgClase, handleProgHab };
 
   return (
     <div style={{ background: P.bg, minHeight: "100vh", color: P.text,
