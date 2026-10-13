@@ -1241,11 +1241,8 @@ const OBJETOS_MAGICOS_DB = [
   { nombre:"Pergamino de conjuro (niv. 3)",cat:"Pergamino",   rar:"Poco común",  sint:false, desc:"Conjuro de nivel 3. CD 15, ataque +7." },
   { nombre:"Pergamino de conjuro (niv. 4)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 4. CD 15, ataque +7." },
   { nombre:"Pergamino de conjuro (niv. 5)",cat:"Pergamino",   rar:"Raro",        sint:false, desc:"Conjuro de nivel 5. CD 17, ataque +9." },
-  // ── Armas mágicas ─────────────────────────────────────────────────────────────
-  { nombre:"Arma +1",                      cat:"Arma",        rar:"Poco común",  sint:false, desc:"+1 a tiradas de ataque y daño." },
-  { nombre:"Arma +2",                      cat:"Arma",        rar:"Raro",        sint:false, desc:"+2 a tiradas de ataque y daño." },
-  { nombre:"Arma +3",                      cat:"Arma",        rar:"Muy raro",    sint:false, desc:"+3 a tiradas de ataque y daño." },
-  { nombre:"Espada llameante",             cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada +2 que puedes encender (2d6 fuego adicional). Emite luz brillante 12 m." },
+  // ── Armas mágicas (usa el campo Bono +X en la tabla de armas para +1/+2/+3) ──
+  { nombre:"Espada llameante",             cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada larga +2 que puedes encender como acción bonus (2d6 fuego adicional). Emite luz brillante 12 m / tenue 12 m adicionales." },
   { nombre:"Espada solar",                 cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada larga +2. 1d8 radiante adicional. Rayo de luz 1/turno: 4d6 radiante." },
   { nombre:"Matagigantes",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada larga/hacha. +2d6 daño contra gigantes." },
   { nombre:"Matadragones",                 cat:"Arma",        rar:"Poco común",  sint:false, desc:"Espada. +3d6 daño contra dragones; el objetivo debe salvar o queda aterrorizado." },
@@ -1254,10 +1251,7 @@ const OBJETOS_MAGICOS_DB = [
   { nombre:"Dardos de acecho",             cat:"Arma",        rar:"Poco común",  sint:false, desc:"Dardo +1. Puedes hacer 2 ataques con acción adicional una vez/turno." },
   { nombre:"Vorpal",                       cat:"Arma",        rar:"Legendario",  sint:true,  desc:"Espada +3. En un 20 natural, corta la cabeza del objetivo (si tiene cabeza y no es inmune a cortes)." },
   { nombre:"Cuchilla de destrucción",      cat:"Arma",        rar:"Raro",        sint:true,  desc:"Espada +3. Ignora resistencias a daño. Si hay objetos en el área, pueden destruirse." },
-  // ── Armaduras mágicas ─────────────────────────────────────────────────────────
-  { nombre:"Armadura +1",                  cat:"Armadura",    rar:"Raro",        sint:false, desc:"+1 a la CA." },
-  { nombre:"Armadura +2",                  cat:"Armadura",    rar:"Muy raro",    sint:false, desc:"+2 a la CA." },
-  { nombre:"Armadura +3",                  cat:"Armadura",    rar:"Legendario",  sint:false, desc:"+3 a la CA." },
+  // ── Armaduras mágicas (usa el campo Bono +X en la tabla de armaduras para +1/+2/+3) ──
   { nombre:"Armadura de invulnerabilidad", cat:"Armadura",    rar:"Legendario",  sint:true,  desc:"Armadura de placas. 1/día: inmunidad a daño no mágico durante 10 minutos." },
   { nombre:"Armadura de escamas de dragón",cat:"Armadura",    rar:"Muy raro",    sint:true,  desc:"+1 CA. Ventaja en sal. contra Aliento de dragón del mismo tipo. Resistencia al daño de ese tipo." },
   { nombre:"Armadura adamantina",          cat:"Armadura",    rar:"Poco común",  sint:false, desc:"Los impactos contra ti nunca son críticos." },
@@ -2608,6 +2602,9 @@ function TabEquipo({ char, u, un }) {
       {/* Armas */}
       <Card>
         <SecTitle>Armas</SecTitle>
+        <div style={{ fontSize: 10, color: P.textDim, marginBottom: 8 }}>
+          El bono mágico (+1/+2/+3) se aplica directamente en la columna <strong style={{ color: P.gold }}>Bon. mág.</strong> de cada arma.
+        </div>
         {(char.armas || []).length > 0 && (
           <div style={{ overflowX: "auto", marginBottom: 10 }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -2671,6 +2668,9 @@ function TabEquipo({ char, u, un }) {
       {/* Armaduras */}
       <Card>
         <SecTitle>Armaduras y Escudos</SecTitle>
+        <div style={{ fontSize: 10, color: P.textDim, marginBottom: 8 }}>
+          El bono mágico (+1/+2/+3) se aplica en la columna <strong style={{ color: P.gold }}>Bon. mág.</strong> de la armadura equipada.
+        </div>
         {(char.armaduras || []).length > 0 && (
           <div style={{ overflowX: "auto", marginBottom: 10 }}>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
