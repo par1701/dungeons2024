@@ -1675,27 +1675,49 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
               ))}
             </div>
 
-            {/* Modo sugerido: ASI fijo del trasfondo */}
-            {char.trasfondoModo === "sugerido" && char.trasfondo !== "Personalizado" && datosT && (
-              <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
-                borderRadius: 5, padding: "10px 12px", fontSize: 12,
-                display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px" }}>
-                <div style={{ gridColumn: "1/-1", color: P.gold, fontFamily: "Cinzel, serif",
-                  fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
-                  ✦ Bonos aplicados automáticamente
+            {/* Modo sugerido + trasfondo estándar: elige cuál recibe +2 y cuál +1 */}
+            {char.trasfondoModo === "sugerido" && char.trasfondo !== "Personalizado" && datosT && (() => {
+              const asiStats = Object.keys(datosT.asi); // las dos características del trasfondo
+              const sel = char.trasfondoAsiCustom || ["",""];
+              return (
+                <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
+                  borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
+                  <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
+                    fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
+                    ✦ Reparte +2 y +1 entre las características del trasfondo
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 8 }}>
+                    <Field label="+2 a característica">
+                      <select value={sel[0]}
+                        onChange={e => handleAsiCustomChange(0, e.target.value)}
+                        style={{ ...baseInput, cursor: "pointer" }}>
+                        <option value="">— elige —</option>
+                        {asiStats.filter(a => a !== sel[1]).map(a =>
+                          <option key={a} value={a}>{ATTR_NOMBRE[a]}</option>
+                        )}
+                      </select>
+                    </Field>
+                    <Field label="+1 a característica">
+                      <select value={sel[1]}
+                        onChange={e => handleAsiCustomChange(1, e.target.value)}
+                        style={{ ...baseInput, cursor: "pointer" }}>
+                        <option value="">— elige —</option>
+                        {asiStats.filter(a => a !== sel[0]).map(a =>
+                          <option key={a} value={a}>{ATTR_NOMBRE[a]}</option>
+                        )}
+                      </select>
+                    </Field>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px", fontSize: 11, color: P.textDim }}>
+                    <div><span>Competencias: </span>
+                      <span style={{ color: P.text }}>{datosT.habilidades.map(id => HABS.find(h => h.id === id)?.nombre).join(", ")}</span>
+                    </div>
+                    <div><span>Herramienta: </span><span style={{ color: P.text }}>{datosT.herramienta}</span></div>
+                    <div><span>Dote: </span><span style={{ color: P.goldLt }}>{datosT.dote}</span></div>
+                  </div>
                 </div>
-                <div><span style={{ color: P.textDim }}>ASI: </span>
-                  <span>{Object.entries(datosT.asi).map(([a,v]) => `${ATTR_NOMBRE[a]} +${v}`).join(" · ")}</span>
-                </div>
-                <div><span style={{ color: P.textDim }}>Herramienta: </span><span>{datosT.herramienta}</span></div>
-                <div><span style={{ color: P.textDim }}>Competencias: </span>
-                  <span>{datosT.habilidades.map(id => HABS.find(h => h.id === id)?.nombre).join(", ")}</span>
-                </div>
-                <div><span style={{ color: P.textDim }}>Dote: </span>
-                  <span style={{ color: P.goldLt }}>{datosT.dote}</span>
-                </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Modo sugerido + Personalizado: el jugador elige +2 y +1 */}
             {char.trasfondoModo === "sugerido" && char.trasfondo === "Personalizado" && (
@@ -3023,19 +3045,17 @@ export default function DnDCreator() {
 
       const data = DATOS_TRASFONDO[nuevo];
       if (data && nuevo !== "Personalizado") {
-        // 3a. Modo sugerido: aplicar ASI del trasfondo
-        _aplicarAsiSugerido(next, data);
-
-        // 4. Marcar competencias de habilidad
+        // 3. Marcar competencias de habilidad
         for (const skill of data.habilidades) {
           next.hab[skill] = true;
         }
 
-        // 5. Añadir dote de origen si no existe ya
+        // 4. Añadir dote de origen si no existe ya
         const yaExiste = next.dotes.some(d => d.nombre === data.dote);
         if (!yaExiste && data.dote && !data.dote.startsWith("(")) {
           next.dotes = [...next.dotes, { nombre: data.dote, desc: "" }];
         }
+        // El jugador elige manualmente qué característica recibe +2 y cuál +1
       }
 
       return next;
@@ -3053,11 +3073,7 @@ export default function DnDCreator() {
 
       const data = DATOS_TRASFONDO[c.trasfondo];
 
-      if (modo === "sugerido" && data && c.trasfondo !== "Personalizado") {
-        // Re-aplicar ASI sugerido del trasfondo estándar
-        _aplicarAsiSugerido(next, data);
-      }
-      // En modo "tres1" o "Personalizado" el jugador elige manualmente
+      // En ambos modos el jugador elige manualmente
 
       return next;
     });
