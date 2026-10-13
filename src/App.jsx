@@ -495,28 +495,36 @@ const DATOS_DOTE = {
   "★ Don del viaje dimensional":{ desc: "+1 a INT, SAB o CAR. Acción bonus: teletranspórtate hasta 9 m a un espacio que puedas ver. Puedes llevar a un aliado voluntario de tu tamaño o menor.", asi: { elige: 1 } },
 };
 
-// Datos mecánicos de los trasfondos PHB 2024
-// ASI: qué atributos suben y cuánto | habilidades: IDs de competencias | dote: nombre de la dote de origen
+// Datos mecánicos de los trasfondos PHB 2024 (español)
+// asi: array de 3 características — el jugador reparte +2/+1/0 (sugerido) o +1/+1/+1 (tres1)
+// Personalizado: el jugador elige libremente las 3 características y la dote de origen
 const DATOS_TRASFONDO = {
-  "Acólito":    { asi: { sab: 2, int: 1 }, habilidades: ["perspicacia", "religion"],       herramienta: "Suministros de calígrafo",           dote: "✦ Iniciado en la magia" },
-  "Artesano":   { asi: { int: 2, sab: 1 }, habilidades: ["perspicacia", "persuasion"],      herramienta: "Herramientas de artesano (elige)",    dote: "✦ Fabricante" },
-  "Charlatán":  { asi: { car: 2, des: 1 }, habilidades: ["engano", "juego_manos"],          herramienta: "Kit de disfraz",                     dote: "✦ Habilidoso" },
-  "Criminal":   { asi: { des: 2, int: 1 }, habilidades: ["sigilo", "engano"],               herramienta: "Herramientas de ladrón",             dote: "✦ Alerta" },
-  "Entretenido":{ asi: { car: 2, des: 1 }, habilidades: ["acrobacia", "actuacion"],         herramienta: "Instrumento musical (elige)",         dote: "✦ Músico" },
-  "Ermitaño":   { asi: { sab: 2, con: 1 }, habilidades: ["medicina", "religion"],           herramienta: "Herramientas de herbolario",          dote: "✦ Sanador" },
-  "Escriba":    { asi: { int: 2, sab: 1 }, habilidades: ["investigacion", "percepcion"],    herramienta: "Suministros de calígrafo",           dote: "✦ Habilidoso" },
-  "Granjero":   { asi: { con: 2, sab: 1 }, habilidades: ["trato_animales", "naturaleza"],   herramienta: "Herramientas de carpintero",          dote: "✦ Duro" },
-  "Guardia":    { asi: { fue: 2, int: 1 }, habilidades: ["atletismo", "percepcion"],        herramienta: "Instrumento musical (elige)",         dote: "✦ Alerta" },
-  "Guía":       { asi: { sab: 2, des: 1 }, habilidades: ["atletismo", "supervivencia"],     herramienta: "Herramientas de cartógrafo",          dote: "✦ Iniciado en la magia" },
-  "Marinero":   { asi: { fue: 2, des: 1 }, habilidades: ["atletismo", "percepcion"],        herramienta: "Herramientas de navegante",           dote: "✦ Matón de taberna" },
-  "Mercader":   { asi: { car: 2, int: 1 }, habilidades: ["perspicacia", "persuasion"],      herramienta: "Herramientas de navegante",           dote: "✦ Afortunado" },
-  "Noble":      { asi: { car: 2, int: 1 }, habilidades: ["historia", "persuasion"],         herramienta: "Juego de mesa (elige)",               dote: "✦ Habilidoso" },
-  "Sabio":      { asi: { int: 2, sab: 1 }, habilidades: ["arcanos", "historia"],            herramienta: "Suministros de calígrafo",           dote: "✦ Iniciado en la magia" },
-  "Soldado":    { asi: { fue: 2, con: 1 }, habilidades: ["atletismo", "intimidacion"],      herramienta: "Juego de mesa (elige)",               dote: "✦ Atacante salvaje" },
-  "Viajero":    { asi: { des: 2, sab: 1 }, habilidades: ["perspicacia", "sigilo"],          herramienta: "Herramientas de ladrón",             dote: "✦ Afortunado" },
-  // Trasfondo personalizado: el jugador asigna todo manualmente
-  "Personalizado": { asi: {}, habilidades: [], herramienta: "(libre)", dote: "(elige)" },
+  "Acólito":     { asi: ["int","sab","car"], habilidades: ["perspicacia","religion"],       herramienta: "Suministros de calígrafo",         dote: "✦ Iniciado en la magia" },
+  "Animador":    { asi: ["fue","des","car"], habilidades: ["acrobacia","actuacion"],         herramienta: "Instrumento musical (elige)",       dote: "✦ Músico" },
+  "Artesano":    { asi: ["fue","des","int"], habilidades: ["investigacion","persuasion"],    herramienta: "Herramientas de artesano (elige)",  dote: "✦ Fabricante" },
+  "Campesino":   { asi: ["fue","con","sab"], habilidades: ["trato_animales","naturaleza"],  herramienta: "Herramientas de carpintero",        dote: "✦ Duro" },
+  "Charlatán":   { asi: ["des","con","car"], habilidades: ["engano","juego_manos"],          herramienta: "Kit de disfraz",                   dote: "✦ Habilidoso" },
+  "Comerciante": { asi: ["con","int","car"], habilidades: ["perspicacia","persuasion"],      herramienta: "Herramientas de navegante",         dote: "✦ Afortunado" },
+  "Criminal":    { asi: ["des","con","int"], habilidades: ["juego_manos","sigilo"],          herramienta: "Herramientas de ladrón",            dote: "✦ Alerta" },
+  "Ermitaño":    { asi: ["con","sab","car"], habilidades: ["medicina","religion"],           herramienta: "Herramientas de herbolario",        dote: "✦ Sanador" },
+  "Erudito":     { asi: ["con","int","sab"], habilidades: ["arcanos","historia"],            herramienta: "Suministros de calígrafo",          dote: "✦ Iniciado en la magia" },
+  "Escriba":     { asi: ["des","int","sab"], habilidades: ["investigacion","percepcion"],    herramienta: "Suministros de calígrafo",          dote: "✦ Habilidoso" },
+  "Guardia":     { asi: ["fue","int","sab"], habilidades: ["atletismo","percepcion"],        herramienta: "Juego de mesa (elige)",             dote: "✦ Alerta" },
+  "Guía":        { asi: ["des","con","sab"], habilidades: ["sigilo","supervivencia"],        herramienta: "Herramientas de cartógrafo",        dote: "✦ Iniciado en la magia" },
+  "Marinero":    { asi: ["fue","des","sab"], habilidades: ["acrobacia","percepcion"],        herramienta: "Herramientas de navegante",         dote: "✦ Matón de taberna" },
+  "Noble":       { asi: ["fue","int","car"], habilidades: ["historia","persuasion"],         herramienta: "Juego de mesa (elige)",             dote: "✦ Habilidoso" },
+  "Soldado":     { asi: ["fue","des","con"], habilidades: ["atletismo","intimidacion"],      herramienta: "Juego de mesa (elige)",             dote: "✦ Atacante salvaje" },
+  "Vagabundo":   { asi: ["des","sab","car"], habilidades: ["perspicacia","sigilo"],          herramienta: "Herramientas de ladrón",            dote: "✦ Afortunado" },
+  // Trasfondo personalizado: el jugador elige las 3 características y la dote de origen
+  "Personalizado": { asi: [], habilidades: [], herramienta: "(libre)", dote: null },
 };
+
+// Dotes de origen disponibles (para el trasfondo Personalizado)
+const DOTES_ORIGEN = [
+  "✦ Alerta", "✦ Afortunado", "✦ Atacante salvaje", "✦ Duro",
+  "✦ Fabricante", "✦ Habilidoso", "✦ Iniciado en la magia",
+  "✦ Matón de taberna", "✦ Músico", "✦ Sanador",
+];
 
 // ─── Armas PHB 2024 ───────────────────────────────────────────────────────────
 // cat: simple/marcial | tipo: melee/ranged | props: propiedades | maestria: maestría
@@ -1298,9 +1306,10 @@ const mkChar = () => ({
   progresion: [{ clase: "", subclase: "", niveles: 1 }],
   trasfondo: "", xp: 0, alineamiento: "", divinidad: "", inspiracion: false,
   trasfondoAplicado: "", asiAplicado: {}, profClases: {},
-  trasfondoModo: "sugerido",      // "sugerido" | "tres1"
-  trasfondoAsiLibre: ["","",""],  // para modo tres1: 3 attrs con +1
-  trasfondoAsiCustom: ["",""],    // para Personalizado+sugerido: [attr+2, attr+1]
+  trasfondoModo: "sugerido",       // "sugerido" | "tres1"
+  trasfondoAsiLibre: ["","",""],   // para modo tres1 + Personalizado: 3 attrs con +1
+  trasfondoAsiCustom: ["",""],     // para modo sugerido: [attr+2, attr+1]
+  trasfondoDoteCustom: "",         // solo para Personalizado: dote de origen elegida
   fue: 10, des: 10, con: 10, int: 10, sab: 10, car: 10,
   salv: Object.fromEntries(ATTRS.map(a => [a, false])),
   hab:  mkHabMap(),
@@ -1475,7 +1484,7 @@ const btnSmall = {
   flexShrink: 0,
 };
 
-function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleProgClase, handleProgHab }) {
+function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleTrasfondoDoteCustom, handleProgClase, handleProgHab }) {
   const datosT = DATOS_TRASFONDO[char.trasfondo];
   const nTotal = nivelTotal(char.progresion);
   const prof   = calcProf(nTotal);
@@ -1675,16 +1684,16 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
               ))}
             </div>
 
-            {/* Modo sugerido + trasfondo estándar: elige cuál recibe +2 y cuál +1 */}
+            {/* Modo sugerido + trasfondo estándar: elige +2 y +1 entre las 3 características del trasfondo */}
             {char.trasfondoModo === "sugerido" && char.trasfondo !== "Personalizado" && datosT && (() => {
-              const asiStats = Object.keys(datosT.asi); // las dos características del trasfondo
+              const asiStats = datosT.asi; // array de 3 características
               const sel = char.trasfondoAsiCustom || ["",""];
               return (
                 <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
                   borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
                   <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
                     fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
-                    ✦ Reparte +2 y +1 entre las características del trasfondo
+                    ✦ Reparte +2 y +1 entre las 3 características del trasfondo
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 8 }}>
                     <Field label="+2 a característica">
@@ -1708,7 +1717,10 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
                       </select>
                     </Field>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px", fontSize: 11, color: P.textDim }}>
+                  <div style={{ fontSize: 11, color: P.textDim }}>
+                    La tercera característica ({asiStats.filter(a => a !== sel[0] && a !== sel[1]).map(a => ATTR_NOMBRE[a]).join("") || "—"}) no recibe bonificación.
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px", fontSize: 11, color: P.textDim, marginTop: 6 }}>
                     <div><span>Competencias: </span>
                       <span style={{ color: P.text }}>{datosT.habilidades.map(id => HABS.find(h => h.id === id)?.nombre).join(", ")}</span>
                     </div>
@@ -1719,15 +1731,15 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
               );
             })()}
 
-            {/* Modo sugerido + Personalizado: el jugador elige +2 y +1 */}
+            {/* Modo sugerido + Personalizado: elige libremente +2 y +1 (de las 6 características) + dote */}
             {char.trasfondoModo === "sugerido" && char.trasfondo === "Personalizado" && (
               <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
                 borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
                 <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
                   fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
-                  ✦ Elige características para +2 y +1
+                  ✦ Elige características para +2 y +1, y tu dote de origen
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
                   <Field label="+2 a característica">
                     <select value={(char.trasfondoAsiCustom||["",""])[0]}
                       onChange={e => handleAsiCustomChange(0, e.target.value)}
@@ -1745,21 +1757,56 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
                     </select>
                   </Field>
                 </div>
+                <Field label="Dote de origen">
+                  <select value={char.trasfondoDoteCustom || ""}
+                    onChange={e => handleTrasfondoDoteCustom(e.target.value)}
+                    style={{ ...baseInput, cursor: "pointer" }}>
+                    <option value="">— elige dote —</option>
+                    {DOTES_ORIGEN.map(d => <option key={d} value={d}>{d}</option>)}
+                  </select>
+                </Field>
                 <div style={{ marginTop: 8, color: P.textDim, fontSize: 11 }}>
-                  Las habilidades, herramienta y dote de origen se seleccionan manualmente en las pestañas correspondientes.
+                  Las habilidades y herramienta de herramienta se marcan manualmente en las pestañas correspondientes.
                 </div>
               </div>
             )}
 
-            {/* Modo tres +1: el jugador elige 3 características distintas */}
-            {char.trasfondoModo === "tres1" && (
+            {/* Modo tres +1 + trasfondo estándar: las 3 características del trasfondo suben +1 automáticamente */}
+            {char.trasfondoModo === "tres1" && char.trasfondo !== "Personalizado" && datosT && (
               <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
                 borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
                 <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
                   fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
-                  ✦ Elige tres características para +1 cada una
+                  ✦ Las tres características del trasfondo suben +1 cada una
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
+                <div style={{ display: "flex", gap: 12, marginBottom: 8 }}>
+                  {datosT.asi.map(a => (
+                    <div key={a} style={{ background: `${P.gold}22`, border: `1px solid ${P.gold}55`,
+                      borderRadius: 4, padding: "4px 10px", textAlign: "center" }}>
+                      <div style={{ color: P.gold, fontSize: 13, fontWeight: "bold" }}>+1</div>
+                      <div style={{ color: P.text, fontSize: 11 }}>{ATTR_NOMBRE[a]}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4px 16px", fontSize: 11, color: P.textDim }}>
+                  <div><span>Competencias: </span>
+                    <span style={{ color: P.text }}>{datosT.habilidades.map(id => HABS.find(h=>h.id===id)?.nombre).join(", ")}</span>
+                  </div>
+                  <div><span>Herramienta: </span><span style={{ color: P.text }}>{datosT.herramienta}</span></div>
+                  <div><span>Dote: </span><span style={{ color: P.goldLt }}>{datosT.dote}</span></div>
+                </div>
+              </div>
+            )}
+
+            {/* Modo tres +1 + Personalizado: el jugador elige las 3 características y la dote */}
+            {char.trasfondoModo === "tres1" && char.trasfondo === "Personalizado" && (
+              <div style={{ background: `${P.gold}12`, border: `1px solid ${P.gold}45`,
+                borderRadius: 5, padding: "10px 12px", fontSize: 12 }}>
+                <div style={{ color: P.gold, fontFamily: "Cinzel, serif",
+                  fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 8 }}>
+                  ✦ Elige las tres características que suben +1 y tu dote de origen
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
                   {[0,1,2].map(idx => {
                     const elegidas = (char.trasfondoAsiLibre||["","",""]).filter((_,j)=>j!==idx).filter(Boolean);
                     return (
@@ -1774,19 +1821,17 @@ function TabBasico({ char, u, un, handleTrasfondo, handleTrasfondoModo, handleAs
                     );
                   })}
                 </div>
-                {char.trasfondo !== "Personalizado" && datosT && datosT.habilidades.length > 0 && (
-                  <div style={{ marginTop: 8, fontSize: 11 }}>
-                    <span style={{ color: P.textDim }}>Competencias (auto): </span>
-                    {datosT.habilidades.map(id => HABS.find(h=>h.id===id)?.nombre).join(", ")}
-                    {" · "}<span style={{ color: P.textDim }}>Herramienta: </span>{datosT.herramienta}
-                    {" · "}<span style={{ color: P.goldLt }}>{datosT.dote}</span>
-                  </div>
-                )}
-                {char.trasfondo === "Personalizado" && (
-                  <div style={{ marginTop: 8, color: P.textDim, fontSize: 11 }}>
-                    Las habilidades, herramienta y dote de origen se seleccionan manualmente.
-                  </div>
-                )}
+                <Field label="Dote de origen">
+                  <select value={char.trasfondoDoteCustom || ""}
+                    onChange={e => handleTrasfondoDoteCustom(e.target.value)}
+                    style={{ ...baseInput, cursor: "pointer" }}>
+                    <option value="">— elige dote —</option>
+                    {DOTES_ORIGEN.map(d => <option key={d} value={d}>{d}</option>)}
+                  </select>
+                </Field>
+                <div style={{ marginTop: 8, color: P.textDim, fontSize: 11 }}>
+                  Las habilidades y herramienta se marcan manualmente en las pestañas correspondientes.
+                </div>
               </div>
             )}
           </div>
@@ -3020,16 +3065,6 @@ export default function DnDCreator() {
     next.trasfondoAsiCustom = ["",""];
   };
 
-  // Helper: aplica ASI sugerido de un trasfondo estándar
-  const _aplicarAsiSugerido = (next, data) => {
-    const asiAplicado = {};
-    for (const [attr, bonus] of Object.entries(data.asi)) {
-      next[attr] = (next[attr] || 10) + bonus;
-      asiAplicado[attr] = bonus;
-    }
-    next.asiAplicado = asiAplicado;
-  };
-
   // Cambio de trasfondo: deshace el anterior y aplica el nuevo
   const handleTrasfondo = (nuevo) => {
     setChar(c => {
@@ -3038,26 +3073,49 @@ export default function DnDCreator() {
       // 1. Deshacer ASI del trasfondo anterior
       _deshacerAsi(next);
 
-      // 2. Registrar nuevo trasfondo y resetear modo
+      // 2. Si venimos de Personalizado, quitar la dote custom anterior
+      if (c.trasfondo === "Personalizado" && c.trasfondoDoteCustom) {
+        next.dotes = next.dotes.filter(d => d.nombre !== c.trasfondoDoteCustom);
+      }
+      next.trasfondoDoteCustom = "";
+
+      // 3. Registrar nuevo trasfondo y resetear modo
       next.trasfondo = nuevo;
       next.trasfondoAplicado = nuevo;
       next.trasfondoModo = "sugerido";
 
       const data = DATOS_TRASFONDO[nuevo];
       if (data && nuevo !== "Personalizado") {
-        // 3. Marcar competencias de habilidad
+        // 4. Marcar competencias de habilidad
         for (const skill of data.habilidades) {
           next.hab[skill] = true;
         }
 
-        // 4. Añadir dote de origen si no existe ya
-        const yaExiste = next.dotes.some(d => d.nombre === data.dote);
-        if (!yaExiste && data.dote && !data.dote.startsWith("(")) {
-          next.dotes = [...next.dotes, { nombre: data.dote, desc: "" }];
+        // 5. Añadir dote de origen si no existe ya
+        if (data.dote) {
+          const yaExiste = next.dotes.some(d => d.nombre === data.dote);
+          if (!yaExiste) next.dotes = [...next.dotes, { nombre: data.dote, desc: "" }];
         }
         // El jugador elige manualmente qué característica recibe +2 y cuál +1
       }
 
+      return next;
+    });
+  };
+
+  // Cambio de la dote de origen para trasfondo Personalizado
+  const handleTrasfondoDoteCustom = (doteName) => {
+    setChar(c => {
+      const next = { ...c };
+      // Quitar la dote anterior del listado
+      if (c.trasfondoDoteCustom) {
+        next.dotes = c.dotes.filter(d => d.nombre !== c.trasfondoDoteCustom);
+      }
+      next.trasfondoDoteCustom = doteName;
+      // Añadir la nueva dote si no existe ya
+      if (doteName && !next.dotes.some(d => d.nombre === doteName)) {
+        next.dotes = [...(next.dotes || []), { nombre: doteName, desc: "" }];
+      }
       return next;
     });
   };
@@ -3073,7 +3131,17 @@ export default function DnDCreator() {
 
       const data = DATOS_TRASFONDO[c.trasfondo];
 
-      // En ambos modos el jugador elige manualmente
+      // Tres +1: para trasfondos estándar, auto-aplica +1 a las 3 características del trasfondo
+      if (modo === "tres1" && data && c.trasfondo !== "Personalizado" && data.asi.length === 3) {
+        const asiAplicado = {};
+        for (const attr of data.asi) {
+          next[attr] = (next[attr] || 10) + 1;
+          asiAplicado[attr] = 1;
+        }
+        next.asiAplicado = asiAplicado;
+        next.trasfondoAsiLibre = [...data.asi]; // registrar qué stats se tocaron
+      }
+      // Para Personalizado + tres1: el jugador elige los 3 stats via selects (sin auto-aplicar)
 
       return next;
     });
@@ -3555,7 +3623,7 @@ export default function DnDCreator() {
     setTimeout(() => { win.focus(); win.print(); }, 600);
   };
 
-  const tabProps = { char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleProgClase, handleProgHab };
+  const tabProps = { char, u, un, handleTrasfondo, handleTrasfondoModo, handleAsiLibreChange, handleAsiCustomChange, handleTrasfondoDoteCustom, handleProgClase, handleProgHab };
 
   return (
     <div style={{ background: P.bg, minHeight: "100vh", color: P.text,
