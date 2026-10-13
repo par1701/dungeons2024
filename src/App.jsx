@@ -403,6 +403,81 @@ const DOTES_PHB = [
   "★ Don: Visión Verdadera",
 ];
 
+// Descripciones mecánicas y ASI de las dotes PHB 2024
+const DATOS_DOTE = {
+  "✦ Alerta":              { desc: "Iniciativa +5. No puedes ser sorprendido mientras estés consciente. Criaturas invisibles no obtienen ventaja al atacarte.", asi: null },
+  "✦ Artesano":            { desc: "Competencia con un tipo de herramientas de artesano (elige). Puedes crearlas o repararlas en la mitad de tiempo. +2 a INT, SAB o CAR.", asi: { elige: 1 } },
+  "✦ Afortunado":          { desc: "3 puntos de Suerte por descanso largo. Gasta 1 para tirar 1d20 adicional en cualquier tirada que te afecte y quedarte con el resultado que prefieras.", asi: null },
+  "✦ Atacante Salvaje":    { desc: "Una vez por turno, cuando impactas con un ataque de arma, puedes tirar el dado de daño del arma una vez más y escoger el resultado mayor o menor.", asi: null },
+  "✦ Habilidoso":          { desc: "Gana competencia en 3 habilidades o herramientas de tu elección.", asi: null },
+  "✦ Iniciado en Magia: Clérigo": { desc: "Aprende 2 trucos y 1 conjuro de nivel 1 de Clérigo. Lanzas ese conjuro una vez sin ranura por descanso largo. Usa SAB como atributo. +2 a INT, SAB o CAR.", asi: { elige: 1 } },
+  "✦ Iniciado en Magia: Druida":  { desc: "Aprende 2 trucos y 1 conjuro de nivel 1 de Druida. Lanzas ese conjuro una vez sin ranura por descanso largo. Usa SAB como atributo. +2 a INT, SAB o CAR.", asi: { elige: 1 } },
+  "✦ Iniciado en Magia: Mago":    { desc: "Aprende 2 trucos y 1 conjuro de nivel 1 de Mago. Lanzas ese conjuro una vez sin ranura por descanso largo. Usa INT como atributo. +2 a INT, SAB o CAR.", asi: { elige: 1 } },
+  "✦ Músico":              { desc: "Competencia con un instrumento musical. Puedes inspirar a aliados: toca el instrumento y otorgas 1d6 a un aliado que te oiga (máx. = bon. comp.). +2 a STR, DEX o CAR.", asi: { elige: 1 } },
+  "✦ Pendenciero de Taberna": { desc: "Competencia con armas improvisadas. +1d4 a daño con armas improvisadas. Cuando golpeas con arma improvisada puedes dar el estado Aferrado (GR Fue vs. tu ataque).", asi: null },
+  "✦ Robusto":             { desc: "+1 a CON. Cuando usas Dados de Golpe para recuperar PG, el mínimo de recuperación es igual a 2 × tu bon. de CON (mínimo 2 PG por dado).", asi: { con: 1 } },
+  "✦ Sanador":             { desc: "Competencia con kits de curación. Puedes estabilizar a alguien como acción bonus. Con un Kit de Curación, recupera PG = 1d6 + 4 + nivel del objetivo (una vez por personaje por descanso corto).", asi: null },
+  // Generales
+  "Actor":                 { desc: "+1 a CAR. Ventaja en Engaño/Actuación al hacerte pasar por otra criatura. Puedes imitar la voz de alguien que hayas oído al menos 1 min.", asi: { car: 1 } },
+  "Adepto Elemental":      { desc: "Elige elemento (ácido, frío, fuego, rayo o trueno). Tus conjuros de ese tipo ignoran resistencia. Una vez por descanso largo, mínimo 1 de daño de ese tipo por dado tirado.", asi: null },
+  "Aplastador":            { desc: "+1 a FUE o CON. Cuando causes daño de golpe, mueves al objetivo 1,5 m. Crítico: el objetivo queda Derribado.", asi: { elige: 1, opciones: ["fue","con"] } },
+  "Atleta":                { desc: "+1 a FUE o CON. Levantarte solo cuesta 1,5 m de mov. (en vez de mitad). Subir a velocidad normal. Al saltar de pie, distancia +1,5 m.", asi: { elige: 1, opciones: ["fue","con"] } },
+  "Cargador":              { desc: "+1 a FUE o CON. Puedes cargar: mueve hasta velocidad en línea recta y ataca; el objetivo retrocede 3 m (salvación CON CD 8 + bon. comp. + mod. FUE o queda Derribado).", asi: { elige: 1, opciones: ["fue","con"] } },
+  "Centinela":             { desc: "Cuando golpeas a criatura en AO, velocidad = 0 hasta fin de su turno. Puedes usar AO aunque la criatura use Desengancharse. AO también a criaturas que ataquen a aliados adyacentes.", asi: null },
+  "Combatiente Montado":   { desc: "+1 a FUE, DES o SAB. Ventaja vs. criaturas sin montura más pequeñas que tu montura. Redirige ataques a tu montura hacia ti. La montura no hace TDE de DEX si falla (1/2 con éxito).", asi: { elige: 1, opciones: ["fue","des","sab"] } },
+  "Cortador":              { desc: "+1 a FUE o DES. Golpe con arma de filo: el objetivo pierde 1d6 PG extra al inicio de su siguiente turno (no apilable, aunque sí con Perforador/Golpeador).", asi: { elige: 1, opciones: ["fue","des"] } },
+  "Duelista Defensivo":    { desc: "+1 a DES. Reacción: +bon. comp. a CA contra un ataque de arma de filo o cuerpo a cuerpo cuando empuñas esa arma.", asi: { des: 1 } },
+  "Durable":               { desc: "+1 a CON. Al tirar DG en descanso corto, mínimo = 2× mod. CON (al menos 2). PG máx. al subir nivel.", asi: { con: 1 } },
+  "Experto con Ballesta":  { desc: "+1 a DES. Ignora el requisito de carga de las ballestas de mano. Disparar en distancia corta sin desventaja. Ataque adicional con ballesta de mano como bonus si usas Ataque.", asi: { des: 1 } },
+  "Experto en Habilidades":{ desc: "+1 a un atributo. Gana competencia en 1 habilidad y experiencia en otra habilidad en la que ya tengas competencia.", asi: { elige: 1 } },
+  "Exploradora de Mazmorras":{ desc: "+1 a INT o SAB. Alerta a trampas y puertas secretas. Al buscar trampas, ventaja en Percepción/Investigación. Ventaja en JS de DES vs. efectos que percibes.", asi: { elige: 1, opciones: ["int","sab"] } },
+  "Golpeador":             { desc: "+1 a FUE o CON. Con daño de golpe, mueves al objetivo 1,5 m. Crítico: el objetivo queda Aturdido hasta inicio de tu siguiente turno.", asi: { elige: 1, opciones: ["fue","con"] } },
+  "Gran Maestro de Armas": { desc: "+1 a FUE. Armas marciales de CA a CA: −5 al ataque, +10 al daño. Cuando reduces a 0 PG o crítico con arma marcial, bonus de ataque ese turno.", asi: { fue: 1 } },
+  "Hechicero en Combate":  { desc: "+1 a INT, SAB o CAR. Puedes lanzar un truco como acción bonus cuando usas la acción de Ataque. Mantienes concentración con ventaja en con.", asi: { elige: 1 } },
+  "Iniciado Ritual":       { desc: "Aprende 2 conjuros de ritual de cualquier clase. Puedes lanzarlos como ritual. Usa INT o SAB como atributo de lanzamiento.", asi: null },
+  "Inspirador":            { desc: "+1 a SAB o CAR. Cuando uses Inspiración Bardica o similar, da 1d4 a dos aliados en vez de 1d6 a uno.", asi: { elige: 1, opciones: ["sab","car"] } },
+  "Luchador con Dos Armas":{ desc: "+1 a DES. Añades el modificador de atributo al daño del arma secundaria. Al atacar con dos armas, puedes usar la acción bonus para otro ataque adicional.", asi: { des: 1 } },
+  "Maestro de Armadura Pesada":{ desc: "+1 a FUE. Con armadura pesada: reduce daño de golpe, filo y perforante no-mágico en 3.", asi: { fue: 1 } },
+  "Maestro de Armas de Asta":{ desc: "AO con armas de asta cuando criatura entra tu alcance. Puedes usar DES en vez de FUE con armas de asta. Bonus: extremo del asta 1d4+mod FUE golpe.", asi: null },
+  "Maestro del Escudo":    { desc: "+1 a FUE. Bonus: empujar 1,5 m a objetivo que atacaste. Reacción: +2 CA vs. conjuro que pide TDE de DES. Si fallas TDE de DES a la mitad, no sufres daño con éxito.", asi: { fue: 1 } },
+  "Mejora de Puntuación de Característica": { desc: "+2 a un atributo o +1 a dos atributos diferentes (máx. 20).", asi: { elige: 2 } },
+  "Merodeador":            { desc: "+1 a DES o INT. Moverse a través de espacios sin penalización. Puedes ocultarte aunque estés vigilado si tienes cobertura ligera.", asi: { elige: 1, opciones: ["des","int"] } },
+  "Observador":            { desc: "+1 a INT o SAB. Lees labios. +5 a Percepción pasiva e Investigación pasiva.", asi: { elige: 1, opciones: ["int","sab"] } },
+  "Perforador":            { desc: "+1 a FUE o DES. Con daño perforante, vuelves a tirar un dado y usas el mayor. Crítico: un dado de daño extra.", asi: { elige: 1, opciones: ["fue","des"] } },
+  "Resiliente":            { desc: "+1 a un atributo. Ganas competencia en tiradas de salvación de ese atributo.", asi: { elige: 1 } },
+  "Sniper de Conjuros":    { desc: "+1 a INT, SAB o CAR. El rango de tus ataques de conjuro se duplica. Ignoras cobertura media y tres cuartos. Cuando falles un ataque de conjuro, puedes volver a tirar 1/descanso largo.", asi: { elige: 1 } },
+  "Telequinético":         { desc: "+1 a INT, SAB o CAR. Empuja 1,5 m con la mente (bonus, Str CD=8+prof+mod). Ventaja en Engaño/Intimidación en fuerza psíquica. +5 Percepción pasiva con sentido psíquico.", asi: { elige: 1 } },
+  "Telepático":            { desc: "+1 a INT, SAB o CAR. Comunicación telepática 18 m. Leer superficie de pensamientos (acción).", asi: { elige: 1 } },
+  "Tirador Certero":       { desc: "+1 a DES. Sin penalización a distancia larga. Ignoras cobertura media y tres cuartos. −5 ataque, +10 daño con arma de rango.", asi: { des: 1 } },
+  "Tocado por el Feérico": { desc: "+1 a INT, SAB o CAR. 1/descanso largo: lanzar Encanto de Persona o Dormir (CD=8+prof+mod) sin ranura.", asi: { elige: 1 } },
+  "Tocado por las Sombras":{ desc: "+1 a INT, SAB o CAR. 1/descanso largo: lanzar Pasos Penumbrosos o Armadura de Agathys (CD=8+prof+mod) sin ranura.", asi: { elige: 1 } },
+  "Velocista":             { desc: "+1 a DES. +3 m de velocidad. Dash como acción bonus. Esquivar como bonus cuando usas Dash.", asi: { des: 1 } },
+  // Estilos de Combate
+  "Estilo: Arquería":      { desc: "+2 a las tiradas de ataque con armas a distancia.", asi: null },
+  "Estilo: Combate a Ciegas":{ desc: "Visión ciega 3 m. Puedes ver a criaturas invisibles en ese radio.", asi: null },
+  "Estilo: Defensa":       { desc: "+1 a CA mientras llevas armadura.", asi: null },
+  "Estilo: Duelo":         { desc: "+2 a tiradas de daño cuando empuñas un arma de cuerpo a cuerpo en una mano y ningún otro arma.", asi: null },
+  "Estilo: Lucha con Armas Grandes":{ desc: "Al tirar 1 o 2 en dado de daño con arma versátil o a dos manos, vuelve a tirar (usa el nuevo resultado).", asi: null },
+  "Estilo: Intercepción":  { desc: "Reacción: reduce 1d10 + bon. comp. el daño a criatura adyacente (no a ti mismo) atacada por otra criatura.", asi: null },
+  "Estilo: Protección":    { desc: "Reacción: si llevas escudo, impones desventaja al ataque de un enemigo que veas contra aliado adyacente.", asi: null },
+  "Estilo: Armas Arrojadizas":{ desc: "Sacar arma arrojadiza como parte del ataque. +2 a tiradas de daño con armas arrojadizas.", asi: null },
+  "Estilo: Lucha con Dos Armas":{ desc: "Añades el modificador de atributo al daño del arma secundaria con el combate con dos armas.", asi: null },
+  "Estilo: Combate sin Armas":{ desc: "Tus golpes sin armas causan 1d6 + mod FUE (1d8 si las dos manos están libres). Al inicio de tu turno puedes infligir 1d4 a un objetivo al que estés aferrando.", asi: null },
+  // Dones Épicos
+  "★ Don: Valor en Combate":{ desc: "+1 a FUE. No puedes ser Asustado. +1d6 de daño de arma por turno.", asi: { fue: 1 } },
+  "★ Don: Viaje Dimensional":{ desc: "+1 a INT, SAB o CAR. Teletransportarte hasta 9 m como acción bonus (CD=20 o fracasas). Llevar un aliado voluntario del mismo tamaño o menor.", asi: { elige: 1 } },
+  "★ Don: Resistencia a Energía":{ desc: "+1 a INT, SAB o CAR. Resistencia a un tipo de daño de energía elegido. Cambia el tipo con descanso largo.", asi: { elige: 1 } },
+  "★ Don: Destino":        { desc: "+1 a INT, SAB o CAR. Reacción: fuerza a una criatura que veas a repetir una tirada 1/descanso largo.", asi: { elige: 1 } },
+  "★ Don: Fortaleza":      { desc: "+1 a CON. PG máx aumenta en bon. comp. al subir este nivel. Acumulable.", asi: { con: 1 } },
+  "★ Don: Ataque Irresistible":{ desc: "+1 a FUE o DES. Tus ataques de arma ignoran la resistencia al tipo de daño.", asi: { elige: 1, opciones: ["fue","des"] } },
+  "★ Don: Recuperación":   { desc: "+1 a CON. 1/descanso largo: curación = bon. comp. × d6 + mod CON como acción bonus.", asi: { con: 1 } },
+  "★ Don: Habilidades":    { desc: "+1 a un atributo. Gana experiencia (doble comp.) en 2 habilidades.", asi: { elige: 1 } },
+  "★ Don: Velocidad":      { desc: "+1 a DES. +9 m de velocidad. Las AO contra ti tienen desventaja.", asi: { des: 1 } },
+  "★ Don: Recuerdo de Conjuros":{ desc: "+1 a INT, SAB o CAR. 1/descanso largo: recupera una ranura de conjuro de nivel ≤5.", asi: { elige: 1 } },
+  "★ Don: Espíritu Nocturno":{ desc: "+1 a INT, SAB o CAR. Visión en la oscuridad 24 m. Bonus: Invisible hasta inicio de tu siguiente turno (en sombras o oscuridad).", asi: { elige: 1 } },
+  "★ Don: Visión Verdadera":{ desc: "+1 a INT, SAB o CAR. Visión verdadera 6 m (ves formas reales, ilusiones, objetos etéreos, en oscuridad mágica).", asi: { elige: 1 } },
+};
+
 // Datos mecánicos de los trasfondos PHB 2024
 // ASI: qué atributos suben y cuánto | habilidades: IDs de competencias | dote: nombre de la dote de origen
 const DATOS_TRASFONDO = {
@@ -423,6 +498,72 @@ const DATOS_TRASFONDO = {
   "Soldado":    { asi: { fue: 2, con: 1 }, habilidades: ["atletismo", "intimidacion"],      herramienta: "Juego de mesa (elige)",               dote: "✦ Atacante Salvaje" },
   "Viajero":    { asi: { des: 2, sab: 1 }, habilidades: ["perspicacia", "sigilo"],          herramienta: "Herramientas de ladrón",             dote: "✦ Afortunado" },
 };
+
+// ─── Armas PHB 2024 ───────────────────────────────────────────────────────────
+// cat: simple/marcial | tipo: melee/ranged | props: propiedades | maestria: maestría
+const ARMAS_DB = [
+  // ── Armas Simples de Cuerpo a Cuerpo ─────────────────────────────────────
+  { nombre:"Garrote",           cat:"simple", tipo:"melee",  dano:"1d4 golpe",      props:"Ligera",                         maestria:"Lenta"        },
+  { nombre:"Daga",              cat:"simple", tipo:"melee",  dano:"1d4 perforante", props:"Finura, Ligera, Arrojadiza 6/18",maestria:"Nick"         },
+  { nombre:"Hacha de mano",     cat:"simple", tipo:"melee",  dano:"1d6 filo",       props:"Ligera, Arrojadiza 6/18",        maestria:"Nick"         },
+  { nombre:"Lanza",             cat:"simple", tipo:"melee",  dano:"1d6 perforante", props:"Versátil (1d8), Arrojadiza 6/18",maestria:"Empuje"       },
+  { nombre:"Maza",              cat:"simple", tipo:"melee",  dano:"1d6 golpe",      props:"—",                              maestria:"Empuje"       },
+  { nombre:"Martillo de mano",  cat:"simple", tipo:"melee",  dano:"1d4 golpe",      props:"Ligera, Arrojadiza 6/18",        maestria:"Nick"         },
+  { nombre:"Hoz",               cat:"simple", tipo:"melee",  dano:"1d4 filo",       props:"Ligera",                         maestria:"Nick"         },
+  { nombre:"Vara",              cat:"simple", tipo:"melee",  dano:"1d6 golpe",      props:"Versátil (1d8)",                 maestria:"Empuje"       },
+  { nombre:"Jabalina",          cat:"simple", tipo:"ranged", dano:"1d6 perforante", props:"Arrojadiza 9/36",                maestria:"Lenta"        },
+  // ── Armas Simples a Distancia ─────────────────────────────────────────────
+  { nombre:"Ballesta ligera",   cat:"simple", tipo:"ranged", dano:"1d8 perforante", props:"Carga, Dos manos, 24/96",        maestria:"Lenta"        },
+  { nombre:"Dardo",             cat:"simple", tipo:"ranged", dano:"1d4 perforante", props:"Finura, Arrojadiza 6/18",        maestria:"Nick"         },
+  { nombre:"Honda",             cat:"simple", tipo:"ranged", dano:"1d4 golpe",      props:"24/96",                          maestria:"Lenta"        },
+  { nombre:"Arco corto",        cat:"simple", tipo:"ranged", dano:"1d6 perforante", props:"Dos manos, 24/96",               maestria:"Respuesta"    },
+  // ── Armas Marciales de Cuerpo a Cuerpo ───────────────────────────────────
+  { nombre:"Espada corta",      cat:"marcial",tipo:"melee",  dano:"1d6 perforante", props:"Finura, Ligera",                 maestria:"Nick"         },
+  { nombre:"Espada larga",      cat:"marcial",tipo:"melee",  dano:"1d8 filo",       props:"Versátil (1d10)",                maestria:"Entorpecer"   },
+  { nombre:"Espadón",           cat:"marcial",tipo:"melee",  dano:"2d6 filo",       props:"Dos manos, Pesada",              maestria:"Derribar"     },
+  { nombre:"Hacha de guerra",   cat:"marcial",tipo:"melee",  dano:"1d8 filo",       props:"Versátil (1d10)",                maestria:"Tomador"      },
+  { nombre:"Hacha grande",      cat:"marcial",tipo:"melee",  dano:"1d12 filo",      props:"Dos manos, Pesada",              maestria:"Derribar"     },
+  { nombre:"Mandoble",          cat:"marcial",tipo:"melee",  dano:"2d6 filo",       props:"Dos manos, Pesada, Alcance",     maestria:"Derribar"     },
+  { nombre:"Estoque",           cat:"marcial",tipo:"melee",  dano:"1d8 perforante", props:"Finura",                         maestria:"Empuje"       },
+  { nombre:"Espada bastarda",   cat:"marcial",tipo:"melee",  dano:"1d10 filo",      props:"Dos manos, Pesada",              maestria:"Entorpecer"   },
+  { nombre:"Mayal de guerra",   cat:"marcial",tipo:"melee",  dano:"1d8 golpe",      props:"—",                              maestria:"Sacudir"      },
+  { nombre:"Lanza de guerra",   cat:"marcial",tipo:"melee",  dano:"1d12 perforante",props:"Dos manos, Pesada, Alcance",     maestria:"Empuje"       },
+  { nombre:"Alabarda",          cat:"marcial",tipo:"melee",  dano:"1d10 filo",      props:"Dos manos, Pesada, Alcance",     maestria:"Barrer"       },
+  { nombre:"Pica",              cat:"marcial",tipo:"melee",  dano:"1d10 perforante",props:"Dos manos, Pesada, Alcance",     maestria:"Empuje"       },
+  { nombre:"Lanza larga",       cat:"marcial",tipo:"melee",  dano:"1d10 perforante",props:"Dos manos, Alcance",             maestria:"Empuje"       },
+  { nombre:"Guadaña",           cat:"marcial",tipo:"melee",  dano:"1d10 filo",      props:"Dos manos, Pesada, Alcance",     maestria:"Barrer"       },
+  { nombre:"Mazo de guerra",    cat:"marcial",tipo:"melee",  dano:"2d6 golpe",      props:"Dos manos, Pesada",              maestria:"Empuje"       },
+  { nombre:"Tridente",          cat:"marcial",tipo:"melee",  dano:"1d8 perforante", props:"Versátil (1d10), Arrojadiza 6/18",maestria:"Tropezar"    },
+  { nombre:"Porra",             cat:"marcial",tipo:"melee",  dano:"1d8 golpe",      props:"—",                              maestria:"Sacudir"      },
+  { nombre:"Látigo",            cat:"marcial",tipo:"melee",  dano:"1d4 filo",       props:"Finura, Alcance",                maestria:"Lenta"        },
+  { nombre:"Escudo con pinchos",cat:"marcial",tipo:"melee",  dano:"1d6 perforante", props:"—",                              maestria:"Empuje"       },
+  // ── Armas Marciales a Distancia ──────────────────────────────────────────
+  { nombre:"Ballesta de mano",  cat:"marcial",tipo:"ranged", dano:"1d6 perforante", props:"Ligera, Carga, 9/36",            maestria:"Nick"         },
+  { nombre:"Ballesta pesada",   cat:"marcial",tipo:"ranged", dano:"1d10 perforante",props:"Dos manos, Pesada, Carga, 30/120",maestria:"Empuje"      },
+  { nombre:"Arco largo",        cat:"marcial",tipo:"ranged", dano:"1d8 perforante", props:"Dos manos, Pesada, 45/180",      maestria:"Lenta"        },
+  { nombre:"Arco de batalla",   cat:"marcial",tipo:"ranged", dano:"1d8 perforante", props:"Dos manos, 30/120",              maestria:"Respuesta"    },
+  { nombre:"Red",               cat:"marcial",tipo:"ranged", dano:"—",              props:"Especial, Arrojadiza 1.5/4.5",   maestria:"Lenta"        },
+];
+
+// ─── Armaduras PHB 2024 ──────────────────────────────────────────────────────
+const ARMADURAS_DB = [
+  // ── Armaduras Ligeras ─────────────────────────────────────────────────────
+  { nombre:"Cuero",             tipo:"Ligera",  caBase:"11 + mod DES",   fueMín:0,  sigilo:false, peso:"10 lb"  },
+  { nombre:"Cuero tachonado",   tipo:"Ligera",  caBase:"12 + mod DES",   fueMín:0,  sigilo:false, peso:"13 lb"  },
+  { nombre:"Cota de mallas",    tipo:"Ligera",  caBase:"13 + mod DES",   fueMín:0,  sigilo:false, peso:"20 lb"  },
+  // ── Armaduras Medias ──────────────────────────────────────────────────────
+  { nombre:"Cuero endurecido",  tipo:"Media",   caBase:"13 + mod DES (máx 2)", fueMín:0, sigilo:false, peso:"20 lb" },
+  { nombre:"Camisote de mallas",tipo:"Media",   caBase:"13 + mod DES (máx 2)", fueMín:0, sigilo:false, peso:"20 lb" },
+  { nombre:"Cota de escamas",   tipo:"Media",   caBase:"14 + mod DES (máx 2)", fueMín:0, sigilo:true,  peso:"45 lb" },
+  { nombre:"Corsé",             tipo:"Media",   caBase:"14 + mod DES (máx 2)", fueMín:0, sigilo:false, peso:"20 lb" },
+  { nombre:"Media armadura",    tipo:"Media",   caBase:"15 + mod DES (máx 2)", fueMín:0, sigilo:true,  peso:"40 lb" },
+  // ── Armaduras Pesadas ─────────────────────────────────────────────────────
+  { nombre:"Armadura de anillas",tipo:"Pesada", caBase:"14",             fueMín:0,  sigilo:true,  peso:"40 lb"  },
+  { nombre:"Cota de bandas",    tipo:"Pesada",  caBase:"16",             fueMín:15, sigilo:true,  peso:"55 lb"  },
+  { nombre:"Armadura de placas",tipo:"Pesada",  caBase:"18",             fueMín:15, sigilo:true,  peso:"65 lb"  },
+  // ── Escudos ───────────────────────────────────────────────────────────────
+  { nombre:"Escudo",            tipo:"Escudo",  caBase:"+2",             fueMín:0,  sigilo:false, peso:"6 lb"   },
+];
 
 // ─── Base de datos de conjuros PHB 2024 ──────────────────────────────────────
 // v=nivel, esc=escuela, t=tiempo, alc=alcance, c=componentes, dur=duración,
@@ -562,6 +703,497 @@ const CONJUROS_DB = [
   {nombre:"Puerta",                  v:9,esc:"Conjuración",  t:"1 acción",      alc:"18 m",          c:"V, S, M", dur:"Conc. 1 min",   cls:["Clérigo","Hechicero","Mago"],                             d:"Portal circular de 3 m a otro plano. Puede invocar a una criatura del plano destino."},
 ];
 
+// ─── Rasgos de Clase por Nivel (PHB 2024) ────────────────────────────────────
+const RASGOS_CLASE = {
+  "Bárbaro": {
+    1:  ["Rabia (2/descanso largo)","Defensa sin Armadura (10+mod DES+mod CON)"],
+    2:  ["Ataque Desenfrenado","Sentido del Peligro"],
+    3:  ["Camino del Bárbaro (subclase)","Primal Knowledge"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Extra","Movimiento Rápido (+3 m)"],
+    6:  ["Rasgo de Camino del Bárbaro"],
+    7:  ["Instinto de Fiera","Conocimiento Instintivo"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Rabia Brutal (1d10 extra en críticos)"],
+    10: ["Rasgo de Camino del Bárbaro"],
+    11: ["Rabia Implacable (PG→1 al caer a 0, 1/rabia)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Rabia Brutal mejorada"],
+    14: ["Rasgo de Camino del Bárbaro"],
+    15: ["Rabia Persistente"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Rabia Brutal mejorada"],
+    18: ["Poder Indomable"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Campeón Primal"],
+  },
+  "Bardo": {
+    1:  ["Competencias de Bardo","Lanzamiento de Conjuros","Inspiración Bárdica (1d6)"],
+    2:  ["Acción Ingeniosa","Canción de Descanso (1d6)"],
+    3:  ["Maestría en Habilidades","Inspiración Bárdica (1d8)","Colegio de Bardo (subclase)"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Inspiración Bárdica (1d8)","Fuente de Inspiración"],
+    6:  ["Contraencanto","Rasgo de Colegio de Bardo"],
+    7:  ["Maestría en Habilidades (nueva)"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Inspiración Bárdica (1d10)","Secretos Mágicos (nivel 9)"],
+    10: ["Genio Mágico","Inspiración Bárdica (1d10)"],
+    11: ["Inspiración Bárdica (1d10)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Inspiración Bárdica (1d12)","Canción de Descanso (1d10)"],
+    14: ["Rasgo de Colegio de Bardo","Secretos Mágicos (nivel 14)"],
+    15: ["Inspiración Bárdica (1d12)"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Canción de Descanso (1d12)","Secretos Mágicos (nivel 17)"],
+    18: ["Magia Superior"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Inspiración de la Leyenda"],
+  },
+  "Clérigo": {
+    1:  ["Lanzamiento de Conjuros","Dominio Divino (subclase)","Conjuros de Dominio"],
+    2:  ["Canalizar Divinidad (1 uso)","Rasgo de Dominio Divino"],
+    3:  ["Conjuros de Dominio de nivel 3"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Destruir Muertos Vivientes (CR ½)","Conjuros de Dominio de nivel 5"],
+    6:  ["Canalizar Divinidad (2 usos)","Rasgo de Dominio Divino"],
+    7:  ["Conjuros de Dominio de nivel 7"],
+    8:  ["Mejora de Puntuación de Característica","Destruir Muertos Vivientes (CR 1)","Golpe Divino / Potencia Divina"],
+    9:  ["Conjuros de Dominio de nivel 9"],
+    10: ["Intervención Divina"],
+    11: ["Destruir Muertos Vivientes (CR 2)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Destruir Muertos Vivientes (CR 3)"],
+    14: ["Rasgo de Dominio Divino"],
+    15: ["Destruir Muertos Vivientes (CR 4)"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Destruir Muertos Vivientes (CR 4)"],
+    18: ["Canalizar Divinidad (3 usos)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Intervención Divina Mejorada"],
+  },
+  "Druida": {
+    1:  ["Drúidico","Lanzamiento de Conjuros"],
+    2:  ["Forma Salvaje (CR ¼)","Círculo Druídico (subclase)","Forma Salvaje Wildshape"],
+    3:  ["Forma Salvaje (CR ½)"],
+    4:  ["Mejora de Puntuación de Característica","Forma Salvaje mejorada"],
+    5:  ["Forma Salvaje (CR 1)"],
+    6:  ["Rasgo de Círculo Druídico"],
+    7:  ["Forma Salvaje (CR 2)"],
+    8:  ["Mejora de Puntuación de Característica","Forma Salvaje (CR 2 vuelo)"],
+    9:  [],
+    10: ["Rasgo de Círculo Druídico"],
+    11: [],
+    12: ["Mejora de Puntuación de Característica"],
+    13: [],
+    14: ["Rasgo de Círculo Druídico"],
+    15: [],
+    16: ["Mejora de Puntuación de Característica"],
+    17: [],
+    18: ["Forma Salvaje Bestial (CR 3)","Mente Intemporal (no envejecer)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Archidruida"],
+  },
+  "Guerrero": {
+    1:  ["Estilo de Combate","Segundo Aliento (1d10+nivel/descanso corto)"],
+    2:  ["Oleada de Acción (1/descanso corto)"],
+    3:  ["Arquetipo Marcial (subclase)"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Extra (2)"],
+    6:  ["Mejora de Puntuación de Característica"],
+    7:  ["Rasgo de Arquetipo Marcial"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Inamovible (ventaja en TDE FUE/CON)"],
+    10: ["Rasgo de Arquetipo Marcial"],
+    11: ["Ataque Extra (3)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Inamovible mejorado"],
+    14: ["Mejora de Puntuación de Característica"],
+    15: ["Rasgo de Arquetipo Marcial"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Oleada de Acción (2/descanso corto)"],
+    18: ["Rasgo de Arquetipo Marcial"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Ataque Extra (4)"],
+  },
+  "Monje": {
+    1:  ["Artes Marciales (1d6)","Sin Armadura"],
+    2:  ["Puntos de Ki (2)","Paso sin Viento","Aguacero de Golpes"],
+    3:  ["Tradición Monástica (subclase)","Desviar Proyectiles"],
+    4:  ["Mejora de Puntuación de Característica","Caída Lenta"],
+    5:  ["Ataque Extra","Ataque Aturdidor (Ki)"],
+    6:  ["Golpes de Ki (daño mágico)","Rasgo de Tradición Monástica"],
+    7:  ["Evasión","Calma"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Artes Marciales (1d8)","Acrobacias Mejoradas"],
+    10: ["Mente Pura","Rasgo de Tradición Monástica"],
+    11: ["Artes Marciales (1d8)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Lengua del Sol y la Luna"],
+    14: ["Alma de Diamante"],
+    15: ["Alma Intemporal (no envejecer)"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Rasgo de Tradición Monástica","Artes Marciales (1d10)"],
+    18: ["Forma Vacía"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Ser Perfecto"],
+  },
+  "Paladín": {
+    1:  ["Detección Divina","Imposición de Manos (5×nivel PG)"],
+    2:  ["Estilo de Combate","Lanzamiento de Conjuros","Golpe Divino (2d8)"],
+    3:  ["Sagrado Juramento (subclase)","Conjuros de Juramento"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Extra","Golpe Divino (3d8)"],
+    6:  ["Aura de Protección (+bon. CAR a TDE aliados en 3 m)"],
+    7:  ["Rasgo de Sagrado Juramento"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Golpe Divino (4d8)"],
+    10: ["Aura de Valentía (aliados inmunes a Miedo en 3 m)"],
+    11: ["Golpe Divino (5d8)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Golpe Divino (6d8)"],
+    14: ["Toque Purificador"],
+    15: ["Rasgo de Sagrado Juramento","Golpe Divino (7d8)"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Golpe Divino (8d8)"],
+    18: ["Aura mejorada (18 m)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Forma Sagrada"],
+  },
+  "Explorador": {
+    1:  ["Enemigo Favorito","Explorador Natural"],
+    2:  ["Estilo de Combate","Conjuros"],
+    3:  ["Arquetipo de Explorador (subclase)","Consciencia Primaria"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Extra"],
+    6:  ["Enemigo Favorito mejorado","Explorador Natural mejorado"],
+    7:  ["Rasgo de Arquetipo de Explorador"],
+    8:  ["Mejora de Puntuación de Característica","Paso por la Tierra"],
+    9:  [],
+    10: ["Ocultación Natural","Rasgo de Arquetipo de Explorador"],
+    11: ["Atacante Feroz (crítico adicional)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: [],
+    14: ["Desaparecer","Rasgo de Arquetipo de Explorador"],
+    15: ["Mente Salvaje"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: [],
+    18: ["Sentidos Férreos","Ojo Férreo"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Cazador de Asesinos"],
+  },
+  "Pícaro": {
+    1:  ["Maestría en Competencias","Ataque Furtivo (1d6)","Jerga de Ladrones"],
+    2:  ["Acción Astuta"],
+    3:  ["Arquetipo de Pícaro (subclase)","Ataque Furtivo (2d6)","Reducción de Daño"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Furtivo (3d6)","Esquiva Asombrosa"],
+    6:  ["Maestría en Competencias (nueva)","Ataque Furtivo (3d6)"],
+    7:  ["Evasión","Ataque Furtivo (4d6)"],
+    8:  ["Mejora de Puntuación de Característica","Ataque Furtivo (4d6)"],
+    9:  ["Rasgo de Arquetipo de Pícaro","Ataque Furtivo (5d6)"],
+    10: ["Mejora de Puntuación de Característica","Ataque Furtivo (5d6)"],
+    11: ["Talento Confiable","Ataque Furtivo (6d6)"],
+    12: ["Mejora de Puntuación de Característica","Ataque Furtivo (6d6)"],
+    13: ["Rasgo de Arquetipo de Pícaro","Ataque Furtivo (7d6)"],
+    14: ["Mente Deslizante","Ataque Furtivo (7d6)"],
+    15: ["Inaferrable","Ataque Furtivo (8d6)"],
+    16: ["Mejora de Puntuación de Característica","Ataque Furtivo (8d6)"],
+    17: ["Rasgo de Arquetipo de Pícaro","Ataque Furtivo (9d6)"],
+    18: ["Esquiva con Estilo","Ataque Furtivo (9d6)"],
+    19: ["Mejora de Puntuación de Característica (Épica)","Ataque Furtivo (10d6)"],
+    20: ["Golpe del Destino","Ataque Furtivo (10d6)"],
+  },
+  "Hechicero": {
+    1:  ["Origen Sobrenatural (subclase)","Lanzamiento de Conjuros","Fuente Innata"],
+    2:  ["Puntos de Hechicería (2)","Metamagia"],
+    3:  ["Metamagia (segunda opción)"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  [],
+    6:  ["Rasgo de Origen Sobrenatural"],
+    7:  [],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  [],
+    10: ["Metamagia (tercera opción)"],
+    11: [],
+    12: ["Mejora de Puntuación de Característica"],
+    13: [],
+    14: ["Rasgo de Origen Sobrenatural"],
+    15: [],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Metamagia (cuarta opción)"],
+    18: ["Rasgo de Origen Sobrenatural"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Poder Sobrenatural Épico"],
+  },
+  "Brujo": {
+    1:  ["Patrón Extraplanar (subclase)","Magia del Patrón","Invocaciones Oscuras (1)"],
+    2:  ["Invocaciones Oscuras (2)"],
+    3:  ["Favor del Patrón (Pacto)","Invocaciones Oscuras (2)"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Invocaciones Oscuras (3)"],
+    6:  ["Rasgo del Patrón Extraplanar"],
+    7:  ["Invocaciones Oscuras (4)"],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  ["Invocaciones Oscuras (5)"],
+    10: ["Rasgo del Patrón Extraplanar"],
+    11: ["Conjuro Místico (nivel 6)","Invocaciones Oscuras (5)"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Conjuro Místico (nivel 7)","Invocaciones Oscuras (6)"],
+    14: ["Rasgo del Patrón Extraplanar"],
+    15: ["Conjuro Místico (nivel 8)","Invocaciones Oscuras (6)"],
+    16: ["Mejora de Puntuación de Característica"],
+    17: ["Conjuro Místico (nivel 9)","Invocaciones Oscuras (7)"],
+    18: ["Invocaciones Oscuras (8)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Magia Evocada"],
+  },
+  "Mago": {
+    1:  ["Lanzamiento de Conjuros","Recuperación Arcana"],
+    2:  ["Tradición Arcana (subclase)"],
+    3:  [],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  [],
+    6:  ["Rasgo de Tradición Arcana"],
+    7:  [],
+    8:  ["Mejora de Puntuación de Característica"],
+    9:  [],
+    10: ["Rasgo de Tradición Arcana"],
+    11: [],
+    12: ["Mejora de Puntuación de Característica"],
+    13: [],
+    14: ["Rasgo de Tradición Arcana"],
+    15: [],
+    16: ["Mejora de Puntuación de Característica"],
+    17: [],
+    18: ["Dominio de Conjuros (nivel 1 y 2 sin ranura)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Firma de Conjuros"],
+  },
+  "Artificiero": {
+    1:  ["Conocimiento Mágico","Concentración en Herramientas"],
+    2:  ["Infusiones Arcanas (2 ítems, 4 recetas)"],
+    3:  ["Especialidad de Artificiero (subclase)","El Arma Correcta"],
+    4:  ["Mejora de Puntuación de Característica"],
+    5:  ["Ataque Extra","Lanzamiento con Arma de Artificiero"],
+    6:  ["Rasgo de Especialidad","Infusiones (3 ítems, 6 recetas)"],
+    7:  ["Flash de Genialidad"],
+    8:  ["Mejora de Puntuación de Característica","Infusiones (4 ítems, 6 recetas)"],
+    9:  [],
+    10: ["Rasgo de Especialidad","Inteligencia de Magia","Infusiones (4 ítems, 8 recetas)"],
+    11: ["Almacenamiento de Conjuro"],
+    12: ["Mejora de Puntuación de Característica"],
+    13: ["Infusiones (5 ítems, 8 recetas)"],
+    14: ["Rasgo de Especialidad"],
+    15: ["Perfección del Alma"],
+    16: ["Mejora de Puntuación de Característica","Infusiones (5 ítems, 10 recetas)"],
+    17: [],
+    18: ["Rasgo de Especialidad","Infusiones (6 ítems, 10 recetas)"],
+    19: ["Mejora de Puntuación de Característica (Épica)"],
+    20: ["Alma del Artificiero"],
+  },
+};
+
+// ─── Rasgos de Subclase por Nivel (PHB 2024, selección) ──────────────────────
+const RASGOS_SUBCLASE = {
+  // ── Guerrero ──────────────────────────────────────────────────────────────
+  "Campeón": {
+    3: ["Crítico Mejorado (19-20)"],
+    7: ["Atleta Extraordinario (bon. comp./2 a FUE, DES, CON sin comp.)"],
+    10:["Estilo de Combate Adicional"],
+    15:["Crítico Superior (18-20)"],
+    18:["Superviviente (recupera 5+mod CON PG/turno cuando ≤mitad PG máx)"],
+  },
+  "Maestro de Batalla": {
+    3: ["Maniobras de Combate (4 elegidas, CD=8+prof+FUE/DES)","Dados de Superioridad (4d8)"],
+    7: ["Maniobras Adicionales","Dados de Superioridad (5d8)","Conocer el Enemigo"],
+    10:["Maniobras Adicionales","Dados de Superioridad (5d10)","Versatilidad"],
+    15:["Maniobras Adicionales","Dados de Superioridad (6d10)"],
+    18:["Implacable (recupera 1 DS si no tienes al inicio del combate)","Dados de Superioridad (6d12)"],
+  },
+  "Caballero Arcano": {
+    3: ["Lanzamiento de Conjuros (Abjuración+Evocación)","Vínculo con Arma"],
+    7: ["Golpe de Guerra"],
+    10:["Conjuro de Eldritch","Vínculo con Arma Adicional"],
+    15:["Carga Arcana"],
+    18:["Maestría en Conjuros Mejorada"],
+  },
+  // ── Pícaro ────────────────────────────────────────────────────────────────
+  "Ladrón": {
+    3: ["Manos Rápidas (bonus: Usar Objeto/Usar Herramientas de Ladrón)","Escalador Ágil (+3 m al trepar, ambas manos libres en pared)"],
+    9: ["Influencia del Ladrón Supremo (acción bonus en turno de otro)"],
+    13:["Utilizar Objetos Mágicos"],
+    17:["Reflejos de Ladrón (2 reacciones/ronda)"],
+  },
+  "Asesino": {
+    3: ["Asesino","Infiltrado"],
+    9: ["Impostora"],
+    13:["Matar en Silencio"],
+    17:["Muerte en un Abrir y Cerrar de Ojos"],
+  },
+  "Embaucador Arcano": {
+    3: ["Lanzamiento de Conjuros (Encantamiento+Ilusión)","Mano Tramposa del Mago","Hurto Mágico"],
+    9: ["Trampas Mágicas"],
+    13:["Ladrón de Versátil"],
+    17:["Cuerpo y Alma"],
+  },
+  // ── Mago ──────────────────────────────────────────────────────────────────
+  "Escuela de Evocación": {
+    2: ["Magia Esculpida","Canalizador de Evocación"],
+    6: ["Evocación Potenciada (relanzar daño, hasta bon. INT veces)"],
+    10:["Evocación Empoderada (añade bon. INT a tiradas de daño)"],
+    14:["Sobreevocación"],
+  },
+  "Escuela de Abjuración": {
+    2: ["Magia de Abjuración","Escudo Arcano (2+nivel/2 PG temp por nivel de conjuro)"],
+    6: ["Conjuración Proyectada"],
+    10:["Purificación de Mejoras"],
+    14:["Resistencia de Daño Mágico"],
+  },
+  "Escuela de Ilusión": {
+    2: ["Ilusionista Mejorado","Sombras Maleables"],
+    6: ["Visión Ilusoria"],
+    10:["Ilusión Maleable"],
+    14:["Doble Ilusorio"],
+  },
+  // ── Clérigo ───────────────────────────────────────────────────────────────
+  "Dominio de la Vida": {
+    1: ["Sanador de Armas Pesadas","Conjuros de Dominio de Vida"],
+    2: ["Preservar la Vida (Canalizar Divinidad)"],
+    6: ["Curación Bendita (+bon. SAB a curaciones)"],
+    8: ["Golpe Divino (1d8 radiante)"],
+    17:["Curación Suprema (máximo en dados de curación)"],
+  },
+  "Dominio de la Luz": {
+    1: ["Lengua de Llamas","Conjuros de Dominio de Luz"],
+    2: ["Luz Radiante (Canalizar Divinidad)"],
+    6: ["Destello Mejorado"],
+    8: ["Golpe Divino (1d8 fuego)"],
+    17:["Corona de Luz"],
+  },
+  "Dominio de la Guerra": {
+    1: ["Competencia con Armas y Armaduras de Guerrero","Conjuros de Dominio de Guerra"],
+    2: ["Golpe Divino (Canalizar Divinidad)"],
+    6: ["Dios de la Guerra (Ataque Extra)"],
+    8: ["Golpe Divino (1d8 tipo daño arma)"],
+    17:["Avatar de la Batalla (resistencia a golpe/filo/perforante no mágico)"],
+  },
+  // ── Druida ────────────────────────────────────────────────────────────────
+  "Círculo de la Luna": {
+    2: ["Forma de la Luna (CR 1, acceso a elementales)","Guardianes de la Noche"],
+    6: ["Forma Primaria Elemental"],
+    10:["Forma de la Luna Mejorada (CR=nivel/3)"],
+    14:["La Bestia en la Luna"],
+  },
+  "Círculo de la Tierra": {
+    2: ["Recuperación Natural","Conjuros del Círculo (bioma)"],
+    6: ["Paso por la Tierra"],
+    10:["Mente de la Naturaleza"],
+    14:["Santuario de la Tierra"],
+  },
+  // ── Brujo ─────────────────────────────────────────────────────────────────
+  "El Gran Anciano": {
+    1: ["Telepathy Expandida","Conjuros del Gran Anciano"],
+    6: ["Mente Defendida"],
+    10:["Telepatía Transmutadora"],
+    14:["Crear Familiar Aberración"],
+  },
+  "El Diablo": {
+    1: ["Lengua oscura del Diablo","Conjuros del Diablo"],
+    6: ["Suerte del Diablo (sumar CAR a TDE 1/descanso)"],
+    10:["Intimidación Infernal"],
+    14:["Exigir Alma (dominar monstruo)"],
+  },
+  // ── Bárbaro ───────────────────────────────────────────────────────────────
+  "Camino del Berserker": {
+    3: ["Frenesí (rabia: bonus ataque; agotamiento 1 al acabar)"],
+    6: ["Presencia Intimidante (Intimidación como bonus durante rabia)"],
+    10:["Represalia (al ser dañado, bonus de ataque)"],
+    14:["Matador (irrumpir en Frenesí sin agotamiento 1/descanso largo)"],
+  },
+  "Camino del Totem": {
+    3: ["Guía de Espíritu","Tótem del Guerrero (oso/águila/lobo)"],
+    6: ["Aspecto del Bestia"],
+    10:["Caminante de Espíritu"],
+    14:["Tótem de Ataque"],
+  },
+  // ── Paladín ───────────────────────────────────────────────────────────────
+  "Juramento de Devoción": {
+    3: ["Armas Sagradas (Canalizar Divinidad)","Arma Sagrada (Canalizar Divinidad)","Conjuros de Juramento"],
+    7: ["Aura de Devoción (aliados inmunes a Encantado en 3 m durante rabia)"],
+    15:["Pureza del Espíritu"],
+    20:["Forma de Paladín Santo"],
+  },
+  "Juramento de los Vengadores": {
+    3: ["Marca del Vengador (Canalizar Divinidad)","Conjuros de Juramento"],
+    7: ["Aura de la Ira (aliados +bon. SAB a daño de arma)"],
+    15:["Alma del Vengador"],
+    20:["Ángel de la Ira"],
+  },
+  // ── Bardo ─────────────────────────────────────────────────────────────────
+  "Colegio del Saber": {
+    3: ["Palabras Cortantes (Usar Inspiración Bárdica para reducir tirada enemigo)","Habilidades Adicionales"],
+    6: ["Secretos Mágicos Adicionales (nivel 6)"],
+    14:["Conocimiento Peerless (añadir 1d6 a habilidades propias)"],
+  },
+  "Colegio del Valor": {
+    3: ["Competencias de Combate","Inspiración de Combate"],
+    6: ["Ataque Extra"],
+    14:["Magia en Combate"],
+  },
+  // ── Monje ─────────────────────────────────────────────────────────────────
+  "Tradición de la Mano Abierta": {
+    3: ["Técnicas de la Mano Abierta (empuje, derribo o negar reacción en Aguacero)"],
+    6: ["Totalidad del Cuerpo (curar bon. ki × SAB PG como acción)"],
+    11:["Paz Tranquila (vacío durante movimiento, evita AO)"],
+    17:["Palma de Temblor (3 ki; mata o inflige 10d10 necrótico diferido)"],
+  },
+  "Tradición de las Cuatro Estaciones": {
+    3: ["Elemental Discipline (ki para conjuros elementales básicos)"],
+    6: ["Golpes Elementales (ki extra en Aguacero para daño elemental)"],
+    11:["Zancada del Viento (vuelo temporal)"],
+    17:["Avatar del Elemento"],
+  },
+  // ── Hechicero ─────────────────────────────────────────────────────────────
+  "Origen Dracónico": {
+    1: ["Linaje Dracónico (tipo de daño)","Resistencia Dracónica (CA=13+DES sin armadura, PG extra)"],
+    6: ["Afinidad Elemental (bono con tipo daño linaje)"],
+    14:["Alas Dracónicas"],
+    18:["Presencia Dracónica (Aterrar o Fascinar)"],
+  },
+  "Alma Silvestre": {
+    1: ["Magia Salvaje Expandida","Oleada de Magia Salvaje (también en conjuros nivel 1+)"],
+    6: ["Sobreimpulso Controlado"],
+    14:["Magia Salvaje Controlada"],
+    18:["Pozo de Poder"],
+  },
+  // ── Explorador ────────────────────────────────────────────────────────────
+  "Cazador": {
+    3: ["Presa del Cazador (Matar a Hordas / Defensa Colosal / Luchador Coloso)"],
+    7: ["Tácticas Defensivas"],
+    11:["Multiataque"],
+    15:["Voluntad Superior"],
+  },
+  "Bestia del Bosque": {
+    3: ["Compañero Bestia","Vínculo de Bestia"],
+    7: ["Protector de la Bestia"],
+    11:["Mente de Bestia"],
+    15:["Compartir Conjuros"],
+  },
+  // ── Artificiero ───────────────────────────────────────────────────────────
+  "Artillero": {
+    3: ["Cañón de Eldritch","Artillería Mejorada"],
+    5: ["Cañón Arcano (Ataque Extra con el cañón)"],
+    9: ["Explosivo Arcano"],
+    15:["Maestro de Artillería"],
+  },
+  "Herrero de Batalla": {
+    3: ["Armadura de Batalla (con integración de arma)","Arma de Defensa"],
+    5: ["Arma Adicional de Defensa"],
+    9: ["Arcane Jolt"],
+    15:["Maestro Mejorado"],
+  },
+};
+
 const mkHabMap = () => Object.fromEntries(HABS.map(h => [h.id, false]));
 
 const mkChar = () => ({
@@ -579,6 +1211,7 @@ const mkChar = () => ({
   muerteExito: 0, muerteFallo: 0,
   ataques: [],
   monedas: { pp: 0, po: 0, pe: 0, pa: 0, pc: 0 },
+  armas: [], armaduras: [],
   equipo: "", proficiencias: "", lenguas: "", rasgosEspeciales: "",
   conjAttr: "", cdConjuro: "", bonusAtaqueConjuro: "",
   conjuros: [],
@@ -1245,32 +1878,75 @@ function TabCombate({ char, u }) {
           En 2024 obtienes una dote de trasfondo al nivel 1, y más en niveles de mejora de característica.
         </div>
         <div style={{ display: "grid", gap: 8, marginBottom: 10 }}>
-          {char.dotes.map((d, i) => (
-            <div key={i} style={{
-              background: P.surface, border: `1px solid ${P.border}`,
-              borderRadius: 5, padding: 10, display: "grid",
-              gridTemplateColumns: "1fr auto", gap: 8, alignItems: "start",
-            }}>
-              <div style={{ display: "grid", gap: 6 }}>
-                <input value={d.nombre}
-                  onChange={e => u("dotes", char.dotes.map((x, j) => j === i ? { ...x, nombre: e.target.value } : x))}
-                  placeholder="Nombre de la dote"
-                  list="dotes-list"
-                  style={{ ...baseInput, fontWeight: 700, color: P.goldLt }} />
-                <textarea value={d.desc}
-                  onChange={e => u("dotes", char.dotes.map((x, j) => j === i ? { ...x, desc: e.target.value } : x))}
-                  placeholder="Descripción del beneficio..."
-                  rows={2}
-                  style={{ ...baseInput, resize: "vertical", lineHeight: 1.5, fontSize: 13 }} />
+          {char.dotes.map((d, i) => {
+            const dataDote = DATOS_DOTE[d.nombre] || null;
+            const descAuto = dataDote ? dataDote.desc : "";
+            const asiInfo  = dataDote ? dataDote.asi : null;
+            return (
+              <div key={i} style={{
+                background: P.surface, border: `1px solid ${P.border}`,
+                borderRadius: 5, padding: 10, display: "grid",
+                gridTemplateColumns: "1fr auto", gap: 8, alignItems: "start",
+              }}>
+                <div style={{ display: "grid", gap: 6 }}>
+                  <input value={d.nombre}
+                    onChange={e => {
+                      const nombre = e.target.value;
+                      const datos = DATOS_DOTE[nombre];
+                      u("dotes", char.dotes.map((x, j) => j === i ? { ...x, nombre, desc: datos ? datos.desc : x.desc } : x));
+                    }}
+                    placeholder="Nombre de la dote"
+                    list="dotes-list"
+                    style={{ ...baseInput, fontWeight: 700, color: P.goldLt }} />
+                  {descAuto && (
+                    <div style={{ fontSize: 12, color: P.textDim, lineHeight: 1.5,
+                      background: P.card, borderRadius: 4, padding: "6px 8px",
+                      border: `1px solid ${P.borderDim}` }}>
+                      {descAuto}
+                    </div>
+                  )}
+                  {asiInfo && (
+                    <div style={{ fontSize: 11, color: P.gold, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                      <span style={{ fontWeight: 700 }}>ASI:</span>
+                      {asiInfo.elige ? (
+                        <span>+{asiInfo.elige} a característica elegida
+                          {asiInfo.opciones ? ` (${asiInfo.opciones.map(a => ATTR_CORTO[a]).join("/")})` : ""}
+                        </span>
+                      ) : (
+                        Object.entries(asiInfo).map(([a, v]) =>
+                          <span key={a}>{ATTR_NOMBRE[a] || a} +{v}</span>
+                        )
+                      )}
+                      {ATTRS.filter(a => asiInfo[a]).map(a => (
+                        <div key={a} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                          <span>{ATTR_CORTO[a]}</span>
+                          <Num value={d.asi?.[a] || 0}
+                            onChange={v => {
+                              const newAsi = { ...(d.asi || {}), [a]: v };
+                              u("dotes", char.dotes.map((x, j) => j === i ? { ...x, asi: newAsi } : x));
+                            }}
+                            min={0} max={asiInfo[a]}
+                            style={{ width: 50, textAlign: "center" }} />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <textarea value={d.desc}
+                    onChange={e => u("dotes", char.dotes.map((x, j) => j === i ? { ...x, desc: e.target.value } : x))}
+                    placeholder={descAuto ? "Notas adicionales..." : "Descripción del beneficio..."}
+                    rows={descAuto ? 1 : 2}
+                    style={{ ...baseInput, resize: "vertical", lineHeight: 1.5, fontSize: 12,
+                      color: P.textDim }} />
+                </div>
+                <button
+                  onClick={() => u("dotes", char.dotes.filter((_, j) => j !== i))}
+                  style={{ background: "transparent", border: "none",
+                    color: P.crimsonLt, cursor: "pointer", fontSize: 18, lineHeight: 1, padding: 0 }}>
+                  ✕
+                </button>
               </div>
-              <button
-                onClick={() => u("dotes", char.dotes.filter((_, j) => j !== i))}
-                style={{ background: "transparent", border: "none",
-                  color: P.crimsonLt, cursor: "pointer", fontSize: 18, lineHeight: 1, padding: 0 }}>
-                ✕
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <Btn onClick={() => u("dotes", [...char.dotes, { nombre: "", desc: "" }])} variant="gold">
           + Añadir dote
@@ -1283,12 +1959,66 @@ function TabCombate({ char, u }) {
         </div>
       </Card>
 
-      {/* Rasgos especiales */}
+      {/* Rasgos de Clase (automáticos) */}
       <Card>
-        <SecTitle>Rasgos de Especie y Clase</SecTitle>
-        <Ta value={char.rasgosEspeciales}
-          onChange={v => u("rasgosEspeciales", v)}
-          placeholder="Describe rasgos de especie, habilidades de clase, etc." rows={5} />
+        <SecTitle>Rasgos de Clase y Subclase</SecTitle>
+        {char.progresion.filter(p => p.clase).length === 0 ? (
+          <div style={{ fontSize: 12, color: P.textDim }}>Añade clases en la pestaña Personaje para ver los rasgos automáticamente.</div>
+        ) : (
+          char.progresion.filter(p => p.clase).map((prog, pi) => {
+            const claseFeat = RASGOS_CLASE[prog.clase] || {};
+            const subFeat   = prog.subclase ? (RASGOS_SUBCLASE[prog.subclase] || {}) : {};
+            // Reunir todos los niveles del 1 al nivel actual de esta clase
+            const filas = [];
+            for (let nv = 1; nv <= (prog.niveles || 1); nv++) {
+              const cRasgos = claseFeat[nv] || [];
+              const sRasgos = subFeat[nv]   || [];
+              if (cRasgos.length || sRasgos.length) {
+                filas.push({ nv, cRasgos, sRasgos });
+              }
+            }
+            return (
+              <div key={pi} style={{ marginBottom: pi < char.progresion.filter(p=>p.clase).length-1 ? 14 : 0 }}>
+                <div style={{ fontSize: 13, fontFamily: "Cinzel, serif", color: P.gold,
+                  fontWeight: 700, marginBottom: 6, borderBottom: `1px solid ${P.borderDim}`, paddingBottom: 4 }}>
+                  {prog.clase} (Nv. {prog.niveles || 1})
+                  {prog.subclase ? <span style={{ color: P.goldLt, fontWeight: 400, fontSize: 12 }}> · {prog.subclase}</span> : null}
+                </div>
+                <div style={{ display: "grid", gap: 4 }}>
+                  {filas.map(({ nv, cRasgos, sRasgos }) => (
+                    <div key={nv} style={{ display: "grid", gridTemplateColumns: "32px 1fr", gap: 6, alignItems: "start" }}>
+                      <div style={{ fontSize: 10, color: P.textDim, fontFamily: "Cinzel, serif",
+                        background: P.surface, borderRadius: 3, textAlign: "center", padding: "2px 0", marginTop: 2 }}>
+                        {nv}
+                      </div>
+                      <div style={{ fontSize: 12, lineHeight: 1.6 }}>
+                        {cRasgos.map((r, ri) => (
+                          <span key={ri} style={{ color: P.text }}>
+                            {ri > 0 && <span style={{ color: P.textDim }}> · </span>}{r}
+                          </span>
+                        ))}
+                        {sRasgos.map((r, ri) => (
+                          <span key={"s"+ri} style={{ color: P.goldLt }}>
+                            {(cRasgos.length > 0 || ri > 0) && <span style={{ color: P.textDim }}> · </span>}{r}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  {filas.length === 0 && (
+                    <div style={{ fontSize: 12, color: P.textDim }}>Sin rasgos registrados para estos niveles.</div>
+                  )}
+                </div>
+              </div>
+            );
+          })
+        )}
+        <div style={{ marginTop: 10, borderTop: `1px solid ${P.borderDim}`, paddingTop: 8 }}>
+          <div style={{ fontSize: 11, color: P.textDim, marginBottom: 4 }}>Rasgos de especie y notas adicionales:</div>
+          <Ta value={char.rasgosEspeciales}
+            onChange={v => u("rasgosEspeciales", v)}
+            placeholder="Rasgos de especie, habilidades especiales, notas..." rows={3} />
+        </div>
       </Card>
     </div>
   );
@@ -1611,6 +2341,9 @@ function TabConjuros({ char, u }) {
 // ─── Pestaña: Equipo ──────────────────────────────────────────────────────────
 
 function TabEquipo({ char, u, un }) {
+  const [nuevoArma, setNuevoArma] = useState("");
+  const [nuevaArmadura, setNuevaArmadura] = useState("");
+
   const monedas = [
     { k: "pp", label: "Platino",  color: "#d0d8e8" },
     { k: "po", label: "Oro",      color: P.gold },
@@ -1618,6 +2351,25 @@ function TabEquipo({ char, u, un }) {
     { k: "pa", label: "Plata",    color: "#c0c0c0" },
     { k: "pc", label: "Cobre",    color: "#c87838" },
   ];
+
+  const addArma = () => {
+    const base = ARMAS_DB.find(a => a.nombre === nuevoArma);
+    if (!base) return;
+    u("armas", [...(char.armas || []), { ...base, bonus: 0, notas: "" }]);
+    setNuevoArma("");
+  };
+
+  const addArmadura = () => {
+    const base = ARMADURAS_DB.find(a => a.nombre === nuevaArmadura);
+    if (!base) return;
+    u("armaduras", [...(char.armaduras || []), { ...base, bonus: 0, equipada: false }]);
+    setNuevaArmadura("");
+  };
+
+  const thStyle = { fontSize: 10, color: P.textDim, fontFamily: "Cinzel, serif",
+    textTransform: "uppercase", letterSpacing: "0.06em", padding: "4px 6px",
+    borderBottom: `1px solid ${P.borderDim}`, textAlign: "left" };
+  const tdStyle = { fontSize: 12, padding: "5px 6px", borderBottom: `1px solid ${P.borderDim}` };
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -1638,11 +2390,145 @@ function TabEquipo({ char, u, un }) {
         </div>
       </Card>
 
+      {/* Armas */}
+      <Card>
+        <SecTitle>Armas</SecTitle>
+        {(char.armas || []).length > 0 && (
+          <div style={{ overflowX: "auto", marginBottom: 10 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Arma</th>
+                  <th style={thStyle}>Daño</th>
+                  <th style={thStyle}>Tipo</th>
+                  <th style={thStyle}>Propiedades</th>
+                  <th style={thStyle}>Maestría</th>
+                  <th style={{ ...thStyle, width: 60 }}>Bon. mág.</th>
+                  <th style={{ ...thStyle, width: 30 }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {(char.armas || []).map((a, i) => (
+                  <tr key={i} style={{ background: i % 2 === 0 ? P.surface : "transparent" }}>
+                    <td style={{ ...tdStyle, fontWeight: 700, color: P.goldLt }}>{a.nombre}</td>
+                    <td style={tdStyle}>{a.dano}</td>
+                    <td style={{ ...tdStyle, fontSize: 10, color: P.textDim }}>
+                      {a.cat === "marcial" ? "Marcial" : "Simple"} {a.tipo === "melee" ? "CaC" : "Dist."}
+                    </td>
+                    <td style={{ ...tdStyle, fontSize: 11, color: P.textDim }}>{a.props}</td>
+                    <td style={{ ...tdStyle, fontSize: 11, color: P.gold }}>{a.maestria}</td>
+                    <td style={tdStyle}>
+                      <Num value={a.bonus || 0}
+                        onChange={v => u("armas", (char.armas||[]).map((x,j) => j===i ? {...x, bonus:v} : x))}
+                        min={0} max={3}
+                        style={{ width: 50, textAlign: "center" }} />
+                    </td>
+                    <td style={tdStyle}>
+                      <button onClick={() => u("armas", (char.armas||[]).filter((_,j) => j!==i))}
+                        style={{ background: "transparent", border: "none", color: P.crimsonLt,
+                          cursor: "pointer", fontSize: 16, lineHeight: 1, padding: 0 }}>✕</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <select value={nuevoArma} onChange={e => setNuevoArma(e.target.value)}
+            style={{ ...baseInput, flex: 1 }}>
+            <option value="">— Seleccionar arma —</option>
+            <optgroup label="Simples">
+              {ARMAS_DB.filter(a => a.cat === "simple").map(a => (
+                <option key={a.nombre} value={a.nombre}>{a.nombre} ({a.dano})</option>
+              ))}
+            </optgroup>
+            <optgroup label="Marciales">
+              {ARMAS_DB.filter(a => a.cat === "marcial").map(a => (
+                <option key={a.nombre} value={a.nombre}>{a.nombre} ({a.dano})</option>
+              ))}
+            </optgroup>
+          </select>
+          <Btn onClick={addArma} variant="gold" disabled={!nuevoArma}>+ Añadir</Btn>
+        </div>
+      </Card>
+
+      {/* Armaduras */}
+      <Card>
+        <SecTitle>Armaduras y Escudos</SecTitle>
+        {(char.armaduras || []).length > 0 && (
+          <div style={{ overflowX: "auto", marginBottom: 10 }}>
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead>
+                <tr>
+                  <th style={thStyle}>Armadura</th>
+                  <th style={thStyle}>Tipo</th>
+                  <th style={thStyle}>CA base</th>
+                  <th style={{ ...thStyle, width: 60 }}>Bon. mág.</th>
+                  <th style={{ ...thStyle, width: 70 }}>Equipada</th>
+                  <th style={{ ...thStyle, width: 30 }}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {(char.armaduras || []).map((arm, i) => (
+                  <tr key={i} style={{ background: i % 2 === 0 ? P.surface : "transparent" }}>
+                    <td style={{ ...tdStyle, fontWeight: 700, color: P.goldLt }}>{arm.nombre}</td>
+                    <td style={{ ...tdStyle, fontSize: 11, color: P.textDim }}>{arm.tipo}</td>
+                    <td style={tdStyle}>{arm.caBase}{arm.bonus > 0 ? ` +${arm.bonus}` : ""}</td>
+                    <td style={tdStyle}>
+                      <Num value={arm.bonus || 0}
+                        onChange={v => u("armaduras", (char.armaduras||[]).map((x,j) => j===i ? {...x, bonus:v} : x))}
+                        min={0} max={3}
+                        style={{ width: 50, textAlign: "center" }} />
+                    </td>
+                    <td style={{ ...tdStyle, textAlign: "center" }}>
+                      <input type="checkbox" checked={arm.equipada || false}
+                        onChange={e => u("armaduras", (char.armaduras||[]).map((x,j) => j===i ? {...x, equipada:e.target.checked} : x))}
+                        style={{ accentColor: P.gold, width: 16, height: 16 }} />
+                    </td>
+                    <td style={tdStyle}>
+                      <button onClick={() => u("armaduras", (char.armaduras||[]).filter((_,j) => j!==i))}
+                        style={{ background: "transparent", border: "none", color: P.crimsonLt,
+                          cursor: "pointer", fontSize: 16, lineHeight: 1, padding: 0 }}>✕</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {(char.armaduras||[]).some(a => a.equipada && a.tipo !== "Escudo") && (
+              <div style={{ fontSize: 11, color: P.gold, marginTop: 4 }}>
+                CA activa: {(() => {
+                  const equipadas = (char.armaduras||[]).filter(a => a.equipada);
+                  const arm = equipadas.find(a => a.tipo !== "Escudo");
+                  const escudo = equipadas.find(a => a.tipo === "Escudo");
+                  if (!arm) return char.ca || "—";
+                  return `${arm.caBase}${arm.bonus > 0 ? ` +${arm.bonus} mág.` : ""}${escudo ? ` + escudo (+2${escudo.bonus > 0 ? ` +${escudo.bonus}` : ""})` : ""}`;
+                })()}
+              </div>
+            )}
+          </div>
+        )}
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <select value={nuevaArmadura} onChange={e => setNuevaArmadura(e.target.value)}
+            style={{ ...baseInput, flex: 1 }}>
+            <option value="">— Seleccionar armadura —</option>
+            {["Ligera","Media","Pesada","Escudo"].map(tipo => (
+              <optgroup key={tipo} label={tipo}>
+                {ARMADURAS_DB.filter(a => a.tipo === tipo).map(a => (
+                  <option key={a.nombre} value={a.nombre}>{a.nombre} ({a.caBase})</option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+          <Btn onClick={addArmadura} variant="gold" disabled={!nuevaArmadura}>+ Añadir</Btn>
+        </div>
+      </Card>
+
       <Card>
         <SecTitle>Equipo y Objetos</SecTitle>
         <Ta value={char.equipo} onChange={v => u("equipo", v)}
-          placeholder={"Armadura de cuero (+1 CA)\nEspada corta (1d6 perforante, Finura, Ligera)\nPack de aventurero\n..."}
-          rows={10} />
+          placeholder={"Pack de aventurero\nCuerda de cáñamo (15 m)\nAntorcha × 10\nRaciones × 5 días\n..."}
+          rows={8} />
       </Card>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
