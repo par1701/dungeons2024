@@ -132,21 +132,21 @@ const TRASFONDOS = [
   "Personalizado",
   // ── PHB 2024 ──────────────────────────────────────────
   "Acólito",
+  "Animador",
   "Artesano",
+  "Campesino",
   "Charlatán",
+  "Comerciante",
   "Criminal",
-  "Entretenido",
   "Ermitaño",
+  "Erudito",
   "Escriba",
-  "Granjero",
   "Guardia",
   "Guía",
   "Marinero",
-  "Mercader",
   "Noble",
-  "Sabio",
   "Soldado",
-  "Viajero",
+  "Vagabundo",
   // ── Sword Coast Adventurer's Guide ────────────────────
   "Artesano del Clan",
   "Ciudad Vigilante",
@@ -162,6 +162,40 @@ const TRASFONDOS = [
   "Viajero Lejano",
   // ── Xanathar's Guide to Everything ───────────────────
   "Secuaz del Crimen Organizado",
+  // ── Ravenloft: Horrors Within ─────────────────────────
+  "El Acosado",
+  "Errante de la Niebla",
+  "Investigador (Ravenloft)",
+  "Médium Espiritual",
+  // ── Eberron: La Forja del Artífice ───────────────────
+  "Heredero Aberrante",
+  "Arqueólogo",
+  "Agente de la Casa",
+  "Heredero de la Casa Cannith",
+  "Heredero de la Casa Deneith",
+  "Heredero de la Casa Ghallanda",
+  "Heredero de la Casa Jorasco",
+  "Heredero de la Casa Kundarak",
+  "Heredero de la Casa Lyrandar",
+  "Heredero de la Casa Medani",
+  "Heredero de la Casa Mrorrannar",
+  "Heredero de la Casa Orien",
+  "Heredero de la Casa Phiarlan",
+  "Heredero de la Casa Sivis",
+  "Heredero de la Casa Tharashk",
+  "Heredero de la Casa Thuranni",
+  "Heredero de la Casa Vadalis",
+  // ── Arcana Unleashed ──────────────────────────────────
+  "Agente del Noveno Plumón",
+  "Aprendiz Vidente",
+  "Cazador de Tormentas del Crisol",
+  "Entrenador de Familiar",
+  "Espía del Conclave Enjoyado",
+  "Experimento del Alba Cósmica",
+  "Iniciado de los Tejedores del Horizonte",
+  "Pupilo de las Manos Protectoras",
+  "Recluta del Pacto de la Tumba",
+  "Troupero del Circo Fantasmático",
 ];
 const ALINEAMIENTOS = ["Legal Bueno","Neutral Bueno","Caótico Bueno","Legal Neutral","Neutral Verdadero","Caótico Neutral","Legal Malvado","Neutral Malvado","Caótico Malvado"];
 const DADO_CLASE = {
@@ -211,6 +245,7 @@ const SUBCLASES = {
     "Colegio de la Elocuencia",
     "Colegio de las Espadas",
     "Colegio de los Susurros",
+    "Colegio de los Espíritus",  // Ravenloft: Horrors Within
   ],
   "Brujo": [
     "✦ Patrón del Gran Antiguo",
@@ -221,6 +256,8 @@ const SUBCLASES = {
     "Patrón del Genio",
     "Patrón del Hundido",
     "Patrón de la Entidad del Más Allá",
+    "Patrón No Muerto",   // Ravenloft: Horrors Within
+    "Patrón Vestigio",    // Arcana Unleashed
   ],
   "Clérigo": [
     "✦ Dominio de la Vida",
@@ -255,6 +292,7 @@ const SUBCLASES = {
     "✦ Conclave del Merodeador del Crepúsculo",
     "Conclave del Explorador del Horizonte",
     "Conclave del Navegante Místico",
+    "Guardián Hueco",    // Ravenloft: Horrors Within
   ],
   "Guerrero": [
     "✦ Maestro de Batalla",
@@ -265,6 +303,7 @@ const SUBCLASES = {
     "Caballero del Eco",
     "Caballero Púrpura",
     "Samurái",
+    "Arquero Arcano",    // Arcana Unleashed
   ],
   "Hechicero": [
     "✦ Linaje Dracónico",
@@ -275,6 +314,7 @@ const SUBCLASES = {
     "Alma del Crepúsculo",
     "Corazón de Fuego",
     "Magia Divina",
+    "Magia de las Sombras",  // Ravenloft: Horrors Within
   ],
   "Mago": [
     "✦ Escuela de Abjuración",
@@ -289,6 +329,10 @@ const SUBCLASES = {
     "Tradición del Orden de los Escribas",
     "Cronurgia",
     "Graviturgia",
+    "Conjurador",        // Arcana Unleashed
+    "Encantador",        // Arcana Unleashed
+    "Nigromante",        // Arcana Unleashed
+    "Transmutador",      // Arcana Unleashed
   ],
   "Monje": [
     "✦ Tradición del Puño Abierto",
@@ -299,6 +343,7 @@ const SUBCLASES = {
     "Tradición del Alma Ebria",
     "Tradición del Sol",
     "Tradición del Puño Largo",
+    "Guerrero de las Artes Místicas",  // Arcana Unleashed
   ],
   "Paladín": [
     "✦ Juramento de Devoción",
@@ -326,6 +371,8 @@ const SUBCLASES = {
     "Artillero",
     "Armero",
     "Herrero de Batalla",
+    "Cartógrafo",          // Eberron: La Forja del Artífice
+    "Reanimador",          // Ravenloft: Horrors Within
   ],
 };
 
@@ -397,6 +444,7 @@ const DOTES_PHB = [
   "Lucha a ciegas",
   "Protección",
   "Tiro con arco",
+  "Guerrero Arcano",   // Arcana Unleashed — estilo de combate
   // ── Dones épicos (nivel 19+) ──────────────────────────
   "★ Don de la fortaleza",
   "★ Don de la habilidad",
@@ -410,6 +458,49 @@ const DOTES_PHB = [
   "★ Don del espíritu de la noche",
   "★ Don del recuerdo de conjuros",
   "★ Don del viaje dimensional",
+  "★ Don de la Potencia de Conjuro Eruptiva",  // Arcana Unleashed
+  "★ Don del Dominio de Escuela de Magia",     // Arcana Unleashed
+  "★ Don de la Mente de Hierro",               // Arcana Unleashed
+  // ── Dotes de origen — Ravenloft: Horrors Within ───────
+  "✦ Ojo Agudo",       // Sharp Eye
+  "✦ Superviviente",   // Survivor
+  // ── Dotes de origen — Arcana Unleashed ───────────────
+  "✦ Artista Arcano",
+  "✦ Elocuencia Arcana",
+  "✦ Infiltrador Arcano",
+  "✦ Presagios Arcanos",
+  "✦ Sobrecarga Arcana",
+  "✦ Salvaguarda Arcana",
+  "✦ Sepulturero Arcano",
+  "✦ Amigo Familiar",
+  "✦ Saltador de Portal",
+  "✦ Anatomía Transmutada",
+  // ── Dones Oscuros — Ravenloft: Horrors Within ─────────
+  // (alternativa a dotes de Origen; concedidos por trasfondo o el DM)
+  "Anatomía Aberrante",
+  "Alma Resonante",
+  "Susurros Reunidos",
+  "Sombra Viviente",
+  "Caminante de la Niebla",
+  "Segunda Piel",
+  "Ser Simbiótico",
+  "Toque de Muerte",
+  "Vigías",
+  // ── Dotes generales — Arcana Unleashed ───────────────
+  "Adepto de Abjuración",
+  "Adepto de Conjuración",
+  "Adepto de Adivinación",
+  "Adepto de Encantamiento",
+  "Adepto de Evocación",
+  "Adepto de Nigromancia",
+  "Adepto de Transmutación",
+  "Familiar Elemental",
+  "Familiar de Otro Mundo",
+  "Familiar Sanador",
+  "Familiar Belicoso",
+  "Conocedor Mágico",
+  "Resistente a la Magia",
+  "Subterfugio de Conjuro",
 ];
 
 // Descripciones mecánicas y ASI de las dotes PHB 2024 (nombres exactos del Manual del Jugador en español)
@@ -515,15 +606,59 @@ const DATOS_TRASFONDO = {
   "Noble":       { asi: ["fue","int","car"], habilidades: ["historia","persuasion"],         herramienta: "Juego de mesa (elige)",             dote: "✦ Habilidoso" },
   "Soldado":     { asi: ["fue","des","con"], habilidades: ["atletismo","intimidacion"],      herramienta: "Juego de mesa (elige)",             dote: "✦ Atacante salvaje" },
   "Vagabundo":   { asi: ["des","sab","car"], habilidades: ["perspicacia","sigilo"],          herramienta: "Herramientas de ladrón",            dote: "✦ Afortunado" },
+  // ── Ravenloft: Horrors Within ──────────────────────────────────────────────────
+  // Los trasfondos Errante de la Niebla y Médium Espiritual otorgan Dones Oscuros en lugar de dotes de origen
+  "El Acosado":           { asi: ["con","int","sab"], habilidades: ["arcanos","supervivencia"],     herramienta: "Herramientas de herbolario",        dote: "✦ Ojo Agudo / Don Oscuro" },
+  "Errante de la Niebla": { asi: ["fue","des","sab"], habilidades: ["atletismo","supervivencia"],   herramienta: "Herramientas de navegante",         dote: "Caminante de la Niebla (Don Oscuro)" },
+  "Investigador (Ravenloft)": { asi: ["des","int","sab"], habilidades: ["perspicacia","investigacion"], herramienta: "Herramientas de ladrón",        dote: "✦ Superviviente / Don Oscuro" },
+  "Médium Espiritual":    { asi: ["des","int","sab"], habilidades: ["arcanos","religion"],          herramienta: "Suministros de calígrafo",          dote: "Susurros Reunidos (Don Oscuro)" },
+  // ── Eberron: La Forja del Artífice ────────────────────────────────────────────
+  // Los trasfondos de Casa Heredera otorgan dotes de Dragonmark en lugar de dotes de origen
+  "Heredero Aberrante":   { asi: ["fue","con","car"], habilidades: ["historia","intimidacion"],     herramienta: "Kit de disfraz",                   dote: "Marca de Dragón Aberrante" },
+  "Arqueólogo":           { asi: ["des","int","sab"], habilidades: ["historia","supervivencia"],    herramienta: "Herramientas de cartógrafo",        dote: "✦ Habilidoso" },
+  "Agente de la Casa":    { asi: ["fue","int","car"], habilidades: ["investigacion","persuasion"],  herramienta: "Herramientas de artesano (elige)",  dote: "✦ Afortunado" },
+  "Heredero de la Casa Cannith":   { asi: ["fue","des","int"], habilidades: ["investigacion","juego_manos"], herramienta: "Herramientas de artesano (elige)", dote: "Marca de Creación" },
+  "Heredero de la Casa Deneith":   { asi: ["fue","con","sab"], habilidades: ["perspicacia","percepcion"],   herramienta: "Juego de mesa (elige)",           dote: "Marca del Centinela" },
+  "Heredero de la Casa Ghallanda": { asi: ["des","sab","car"], habilidades: ["perspicacia","persuasion"],   herramienta: "Herramientas de cocinero",        dote: "Marca de la Hospitalidad" },
+  "Heredero de la Casa Jorasco":   { asi: ["con","sab","car"], habilidades: ["medicina","naturaleza"],      herramienta: "Herramientas de herbolario",      dote: "Marca de la Curación" },
+  "Heredero de la Casa Kundarak":  { asi: ["fue","con","int"], habilidades: ["atletismo","percepcion"],     herramienta: "Herramientas de ladrón",          dote: "Marca del Guardián" },
+  "Heredero de la Casa Lyrandar":  { asi: ["des","con","car"], habilidades: ["acrobacia","percepcion"],     herramienta: "Herramientas de navegante",       dote: "Marca de la Tormenta" },
+  "Heredero de la Casa Medani":    { asi: ["des","int","sab"], habilidades: ["perspicacia","investigacion"],  herramienta: "Kit de disfraz",              dote: "Marca de la Detección" },
+  "Heredero de la Casa Mrorrannar":{ asi: ["fue","con","sab"], habilidades: ["atletismo","intimidacion"],   herramienta: "Herramientas de artesano (elige)", dote: "Marca de la Forja" },
+  "Heredero de la Casa Orien":     { asi: ["fue","des","con"], habilidades: ["atletismo","acrobacia"],      herramienta: "Herramientas de vehículos (terrestres)", dote: "Marca del Paso" },
+  "Heredero de la Casa Phiarlan":  { asi: ["des","sab","car"], habilidades: ["actuacion","engano"],         herramienta: "Instrumento musical (elige)",     dote: "Marca de la Sombra" },
+  "Heredero de la Casa Sivis":     { asi: ["des","int","car"], habilidades: ["historia","persuasion"],      herramienta: "Suministros de calígrafo",        dote: "Marca del Centinela" },
+  "Heredero de la Casa Tharashk":  { asi: ["fue","des","sab"], habilidades: ["investigacion","supervivencia"], herramienta: "Herramientas de navegante",   dote: "Marca del Hallazgo" },
+  "Heredero de la Casa Thuranni":  { asi: ["des","int","car"], habilidades: ["actuacion","sigilo"],         herramienta: "Kit de veneno",                  dote: "Marca de la Sombra" },
+  "Heredero de la Casa Vadalis":   { asi: ["fue","sab","car"], habilidades: ["trato_animales","naturaleza"],  herramienta: "Herramientas de herbolario",  dote: "Marca del Manejo" },
+  // ── Arcana Unleashed ──────────────────────────────────────────────────────────
+  "Agente del Noveno Plumón":         { asi: ["des","int","car"], habilidades: ["arcanos","juego_manos"],     herramienta: "Herramientas de ladrón",          dote: "✦ Infiltrador Arcano" },
+  "Aprendiz Vidente":                 { asi: ["int","sab","car"], habilidades: ["historia","perspicacia"],    herramienta: "Herramientas de navegante",        dote: "✦ Presagios Arcanos" },
+  "Cazador de Tormentas del Crisol":  { asi: ["fue","con","int"], habilidades: ["atletismo","naturaleza"],    herramienta: "Herramientas de soplador de vidrio", dote: "✦ Sobrecarga Arcana" },
+  "Entrenador de Familiar":           { asi: ["con","int","sab"], habilidades: ["trato_animales","arcanos"],  herramienta: "Juego de mesa (elige)",            dote: "✦ Amigo Familiar" },
+  "Espía del Conclave Enjoyado":      { asi: ["des","sab","car"], habilidades: ["engano","percepcion"],       herramienta: "Kit de disfraz",                   dote: "✦ Elocuencia Arcana" },
+  "Experimento del Alba Cósmica":     { asi: ["fue","des","con"], habilidades: ["atletismo","supervivencia"], herramienta: "Herramientas de artesano (elige)", dote: "✦ Anatomía Transmutada" },
+  "Iniciado de los Tejedores del Horizonte": { asi: ["des","con","sab"], habilidades: ["acrobacia","supervivencia"], herramienta: "Herramientas de tejedor",  dote: "✦ Saltador de Portal" },
+  "Pupilo de las Manos Protectoras":  { asi: ["con","sab","car"], habilidades: ["perspicacia","medicina"],    herramienta: "Útiles de cocinero",               dote: "✦ Salvaguarda Arcana" },
+  "Recluta del Pacto de la Tumba":    { asi: ["fue","int","sab"], habilidades: ["historia","medicina"],       herramienta: "Herramientas de herbolario",        dote: "✦ Sepulturero Arcano" },
+  "Troupero del Circo Fantasmático":  { asi: ["des","con","car"], habilidades: ["engano","actuacion"],        herramienta: "Kit de disfraz",                   dote: "✦ Artista Arcano" },
   // Trasfondo personalizado: el jugador elige las 3 características y la dote de origen
   "Personalizado": { asi: [], habilidades: [], herramienta: "(libre)", dote: null },
 };
 
 // Dotes de origen disponibles (para el trasfondo Personalizado)
 const DOTES_ORIGEN = [
+  // PHB 2024
   "✦ Alerta", "✦ Afortunado", "✦ Atacante salvaje", "✦ Duro",
   "✦ Fabricante", "✦ Habilidoso", "✦ Iniciado en la magia",
   "✦ Matón de taberna", "✦ Músico", "✦ Sanador",
+  // Ravenloft: Horrors Within
+  "✦ Ojo Agudo", "✦ Superviviente",
+  // Arcana Unleashed
+  "✦ Artista Arcano", "✦ Elocuencia Arcana", "✦ Infiltrador Arcano",
+  "✦ Presagios Arcanos", "✦ Sobrecarga Arcana", "✦ Salvaguarda Arcana",
+  "✦ Sepulturero Arcano", "✦ Amigo Familiar", "✦ Saltador de Portal",
+  "✦ Anatomía Transmutada",
 ];
 
 // ─── Armas PHB 2024 ───────────────────────────────────────────────────────────
