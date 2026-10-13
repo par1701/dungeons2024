@@ -104,6 +104,11 @@ const ESPECIES = [
   "Hadozee",
   "Plasmoide",
   "Thri-kreen",
+  // ── Ravenloft: Horrors Within ─────────────────────────
+  "Dhampir",
+  "Hexblood",
+  "Lupin",
+  "Renacido (Reborn)",
   // ── Otro ──────────────────────────────────────────────
   "Linaje Personalizado",
   "Otra",
@@ -1353,6 +1358,47 @@ const RASGOS_SUBCLASE = {
     5: ["Arma Adicional de Defensa"],
     9: ["Descarga Arcana"],
     15:["Maestro Mejorado"],
+  },
+  // ── Ravenloft: Horrors Within ──────────────────────────────────────────────
+  "Reanimador": {
+    3: ["Conjuros de Reanimador","Impulso Vital (ampliar Spare the Dying: 1d6+nv PG al objetivo + 2d4 rayo a adyacentes, usos=mod INT)","Herramientas de Reanimador (competencia Utensilios Alquimistas)","Reanimado (compañero no-muerto: CA=10+INT+5×nv, Explosión Mortal 2d4 necrótico, Absorción Rayo)"],
+    5: ["Modificaciones Extrañas (elegir 1 al crear el Reanimado: Conducto Arcano/Ferocidad/Modificación Reanimada)"],
+    9: ["Reanimado Mejorado (Explosión Mortal 4d4, daño necrótico ignora resistencia)","Modificaciones Macabras (elegir 1 más: Hinchado/Escuálido/Húmedo)"],
+    15:["Reanimación Refinada (Raise Dead sin espacio con herramientas; Transferencia de Vida: Reacción para ganar PG del compañero; 3 opciones para Modificaciones Superiores)"],
+  },
+  "Colegio de los Espíritus": {
+    3: ["Susurros Guiadores (Orientación rango 60 ft)","Foco Espiritual (Juego de Mesa/Foco/Vela como foco de conjuro)","Invocar Espíritu (Bonus: dar dado IB y canalizar espíritu aleatorio de la tabla; desencadenar como Acción Mágica)"],
+    6: ["Poderoso Más Allá (1/turno al conjurar: tirar 1d6 y añadir a daño o curación)","Manifestación Espiritual (Spirit Guardians siempre preparado, sin espacio 1/descanso; la mitad de cubierta para aliados en el área si se modifica)"],
+    14:["Canalización Mística (tirar dado de IB dos veces al invocar espíritu, elegir efecto; si coinciden, elegir cualquiera)"],
+  },
+  "Dominio de la Tumba": {
+    3: ["Conjuros de Dominio de la Tumba","Círculo de la Mortalidad (1d4 necrótico extra a criatura sin todos sus PG; Spare the Dying como Acción Bonus; máximo en dados de curación a criatura a 0 PG)","Camino a la Tumba (Canalizar Divinidad: maldecir criatura 30 ft, desventaja en ataque y TS; al acertar el aliado puede romper la maldición para añadir daño necrótico/radiante = nivel)"],
+    6: ["Centinela a las Puertas de la Muerte (Reacción al golpear a ti o aliado Ensangrentado: reducir el daño a la mitad, usos=mod SAB)"],
+    17:["Segadora Divina (Necronomía Mejorada: conjuros de nigromancia nv≤5 o de dominio afectan 2ª criatura; Guardiana de Almas: al morir enemigo a 60 ft, tú o aliado a 60 ft recupera PG=nivel Clérigo, 1/descanso)"],
+  },
+  "Guardián Hueco": {
+    3: ["Conjuros de Guardián Hueco (Golpe Colérico, Alterar Yo, Fuerza Fantasmal, Dominar Bestia, Golpe Viento de Acero)","Cólera de lo Salvaje (Acción Bonus usando Enemigo Favorecido: 1 min, +1 CA (+2 nv 11), Represalia Acechadora, Aura Perturbadora (TS SAB o Aterrorizado))"],
+    7: ["Devorador Hambriento (bono a TS de CON = mod SAB; 1/turno al acertar transformado y Ensangrentado: recuperar 1d10+SAB PG)"],
+    11:["Podredumbre y Violencia (Aura Amenazadora: al fallar TS de Aura, sin recuperar PG ni Reacciones hasta sig. turno; Raíces Estrangulantes: activar maestría Cargada/Lenta adicional al acertar)"],
+    15:["Poder Antiguo (Golpes Ominosos: daño extra=mod Explorador vs Aterrorizado; Cólera Persistente: al caer a 0 PG transformado, PG=2×nivel 1/descanso; Intemporal: Inmunidad a Agotamiento)"],
+  },
+  "Fantasma": {
+    3: ["Lamentos de la Tumba (tras Ataque Furtivo: daño necrótico = ½ dados SA a 2ª criatura a 30 ft, usos=mod DES)","Susurros de los Muertos (en descanso: ganar competencia de habilidad/herramienta de los muertos)","Fichas del Difunto (2 fichas de alma: Toque Mortal/Esencia Vital/Consulta Espiritual; reacción al morir criatura a 30 ft para ganar ficha)","Hablar con los Muertos (sin espacio, mod DES, 1/descanso corto)"],
+    9: ["Forma Fantasmal (Acción Bonus: 10 min, Vuelo 10 ft, ataques con desventaja contra ti, Movimiento Incorpóreo)"],
+    13:["Umbral de la Muerte (Lamento de la Muerte: daño a ambas criaturas; Atracción de la Muerte: al sacar 1 en D20 Test sin fichas, ganar ficha)"],
+    17:["Deambulación Mortífera (Paso de Sombra mejorado; Muerte Fantasmal: al matar criatura, recuperar 1 uso de Lamentos)"],
+  },
+  "Magia de las Sombras": {
+    3: ["Conjuros de Sombra (Perdición, Oscuridad, Infligir Heridas, Paso sin Rastro; nv5: Hambre de Hadar, Silencio; nv7: Invisibilidad Mayor, Asesino Fantasmal; nv9: Plaga, Dominar Persona)","Poder de las Sombras (Visión en la Oscuridad 120 ft + Sentido Ciego 10 ft; en la oscuridad propia visión normal)","Forma de Pavor (Acción Bonus: 1 min, PG temp=1d10+nv, Inmunidad Aterrorizado; 1/turno TS SAB o Aterrorizado; usos=mod CAR)"],
+    6: ["Bestias de Mal Agüero (3 PC: Invocar Bestia como Acción Bonus sin espacio sin concentración opcional 1 min; aliados en 5 ft de bestia: desventaja en TS contra tus conjuros)"],
+    14:["Paso de Sombra (Acción Bonus: teleportar 120 ft entre zonas de luz tenue/oscuridad)"],
+    18:["Forma Umbrosa (con Hechicería Innata: Movimiento Incorpóreo, Resistencia a todo daño salvo Fuerza y Radiante)"],
+  },
+  "Patrón No Muerto": {
+    3: ["Conjuros de No-Muerto (Perdición, Ceguera/Sordera, Fuerza Fantasmal, Visión de la Muerte; nv5: Hablar con Muertos, Invocar No-Muerto; nv7: Invisibilidad Mayor, Asesino Fantasmal; nv9: Concha Anti-vida, Levantar Muertos)","Forma de Pavor (Acción Bonus, 1 min: PG temp=1d10+nv Brujo, Inmunidad Aterrorizado, al acertar forzar TS SAB o Aterrorizado hasta fin sig. turno; usos=mod CAR)"],
+    6: ["Toque de la Tumba (Necrosis Arcana: daño necrótico ignora Resistencia; Necrosis Aterradora: +1 dado daño necrótico en Forma de Pavor; No Necesita Dormir ni ser envenenado/deshidratado)"],
+    10:["Cuerpo Mortal (Resistencia a necrótico; en Forma de Pavor: Inmunidad necrótico; Resurrección Impía: al caer a 0 PG, 2d10+CAR daño necrótico en 30 ft, PG=2×nv Brujo, +1 Agotamiento 1/descanso)"],
+    14:["Forma de Pavor Mejorada (Resistencia a golpe/filo/perforante; Vuelo Fantasmal: vuelo=velocidad, Movimiento Incorpóreo; Lanzamiento Profano: sin componentes V/S/M en conjuros Conjuración/Nigromancia salvo costosos)"],
   },
 };
 
