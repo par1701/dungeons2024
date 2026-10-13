@@ -607,11 +607,11 @@ const DATOS_TRASFONDO = {
   "Soldado":     { asi: ["fue","des","con"], habilidades: ["atletismo","intimidacion"],      herramienta: "Juego de mesa (elige)",             dote: "✦ Atacante salvaje" },
   "Vagabundo":   { asi: ["des","sab","car"], habilidades: ["perspicacia","sigilo"],          herramienta: "Herramientas de ladrón",            dote: "✦ Afortunado" },
   // ── Ravenloft: Horrors Within ──────────────────────────────────────────────────
-  // Los trasfondos Errante de la Niebla y Médium Espiritual otorgan Dones Oscuros en lugar de dotes de origen
-  "El Acosado":           { asi: ["con","int","sab"], habilidades: ["arcanos","supervivencia"],     herramienta: "Herramientas de herbolario",        dote: "✦ Ojo Agudo / Don Oscuro" },
-  "Errante de la Niebla": { asi: ["fue","des","sab"], habilidades: ["atletismo","supervivencia"],   herramienta: "Herramientas de navegante",         dote: "Caminante de la Niebla (Don Oscuro)" },
-  "Investigador (Ravenloft)": { asi: ["des","int","sab"], habilidades: ["perspicacia","investigacion"], herramienta: "Herramientas de ladrón",        dote: "✦ Superviviente / Don Oscuro" },
-  "Médium Espiritual":    { asi: ["des","int","sab"], habilidades: ["arcanos","religion"],          herramienta: "Suministros de calígrafo",          dote: "Susurros Reunidos (Don Oscuro)" },
+  // Ravenloft: Mist Wanderer y Spirit Medium solo ofrecen Dones Oscuros; Haunted One e Investigator permiten elegir entre dote de origen o Don Oscuro
+  "El Acosado":           { asi: ["con","sab","car"], habilidades: ["arcanos","supervivencia"],     herramienta: "Juego de mesa (elige)",             dote: "✦ Superviviente / Don Oscuro" },
+  "Errante de la Niebla": { asi: ["des","con","sab"], habilidades: ["supervivencia","sigilo"],      herramienta: "Herramientas de artesano (elige)",  dote: "Caminante de la Niebla (Don Oscuro, recomendado)" },
+  "Investigador (Ravenloft)": { asi: ["int","sab","car"], habilidades: ["perspicacia","investigacion"], herramienta: "Kit de disfraz",               dote: "✦ Ojo Agudo / Don Oscuro" },
+  "Médium Espiritual":    { asi: ["con","int","sab"], habilidades: ["perspicacia","religion"],      herramienta: "Juego de mesa (elige)",             dote: "Susurros Reunidos (Don Oscuro, recomendado)" },
   // ── Eberron: La Forja del Artífice ────────────────────────────────────────────
   // Los trasfondos de Casa Heredera otorgan dotes de Dragonmark en lugar de dotes de origen
   "Heredero Aberrante":   { asi: ["fue","con","car"], habilidades: ["historia","intimidacion"],     herramienta: "Kit de disfraz",                   dote: "Marca de Dragón Aberrante" },
