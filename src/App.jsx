@@ -277,10 +277,10 @@ const calcAtaqueArma = (arma, char) => {
   const prof  = calcProf(nT);
   const finura = (arma.props || "").toLowerCase().includes("finura");
   const ranged = arma.tipo === "ranged";
-  const modFue = calcMod(char.fue || 10);
-  const modDes = calcMod(char.des || 10);
+  const modFue = calcMod(efAttr(char, "fue"));
+  const modDes = calcMod(efAttr(char, "des"));
   const attr   = (finura || ranged) ? (modDes >= modFue || ranged ? "des" : "fue") : "fue";
-  const mod    = calcMod(char[attr] || 10);
+  const mod    = calcMod(efAttr(char, attr));
   const bonus  = arma.bonus || 0;
   const conProf = tieneProfArma(char.progresion, arma.cat);
   const bonoAtaque = mod + bonus + (conProf ? prof : 0);
@@ -1906,8 +1906,13 @@ const OBJETOS_MAGICOS_DB = [
   { nombre:"Capa de desplazamiento",       cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Proyecta una imagen desplazada de ti. Los atacantes tienen desventaja hasta que te impacten." },
   { nombre:"Botas de velocidad",           cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Tu velocidad se duplica. Puedes hacer una acción adicional por turno (1 hora). Recarga tras descanso largo." },
   { nombre:"Botas élvicas",               cat:"Maravilloso", rar:"Poco común",  sint:true,  desc:"Tus pasos no hacen ruido. Ventaja en pruebas de Sigilo con movimiento." },
-  { nombre:"Guanteletes de la fuerza del ogro",cat:"Maravilloso",rar:"Poco común",sint:true, desc:"FUE 19 mientras los lleves (si tu FUE es menor)." },
-  { nombre:"Cinturón de la fuerza del gigante",cat:"Maravilloso",rar:"Poco común",sint:true, desc:"FUE 21-29 según variante de cinturón (colina/piedra/escarcha/fuego/nubes/tormentas)." },
+  { nombre:"Guanteletes de la fuerza del ogro",    cat:"Maravilloso", rar:"Poco común",  sint:true, setAttr:{attr:"fue",valor:19}, desc:"Tu FUE se fija en 19 mientras los lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de la colina",     cat:"Maravilloso", rar:"Raro",        sint:true, setAttr:{attr:"fue",valor:21}, desc:"Tu FUE se fija en 21 mientras lo lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de piedra",        cat:"Maravilloso", rar:"Muy raro",    sint:true, setAttr:{attr:"fue",valor:23}, desc:"Tu FUE se fija en 23 mientras lo lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de escarcha",      cat:"Maravilloso", rar:"Muy raro",    sint:true, setAttr:{attr:"fue",valor:23}, desc:"Tu FUE se fija en 23 mientras lo lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de fuego",         cat:"Maravilloso", rar:"Muy raro",    sint:true, setAttr:{attr:"fue",valor:25}, desc:"Tu FUE se fija en 25 mientras lo lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de las nubes",     cat:"Maravilloso", rar:"Legendario",  sint:true, setAttr:{attr:"fue",valor:27}, desc:"Tu FUE se fija en 27 mientras lo lleves (si tu FUE es menor)." },
+  { nombre:"Cinturón del gigante de las tormentas", cat:"Maravilloso", rar:"Legendario",  sint:true, setAttr:{attr:"fue",valor:29}, desc:"Tu FUE se fija en 29 mientras lo lleves (si tu FUE es menor)." },
   { nombre:"Gemas de visión",              cat:"Maravilloso", rar:"Raro",        sint:true,  desc:"Visión verdadera 60 pies durante 10 minutos. 3 cargas, recarga al amanecer." },
   { nombre:"Cabeza de carnero iridiscente",cat:"Maravilloso", rar:"Legendario",  sint:true,  desc:"3 cargas. Gasta para empujar, aturdir o matar a criaturas (CD 17 sal. CON)." },
   { nombre:"Bolsa de truco",               cat:"Maravilloso", rar:"Poco común",  sint:false, desc:"3 usos/día. Saca un animal pequeño que sigue tus órdenes durante 1 hora." },
@@ -2088,15 +2093,28 @@ const calcMod  = s => Math.floor((s - 10) / 2);
 const fmtBono  = n => (n >= 0 ? `+${n}` : `${n}`);
 const calcProf = nivel => 2 + Math.floor((nivel - 1) / 4);
 
+// Valor efectivo de una característica aplicando objetos sintonizados con setAttr
+const efAttr = (char, attr) => {
+  const base = char[attr] || 10;
+  let max = base;
+  for (const obj of (char.objetosMagicos || [])) {
+    if (!obj.sintonizado) continue;
+    const db = OBJETOS_MAGICOS_DB.find(o => o.nombre === obj.nombre);
+    if (!db?.setAttr || db.setAttr.attr !== attr) continue;
+    if (db.setAttr.valor > max) max = db.setAttr.valor;
+  }
+  return max;
+};
+
 const habValor = (char, h) => {
-  const base = calcMod(char[h.attr]);
+  const base = calcMod(efAttr(char, h.attr));
   const prof = calcProf(char.nivel);
   const bonus = char.hab[h.id] ? (char.exp[h.id] ? prof * 2 : prof) : 0;
   return base + bonus;
 };
 
 const salvValor = (char, a) =>
-  calcMod(char[a]) + (char.salv[a] ? calcProf(nivelTotal(char.progresion)) : 0);
+  calcMod(efAttr(char, a)) + (char.salv[a] ? calcProf(nivelTotal(char.progresion)) : 0);
 
 // ─── Pestaña: Básico ─────────────────────────────────────────────────────────
 
@@ -2509,24 +2527,39 @@ function TabAtributos({ char, u, un }) {
           <SecTitle>Características</SecTitle>
           <div style={{ display: "grid", gap: 6 }}>
             {ATTRS.map(a => {
-              const mod = calcMod(char[a]);
+              const efectivo = efAttr(char, a);
+              const mod = calcMod(efectivo);
+              const potenciado = efectivo > (char[a] || 10);
               return (
                 <div key={a} style={{
-                  background: P.surface, border: `1px solid ${P.border}`,
+                  background: potenciado ? `${P.gold}18` : P.surface,
+                  border: `1px solid ${potenciado ? P.gold : P.border}`,
                   borderRadius: 6, padding: "6px 8px", textAlign: "center",
+                  position: "relative",
                 }}>
-                  <div style={{ fontSize: 9, color: P.textDim, textTransform: "uppercase",
-                    letterSpacing: "0.1em", fontFamily: "Cinzel, serif" }}>
+                  {potenciado && (
+                    <div title={`Potenciado por objeto mágico: ${efectivo} (base: ${char[a]})`}
+                      style={{ position: "absolute", top: 2, right: 4, fontSize: 9,
+                        color: P.gold, fontWeight: 700, cursor: "help" }}>✦</div>
+                  )}
+                  <div style={{ fontSize: 9, color: potenciado ? P.gold : P.textDim,
+                    textTransform: "uppercase", letterSpacing: "0.1em", fontFamily: "Cinzel, serif" }}>
                     {ATTR_NOMBRE[a]}
                   </div>
                   <div style={{ fontSize: 24, fontWeight: 700, color: P.gold, lineHeight: 1.1 }}>
                     {fmtBono(mod)}
                   </div>
+                  <div style={{ fontSize: potenciado ? 10 : 13, lineHeight: 1,
+                    color: potenciado ? P.gold : P.text, fontWeight: potenciado ? 700 : "normal",
+                    marginTop: potenciado ? 2 : 0 }}>
+                    {potenciado ? `${efectivo} (base ${char[a]})` : null}
+                  </div>
                   <input type="number" value={char[a]}
                     onChange={e => u(a, Math.max(1, Math.min(30, Number(e.target.value))))}
                     min={1} max={30}
                     style={{ ...baseInput, textAlign: "center", width: "60px",
-                      fontSize: 13, padding: "2px 4px", margin: "4px auto 0" }} />
+                      fontSize: 13, padding: "2px 4px", margin: "4px auto 0",
+                      borderColor: potenciado ? `${P.gold}60` : undefined }} />
                 </div>
               );
             })}
@@ -2590,7 +2623,7 @@ function TabAtributos({ char, u, un }) {
 // ─── Pestaña: Combate ─────────────────────────────────────────────────────────
 
 function TabCombate({ char, u }) {
-  const mod = calcMod(char.des);
+  const mod = calcMod(efAttr(char, "des"));
   const caDisplay = char.ca !== "" ? char.ca : 10 + mod;
 
   const addAtaque = () => u("ataques", [
@@ -2992,7 +3025,7 @@ function TabConjuros({ char, u }) {
     .filter(p => p.clase && CASTING_ABILITY[p.clase] && p.niveles > 0)
     .map(p => {
       const attr = CASTING_ABILITY[p.clase];
-      const mod  = calcMod(char[attr]);
+      const mod  = calcMod(efAttr(char, attr));
       return { clase: p.clase, attr, mod, cd: 8 + prof + mod, bono: prof + mod };
     });
 
@@ -3984,6 +4017,16 @@ export default function DnDCreator() {
     const profV = calcProf(nT);
     const md    = s => Math.floor((s - 10) / 2);
     const fm    = n => n >= 0 ? `+${n}` : `${n}`;
+    // Valor efectivo de attr aplicando objetos sintonizados con setAttr (para PDF)
+    const eA    = attr => {
+      let max = char[attr] || 10;
+      for (const obj of (char.objetosMagicos || [])) {
+        if (!obj.sintonizado) continue;
+        const db = OBJETOS_MAGICOS_DB.find(o => o.nombre === obj.nombre);
+        if (db?.setAttr?.attr === attr && db.setAttr.valor > max) max = db.setAttr.valor;
+      }
+      return max;
+    };
 
     const claseStr = char.progresion
       .filter(p => p.clase)
@@ -3991,11 +4034,11 @@ export default function DnDCreator() {
       .join(" / ") || "—";
 
     const hv = h => {
-      const base = md(char[h.attr]);
+      const base = md(eA(h.attr));
       const b = char.hab[h.id] ? (char.exp[h.id] ? profV * 2 : profV) : 0;
       return base + b;
     };
-    const sv = a => md(char[a]) + (char.salv[a] ? profV : 0);
+    const sv = a => md(eA(a)) + (char.salv[a] ? profV : 0);
     const percPas = 10 + hv(HABS.find(h => h.id === "percepcion"));
     const dadosTxt = dadosGolpeTexto(char.progresion);
 
@@ -4171,12 +4214,16 @@ export default function DnDCreator() {
       <div class="sec-t">Características</div>
       <div class="sec-b">
         <div class="attrs">
-          ${ATTRS.map(a => `
-          <div class="abox">
-            <div class="aname">${ATTR_NOMBRE[a]}</div>
-            <div class="amod">${fm(md(char[a]))}</div>
-            <div class="ascore">${char[a]}</div>
-          </div>`).join("")}
+          ${ATTRS.map(a => {
+            const efectivoA = eA(a);
+            const potenciadoA = efectivoA > (char[a] || 10);
+            return `
+          <div class="abox"${potenciadoA ? ' style="border-color:#c8922a;background:#c8922a18"' : ''}>
+            <div class="aname">${ATTR_NOMBRE[a]}${potenciadoA ? ' ✦' : ''}</div>
+            <div class="amod">${fm(md(efectivoA))}</div>
+            <div class="ascore">${efectivoA}${potenciadoA ? `<span style="font-size:7px;color:#c8922a"> (${char[a]})</span>` : ''}</div>
+          </div>`;
+          }).join("")}
         </div>
       </div>
     </div>
@@ -4319,7 +4366,7 @@ export default function DnDCreator() {
         <div style="display:flex;gap:3mm;margin-bottom:2mm;flex-wrap:wrap">
           ${char.progresion.filter(p => p.clase && CASTING_ABILITY[p.clase] && p.niveles > 0).map(p => {
             const attr = CASTING_ABILITY[p.clase];
-            const mod  = md(char[attr]);
+            const mod  = md(eA(attr));
             const cd   = 8 + profV + mod;
             const bono = profV + mod;
             return `<div style="border:1px solid #c8922a;border-radius:3px;padding:1mm 2mm">
