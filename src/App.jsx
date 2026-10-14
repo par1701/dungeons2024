@@ -1349,7 +1349,7 @@ const RASGOS_SUBCLASE = {
   },
   // ── Pícaro ────────────────────────────────────────────────────────────────
   "Ladrón": {
-    3: ["Manos Rápidas (bonus: Usar Objeto/Usar Herramientas de Ladrón)","Escalador Ágil (+3 m al trepar, ambas manos libres en pared)"],
+    3: ["Manos Rápidas (bonus: Usar Objeto/Usar Herramientas de Ladrón)","Escalador Ágil (velocidad de trepa = velocidad de movimiento)"],
     9: ["Influencia del Ladrón Supremo (acción bonus en turno de otro)"],
     13:["Utilizar Objetos Mágicos"],
     17:["Reflejos de Ladrón (2 reacciones/ronda)"],
@@ -1422,7 +1422,7 @@ const RASGOS_SUBCLASE = {
   },
   // ── Brujo ─────────────────────────────────────────────────────────────────
   "El Gran Anciano": {
-    1: ["Telepathy Expandida","Conjuros del Gran Anciano"],
+    1: ["Telepatía Expandida (puedes hablar telepáticamente con cualquier criatura a 1,5 km si comparte un idioma contigo)","Conjuros del Gran Anciano"],
     6: ["Mente Defendida"],
     10:["Telepatía Transmutadora"],
     14:["Crear Familiar Aberración"],
@@ -1435,7 +1435,7 @@ const RASGOS_SUBCLASE = {
   },
   // ── Bárbaro ───────────────────────────────────────────────────────────────
   "Camino del Berserker": {
-    3: ["Frenesí (rabia: bonus ataque; agotamiento 1 al acabar)"],
+    3: ["Frenesí (durante la Rabia: acción adicional para un ataque cuerpo a cuerpo extra; sin coste de agotamiento)"],
     6: ["Presencia Intimidante (Intimidación como bonus durante rabia)"],
     10:["Represalia (al ser dañado, bonus de ataque)"],
     14:["Matador (irrumpir en Frenesí sin agotamiento 1/descanso largo)"],
@@ -1448,14 +1448,14 @@ const RASGOS_SUBCLASE = {
   },
   // ── Paladín ───────────────────────────────────────────────────────────────
   "Juramento de Devoción": {
-    3: ["Armas Sagradas (Canalizar Divinidad)","Arma Sagrada (Canalizar Divinidad)","Conjuros de Juramento"],
-    7: ["Aura de Devoción (aliados inmunes a Encantado en 3 m durante rabia)"],
+    3: ["Arma Sagrada (Canalizar Divinidad: un arma irradiando luz por 1 min, +bon. CAR a ataques)","Conjuros de Juramento"],
+    7: ["Aura de Devoción (aliados a 3 m son inmunes a la condición Hechizado mientras estés consciente)"],
     15:["Pureza del Espíritu"],
     20:["Forma de Paladín Santo"],
   },
   "Juramento de los Vengadores": {
     3: ["Marca del Vengador (Canalizar Divinidad)","Conjuros de Juramento"],
-    7: ["Aura de la Ira (aliados +bon. SAB a daño de arma)"],
+    7: ["Cazador Implacable (al golpear con un ataque de oportunidad, mueves hasta la mitad de tu velocidad como parte de esa misma reacción; sin provocar AO)"],
     15:["Alma del Vengador"],
     20:["Ángel de la Ira"],
   },
@@ -1485,7 +1485,7 @@ const RASGOS_SUBCLASE = {
   },
   // ── Hechicero ─────────────────────────────────────────────────────────────
   "Origen Dracónico": {
-    1: ["Linaje Dracónico (tipo de daño)","Resistencia Dracónica (CA=13+DES sin armadura, PG extra)"],
+    1: ["Linaje Dracónico (tipo de daño)","Resistencia Dracónica (resistencia al tipo de daño del linaje; PG adicionales = nivel Hechicero)"],
     6: ["Afinidad Elemental (bono con tipo daño linaje)"],
     14:["Alas Dracónicas"],
     18:["Presencia Dracónica (Aterrar o Fascinar)"],
