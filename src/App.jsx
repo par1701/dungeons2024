@@ -231,6 +231,23 @@ const PROF_CLASE = {
   "Pícaro":     { salv:["des","int"], ops:["acrobacia","atletismo","engano","perspicacia","intimidacion","investigacion","percepcion","actuacion","persuasion","juego_manos","sigilo"], n:4 },
   "Artificiero":{ salv:["con","int"], ops:["arcanos","historia","investigacion","medicina","naturaleza","percepcion","juego_manos"], n:2 },
 };
+// Descripción completa de proficiencias (armaduras + armas + herramientas) por clase
+const PROF_COMPLETA_CLASE = {
+  "Bárbaro":    "Armaduras: Ligera, Media, Escudos · Armas: Simples, Marciales",
+  "Bardo":      "Armaduras: Ligera · Armas: Simples, Ballestas de mano, Espadas largas, Estoque, Sables",
+  "Brujo":      "Armaduras: Ligera · Armas: Simples",
+  "Clérigo":    "Armaduras: Ligera, Media, Escudos · Armas: Simples, Marciales",
+  "Druida":     "Armaduras: Ligera, Media, Escudos (no metálicos) · Armas: Simples (no metálicas)",
+  "Explorador": "Armaduras: Ligera, Media, Escudos · Armas: Simples, Marciales",
+  "Guerrero":   "Armaduras: Todas, Escudos · Armas: Simples, Marciales",
+  "Hechicero":  "Armas: Simples",
+  "Mago":       "Armas: Simples",
+  "Monje":      "Armas: Simples, Espadas cortas",
+  "Paladín":    "Armaduras: Todas, Escudos · Armas: Simples, Marciales",
+  "Pícaro":     "Armaduras: Ligera · Armas: Simples, Ballestas de mano, Espadas largas, Estoque, Sables",
+  "Artificiero":"Armaduras: Ligera, Media, Escudos · Armas: Simples · Herramientas: Herramientas de ladrón, Herramientas de un artesano (a elegir)",
+};
+
 // Proficiencia con armas por clase (simple siempre incluye marcial si marcial: true)
 const PROF_ARMAS_CLASE = {
   "Bárbaro":    { simple: true, marcial: true  },
@@ -3592,9 +3609,33 @@ function TabEquipo({ char, u, un }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
         <Card>
           <SecTitle>Proficiencias</SecTitle>
+          {/* Bloque automático: clase(s) + herramienta de trasfondo */}
+          {(() => {
+            const lineas = [];
+            const clasesVistas = new Set();
+            for (const p of char.progresion) {
+              if (!p.clase || clasesVistas.has(p.clase) || !PROF_COMPLETA_CLASE[p.clase]) continue;
+              clasesVistas.add(p.clase);
+              lineas.push({ label: p.clase, texto: PROF_COMPLETA_CLASE[p.clase] });
+            }
+            const herramienta = DATOS_TRASFONDO[char.trasfondo]?.herramienta;
+            if (herramienta) lineas.push({ label: "Trasfondo", texto: `Herramienta: ${herramienta}` });
+            if (!lineas.length) return null;
+            return (
+              <div style={{ background: P.surface, border: `1px solid ${P.borderDim}`,
+                borderRadius: 5, padding: 8, marginBottom: 8, fontSize: 11 }}>
+                {lineas.map(({ label, texto }) => (
+                  <div key={label} style={{ marginBottom: 3 }}>
+                    <span style={{ color: P.gold, fontWeight: 700, marginRight: 4 }}>{label}:</span>
+                    <span style={{ color: P.text }}>{texto}</span>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
           <Ta value={char.proficiencias} onChange={v => u("proficiencias", v)}
-            placeholder={"Armaduras: Ligera, Media\nArmas: Marciales, Simples\nHerramientas: Instrumentos de cuerda"}
-            rows={6} />
+            placeholder={"Proficiencias adicionales (dotes, multiclase…)"}
+            rows={4} />
         </Card>
         <Card>
           <SecTitle>Lenguas</SecTitle>
