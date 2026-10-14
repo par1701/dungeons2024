@@ -1388,8 +1388,8 @@ const RASGOS_CLASE = {
   },
   "Mago": {
     1:  ["Lanzamiento de conjuros","Adepto en rituales","Recuperación arcana"],
-    2:  ["Subclase de mago"],
-    3:  [],
+    2:  ["Académico (pericia en habilidad elegida: Arcanos, Historia, Investigación, Medicina, Naturaleza o Religión)"],
+    3:  ["Subclase de mago"],
     4:  ["Mejora de característica"],
     5:  ["Memorizar conjuro"],
     6:  ["Rasgo de subclase"],
@@ -1707,22 +1707,28 @@ const RASGOS_SUBCLASE = {
   },
   // ── Mago ──────────────────────────────────────────────────────────────────
   "Abjurador": {
-    3: ["Escudo Arcano (reacción al recibir daño mágico: reduce el daño en 2+nivel mago/2; usos=bon.SAB; recarga DL)", "Magia de Abjuración (lanzar conjuros de abjuración restaura 2+nivel del espacio PG al Escudo Arcano)"],
-    6: ["Proyección de Abjuración (al crear campo mágico de abjuración que beneficia a otro: ese campo también te beneficia)"],
-    10:["Mejora Arcana (un conjuro de abjuración de 1ª acción puede lanzarse como acción adicional; 1/DL)"],
-    14:["Resistencia al Daño (al lanzar conjuro de abjuración: resistencia a un tipo de daño durante 1 minuto)"],
+    3: ["Experto en Abjuración (añade 2 conjuros de abjuración N2 o inferior al libro de conjuros; al subir nivel de espacios: añade otro conjuro de abjuración al libro sin coste)", "Salvaguarda Arcana (al lanzar conjuro de abjuración con espacio: crea salvaguarda con PG máx=2×nivel mago+mod.INT; la salvaguarda absorbe el daño que recibirías; lanzar conjuro de abjuración con espacio recupera 2×nivel del espacio PG a la salvaguarda; acción adicional: gastar espacio para recuperar 2×nivel PG; 1 salvaguarda por DL)"],
+    6: ["Salvaguarda Proyectada (reacción al ver criatura a 9m o menos recibir daño: la salvaguarda arcana absorbe ese daño en su lugar)"],
+    10:["Rompeconjuros (siempre preparados contrahechizo y disipar magia; acción adicional para lanzar disipar magia sumando bon.competencia a la prueba; si neutraliza un conjuro: el espacio no se gasta)"],
+    14:["Resistencia a Conjuros (ventaja en tiradas de salvación contra conjuros; resistencia al daño de conjuros)"],
+  },
+  "Adivino": {
+    3: ["Experto en Adivinación (añade 2 conjuros de adivinación N2 o inferior al libro de conjuros; al subir nivel de espacios: añade otro conjuro de adivinación al libro sin coste)", "Presagio (tras DL: tira 2d20 y anota resultados; antes de cualquier prueba con d20 que tú o una criatura visible hagáis: puedes sustituir la tirada por un resultado presagiado; máximo 1 sustitución por turno; cada resultado se usa una vez)"],
+    6: ["Adivino Avezado (al lanzar conjuro de adivinación usando espacio N2+: recuperas un espacio gastado de nivel inferior al usado y no superior a N5)"],
+    10:["El Tercer Ojo (acción adicional: elige hasta próximo descanso corto o largo — Comprensión superior: leer cualquier idioma; Ver invisibilidad: lanzar ver invisibilidad sin espacio; Visión en la oscuridad: visión en oscuridad 36m)"],
+    14:["Presagio Mayor (al usar Presagio: tira 3d20 en lugar de 2d20)"],
   },
   "Evocador": {
-    3: ["Magia Esculpida (al lanzar conjuro de evocación con área: puedes excluir a criaturas elegidas del área de efecto)", "Evocación Potente (trucos de evocación de daño: suma mod.INT al daño)"],
-    6: ["Evocación Empoderada (al tirar daño de conjuro de evocación: puedes repetir hasta bon.INT dados; usa nuevo resultado)"],
-    10:["Mayor Evocación (distancia de conjuros de evocación se duplica)"],
-    14:["Sobreevocación (al lanzar conjuro de evocación de daño: maximiza todas las tiradas de daño; 1/DL o gastar espacio N5+)"],
+    3: ["Experto en Evocación (añade 2 conjuros de evocación N2 o inferior al libro de conjuros; al subir nivel de espacios: añade otro conjuro de evocación al libro sin coste)", "Truco Potente (trucos de daño: si fallas la tirada de ataque o el objetivo supera la ST, el objetivo recibe la mitad del daño del truco sin efectos adicionales)"],
+    6: ["Esculpir Conjuros (al lanzar conjuro de evocación que afecte a otras criaturas visibles: elige 1+nivel del conjuro criaturas; tienen éxito automático en la ST y no reciben daño si normalmente recibirían la mitad al superar la ST)"],
+    10:["Evocación Potenciada (al lanzar conjuro de mago de la escuela de evocación: suma mod.INT a una tirada de daño del conjuro)"],
+    14:["Sobrecanalizar (al lanzar conjuro de mago de daño con espacio N1-5: maximiza el daño ese turno; 1.ª vez sin penalización; repetir sin DL: 2d12 daño necrótico por nivel del espacio tras lanzarlo, +1d12 adicional por cada uso extra sin DL; ignora resistencias e inmunidades)"],
   },
   "Ilusionista": {
-    3: ["Ilusión Mejorada (trucos de ilusión: objetos creados son también táctiles; suma mod.INT al daño de trucos de ilusión de daño)", "Sombras Maleables (mientras un conjuro de ilusión esté activo: puedes cambiar sus apariencias como acción adicional)"],
-    6: ["Ilusión Maleable (puedes mover un conjuro de ilusión que requiera concentración hasta 9m como acción adicional)"],
-    10:["Ilusiones Intangibles (tus ilusiones son táctiles y pueden infligir daño real si así lo deseas)"],
-    14:["Doble Ilusorio (acción adicional: crea un duplicado ilusorio de ti en espacio a 3m; reacción al ser atacado: el duplicado intercepta el ataque negándolo; el duplicado desaparece; 1/descanso corto o largo)"],
+    3: ["Experto en Ilusionismo (añade 2 conjuros de ilusionismo N2 o inferior al libro de conjuros; al subir nivel de espacios: añade otro conjuro de ilusionismo sin coste)", "Ilusiones Mejoradas (lanzar conjuros de ilusionismo sin componentes verbales; alcance de conjuros de ilusionismo de 3m+ aumenta 18m; conoces ilusión menor como truco extra; puedes lanzar ilusión menor como acción adicional creando sonido e imagen a la vez)"],
+    6: ["Criaturas Fantasmales (siempre preparados invocar bestia e invocar feérico; al lanzarlos puedes cambiar su escuela a ilusionismo con aspecto espectral; sin espacio: la criatura tiene la mitad de sus PG; 1/DL por conjuro)"],
+    10:["Yo Ilusorio (reacción al ser acertado por ataque: el ataque falla automáticamente y la ilusión se disipa; 1/descanso corto o largo; o gastar espacio N2+ sin acción)"],
+    14:["Realidad Ilusoria (al lanzar conjuro de ilusionismo con espacio: acción adicional para hacer real un objeto no mágico inanimado de la ilusión durante 1 minuto; no puede causar daño ni aplicar estados)"],
   },
   // ── No-PHB 2024: Suplementos y Terceros ──────────────────────────────────
   "Alquimista": {
