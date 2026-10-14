@@ -231,6 +231,66 @@ const PROF_CLASE = {
   "Pícaro":     { salv:["des","int"], ops:["acrobacia","atletismo","engano","perspicacia","intimidacion","investigacion","percepcion","actuacion","persuasion","juego_manos","sigilo"], n:4 },
   "Artificiero":{ salv:["con","int"], ops:["arcanos","historia","investigacion","medicina","naturaleza","percepcion","juego_manos"], n:2 },
 };
+// Aptitud mágica por clase (para cálculo automático de CD y bono de ataque)
+const CASTING_ABILITY = {
+  "Bardo":      "car", "Brujo":      "car", "Hechicero":  "car", "Paladín":    "car",
+  "Clérigo":    "sab", "Druida":     "sab", "Explorador": "sab", "Monje":      "sab",
+  "Mago":       "int", "Artificiero":"int",
+};
+
+// Factor de nivel de lanzador para la tabla de multiclase (PHB 2024)
+// Brujo usa ranuras de Pacto (sistema aparte), no contribuye a la tabla
+const FACTOR_LANZADOR = {
+  "Bardo": 1, "Clérigo": 1, "Druida": 1, "Hechicero": 1, "Mago": 1,
+  "Artificiero": 1, // redondea hacia arriba
+  "Paladín": 0.5, "Explorador": 0.5,
+  // Guerrero (Caballero Arcano / Psiónico) y Pícaro (Embaucador Arcano): 1/3 según subclase
+};
+
+// Tabla de ranuras por nivel de lanzador combinado (PHB 2024, multiclase)
+// Índice = nivel de lanzador (1-20); valor = [n1, n2, n3, n4, n5, n6, n7, n8, n9]
+const TABLA_RANURAS = [
+  [0,0,0,0,0,0,0,0,0], // 0
+  [2,0,0,0,0,0,0,0,0], // 1
+  [3,0,0,0,0,0,0,0,0], // 2
+  [4,2,0,0,0,0,0,0,0], // 3
+  [4,3,0,0,0,0,0,0,0], // 4
+  [4,3,2,0,0,0,0,0,0], // 5
+  [4,3,3,0,0,0,0,0,0], // 6
+  [4,3,3,1,0,0,0,0,0], // 7
+  [4,3,3,2,0,0,0,0,0], // 8
+  [4,3,3,3,1,0,0,0,0], // 9
+  [4,3,3,3,2,0,0,0,0], // 10
+  [4,3,3,3,2,1,0,0,0], // 11
+  [4,3,3,3,2,1,0,0,0], // 12
+  [4,3,3,3,2,1,1,0,0], // 13
+  [4,3,3,3,2,1,1,0,0], // 14
+  [4,3,3,3,2,1,1,1,0], // 15
+  [4,3,3,3,2,1,1,1,0], // 16
+  [4,3,3,3,2,1,1,1,1], // 17
+  [4,3,3,3,3,1,1,1,1], // 18
+  [4,3,3,3,3,2,1,1,1], // 19
+  [4,3,3,3,3,2,2,1,1], // 20
+];
+
+// Calcula el nivel de lanzador efectivo a partir de la progresión del personaje
+const calcNivelLanzador = (progresion) => {
+  let total = 0;
+  for (const p of progresion) {
+    const factor = FACTOR_LANZADOR[p.clase];
+    if (!factor || !p.niveles) continue;
+    if (p.clase === "Artificiero") total += Math.ceil(p.niveles * factor);
+    else total += Math.floor(p.niveles * factor);
+  }
+  return Math.min(20, total);
+};
+
+// Ranuras automáticas según tabla PHB 2024 (devuelve array de 9 valores)
+const calcRanurasAuto = (progresion) => {
+  const nivel = calcNivelLanzador(progresion);
+  return TABLA_RANURAS[nivel] || TABLA_RANURAS[0];
+};
+
 const MAESTRIAS    = ["—","Lento","Empuje","Volteo","Corte","Pinchazo","Rápido","Flex","Alerta"];
 
 // Subclases por clase (PHB 2024 marcadas con ✦, suplementos sin marca)
@@ -2832,9 +2892,24 @@ function TabConjuros({ char, u }) {
     char.conjuros.filter(c => c.v === n)
   );
 
-  const setR = (n, k, v) => u("ranuras", {
-    ...char.ranuras, [n]: { ...char.ranuras[n], [k]: Math.max(0, v) }
+  const setR = (n, v) => u("ranuras", {
+    ...char.ranuras, [n]: { ...char.ranuras[n], usadas: Math.max(0, v) }
   });
+
+  // Clases lanzadoras del personaje con su aptitud y CD calculada
+  const nTotal = nivelTotal(char.progresion);
+  const prof   = calcProf(nTotal);
+  const clasesLanzadoras = char.progresion
+    .filter(p => p.clase && CASTING_ABILITY[p.clase] && p.niveles > 0)
+    .map(p => {
+      const attr = CASTING_ABILITY[p.clase];
+      const mod  = calcMod(char[attr]);
+      return { clase: p.clase, attr, mod, cd: 8 + prof + mod, bono: prof + mod };
+    });
+
+  // Ranuras automáticas según tabla PHB 2024
+  const ranurasAuto = calcRanurasAuto(char.progresion);
+  const nivelLanz   = calcNivelLanzador(char.progresion);
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -2842,62 +2917,99 @@ function TabConjuros({ char, u }) {
       {/* ── Aptitud de conjuración ── */}
       <Card>
         <SecTitle>Aptitud de Conjuración</SecTitle>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-          <Field label="Atributo">
-            <Sel value={char.conjAttr} onChange={v => u("conjAttr", v)}
-              options={ATTRS.map(a => ATTR_NOMBRE[a])} placeholder="— elige —" />
-          </Field>
-          <Field label="CD de Conjuro">
-            <Num value={char.cdConjuro} onChange={v => u("cdConjuro", v)} />
-          </Field>
-          <Field label="Bono de Ataque">
-            <Inp value={char.bonusAtaqueConjuro} onChange={v => u("bonusAtaqueConjuro", v)} placeholder="+0" />
-          </Field>
-        </div>
+        {clasesLanzadoras.length === 0 ? (
+          <div style={{ color: P.textDim, fontSize: 12, fontStyle: "italic" }}>
+            Sin clase lanzadora activa. Añade una clase con aptitud mágica en la pestaña de Clase.
+          </div>
+        ) : (
+          <div style={{ display: "grid", gap: 8 }}>
+            {clasesLanzadoras.map(({ clase, attr, cd, bono }) => (
+              <div key={clase} style={{ display: "grid",
+                gridTemplateColumns: "auto 1fr 1fr 1fr", gap: 10, alignItems: "center",
+                background: P.surface, borderRadius: 6, padding: "6px 10px",
+                border: `1px solid ${P.border}` }}>
+                <div style={{ fontSize: 11, color: P.gold, fontFamily: "Cinzel, serif",
+                  fontWeight: 700, minWidth: 80 }}>{clase}</div>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color: P.textDim, textTransform: "uppercase",
+                    letterSpacing: ".06em", marginBottom: 2 }}>Aptitud</div>
+                  <div style={{ fontSize: 14, fontWeight: 700 }}>{ATTR_NOMBRE[attr]}</div>
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color: P.textDim, textTransform: "uppercase",
+                    letterSpacing: ".06em", marginBottom: 2 }}>CD Conjuro</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: P.gold }}>{cd}</div>
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color: P.textDim, textTransform: "uppercase",
+                    letterSpacing: ".06em", marginBottom: 2 }}>Bono Ataque</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: P.gold }}>
+                    {bono >= 0 ? "+" : ""}{bono}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </Card>
 
       {/* ── Ranuras ── */}
       <Card>
-        <SecTitle>Ranuras de Conjuro</SecTitle>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
-          {[1,2,3,4,5,6,7,8,9].map(n => {
-            const r = char.ranuras[n];
-            const disp = Math.max(0, r.max - r.usadas);
-            return (
-              <div key={n} style={{ background: P.surface, border: `1px solid ${P.border}`,
-                borderRadius: 6, padding: 8 }}>
-                <div style={{ fontSize: 10, color: P.textDim, fontFamily: "Cinzel, serif",
-                  textTransform: "uppercase", marginBottom: 6 }}>Nivel {n}</div>
-                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Máx</div>
-                    <Num value={r.max} onChange={v => setR(n, "max", v)} min={0} max={9}
-                      style={{ padding: "2px 4px", fontSize: 13 }} />
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Usadas</div>
-                    <Num value={r.usadas} onChange={v => setR(n, "usadas", v)} min={0} max={9}
-                      style={{ padding: "2px 4px", fontSize: 13, color: P.textDim }} />
-                  </div>
-                  <div style={{ textAlign: "center", minWidth: 28 }}>
-                    <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Disp.</div>
-                    <div style={{ fontSize: 18, fontWeight: 700,
-                      color: disp > 0 ? P.gold : P.crimsonLt }}>{disp}</div>
-                  </div>
-                </div>
-                {r.max > 0 && (
-                  <div style={{ display: "flex", gap: 3, marginTop: 6, flexWrap: "wrap" }}>
-                    {Array.from({ length: r.max }).map((_, i) => (
-                      <div key={i} style={{ width: 10, height: 10, borderRadius: "50%",
-                        background: i < r.usadas ? P.borderDim : P.gold,
-                        border: `1px solid ${i < r.usadas ? P.border : P.gold}` }} />
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline",
+          marginBottom: 10 }}>
+          <SecTitle style={{ marginBottom: 0 }}>Ranuras de Conjuro</SecTitle>
+          {nivelLanz > 0 && (
+            <span style={{ fontSize: 10, color: P.textDim }}>
+              Nivel lanzador {nivelLanz} · PHB 2024
+            </span>
+          )}
         </div>
+        {nivelLanz === 0 ? (
+          <div style={{ color: P.textDim, fontSize: 12, fontStyle: "italic" }}>
+            Sin ranuras de conjuro. Las ranuras se calculan automáticamente según tu clase.
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
+            {[1,2,3,4,5,6,7,8,9].map(n => {
+              const maxAuto = ranurasAuto[n - 1] || 0;
+              const usadas  = char.ranuras[n]?.usadas || 0;
+              const disp    = Math.max(0, maxAuto - usadas);
+              return (
+                <div key={n} style={{ background: P.surface, border: `1px solid ${P.border}`,
+                  borderRadius: 6, padding: 8, opacity: maxAuto === 0 ? 0.4 : 1 }}>
+                  <div style={{ fontSize: 10, color: P.textDim, fontFamily: "Cinzel, serif",
+                    textTransform: "uppercase", marginBottom: 6 }}>Nivel {n}</div>
+                  <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Máx</div>
+                      <div style={{ fontSize: 18, fontWeight: 700, color: P.gold,
+                        paddingLeft: 4 }}>{maxAuto}</div>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Usadas</div>
+                      <Num value={usadas} onChange={v => setR(n, v)} min={0} max={maxAuto}
+                        style={{ padding: "2px 4px", fontSize: 13, color: P.textDim }} />
+                    </div>
+                    <div style={{ textAlign: "center", minWidth: 28 }}>
+                      <div style={{ fontSize: 9, color: P.textDim, marginBottom: 2 }}>Disp.</div>
+                      <div style={{ fontSize: 18, fontWeight: 700,
+                        color: disp > 0 ? P.gold : P.crimsonLt }}>{disp}</div>
+                    </div>
+                  </div>
+                  {maxAuto > 0 && (
+                    <div style={{ display: "flex", gap: 3, marginTop: 6, flexWrap: "wrap" }}>
+                      {Array.from({ length: maxAuto }).map((_, i) => (
+                        <div key={i} style={{ width: 10, height: 10, borderRadius: "50%",
+                          background: i < usadas ? P.borderDim : P.gold,
+                          border: `1px solid ${i < usadas ? P.border : P.gold}` }} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </Card>
 
       {/* ── Buscador de conjuros ── */}
@@ -3572,9 +3684,14 @@ export default function DnDCreator() {
       // 1. Deshacer ASI del trasfondo anterior
       _deshacerAsi(next);
 
-      // 2. Si venimos de Personalizado, quitar la dote custom anterior
+      // 2. Quitar dote del trasfondo anterior (estándar o Personalizado)
       if (c.trasfondo === "Personalizado" && c.trasfondoDoteCustom) {
         next.dotes = next.dotes.filter(d => d.nombre !== c.trasfondoDoteCustom);
+      } else {
+        const datosAnt = DATOS_TRASFONDO[c.trasfondo];
+        if (datosAnt?.dote) {
+          next.dotes = next.dotes.filter(d => d.nombre !== datosAnt.dote);
+        }
       }
       next.trasfondoDoteCustom = "";
 
@@ -3769,10 +3886,12 @@ export default function DnDCreator() {
         ).join("")
       : `<tr><td colspan="4" style="color:#aaa;text-align:center;font-style:italic">Sin ataques registrados</td></tr>`;
 
+    const ranurasAutoPDF = calcRanurasAuto(char.progresion);
     const spellSlots = [1,2,3,4,5,6,7,8,9].map(n => {
-      const r = char.ranuras[n];
-      if (!r.max) return "";
-      return `<div class="slot-g"><span class="sl">Niv.${n}</span><span class="sv">${r.max - r.usadas}/${r.max}</span></div>`;
+      const maxR   = ranurasAutoPDF[n - 1] || 0;
+      if (!maxR) return "";
+      const usadas = char.ranuras[n]?.usadas || 0;
+      return `<div class="slot-g"><span class="sl">Niv.${n}</span><span class="sv">${maxR - usadas}/${maxR}</span></div>`;
     }).join("");
 
     const trucosPDF = char.conjuros.filter(c => c.v === 0).map(c => c.nombre).join(", ") || "—";
@@ -4079,9 +4198,16 @@ export default function DnDCreator() {
       <div class="sec-t">Conjuración</div>
       <div class="sec-b">
         <div style="display:flex;gap:3mm;margin-bottom:2mm;flex-wrap:wrap">
-          <div><span style="font-size:5pt;color:#7b0000;text-transform:uppercase;letter-spacing:.08em;display:block">Atributo</span><strong>${char.conjAttr || "—"}</strong></div>
-          <div><span style="font-size:5pt;color:#7b0000;text-transform:uppercase;letter-spacing:.08em;display:block">CD Conjuro</span><strong>${char.cdConjuro || "—"}</strong></div>
-          <div><span style="font-size:5pt;color:#7b0000;text-transform:uppercase;letter-spacing:.08em;display:block">Bono Ataque</span><strong>${char.bonusAtaqueConjuro || "—"}</strong></div>
+          ${char.progresion.filter(p => p.clase && CASTING_ABILITY[p.clase] && p.niveles > 0).map(p => {
+            const attr = CASTING_ABILITY[p.clase];
+            const mod  = md(char[attr]);
+            const cd   = 8 + profV + mod;
+            const bono = profV + mod;
+            return `<div style="border:1px solid #c8922a;border-radius:3px;padding:1mm 2mm">
+              <span style="font-size:5pt;color:#7b0000;text-transform:uppercase;letter-spacing:.08em;display:block">${p.clase}</span>
+              <strong>CD ${cd}</strong> · <strong>${bono >= 0 ? "+" : ""}${bono} ataque</strong>
+            </div>`;
+          }).join("") || '<div><span style="font-size:5pt;color:#7b0000;text-transform:uppercase;letter-spacing:.08em;display:block">Conjuración</span><strong>—</strong></div>'}
         </div>
         ${spellSlots ? `<div class="slot-row">${spellSlots}</div>` : ""}
         ${char.trucos ? `<div style="margin-bottom:1mm"><strong style="font-size:6pt;color:#7b0000;text-transform:uppercase">Trucos: </strong><span class="txt">${trucosPDF}</span></div>` : ""}
