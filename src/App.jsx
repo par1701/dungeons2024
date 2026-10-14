@@ -615,7 +615,7 @@ const DATOS_DOTE = {
   "✦ Duro":                { desc: "PG máx. aumentan en 2 × nivel al adquirir esta dote. A partir de entonces, +2 PG máx. cada vez que subas nivel de personaje.", asi: null },
   "✦ Fabricante":          { desc: "Competencia con 3 herramientas de artesano a elegir. Descuento del 20% en objetos no mágicos. Fabricación rápida: tras descanso largo, crea hasta 2 objetos sencillos.", asi: null },
   "✦ Habilidoso":          { desc: "Gana competencia en 3 habilidades o herramientas de tu elección. Repetible.", asi: null },
-  "✦ Iniciado en la magia":{ desc: "Elige una clase lanzadora. Aprende 2 trucos y 1 conjuro de nivel 1 de esa lista. Lanzas ese conjuro una vez sin ranura/descanso largo. +1 al atributo de aptitud de la clase elegida (INT, SAB o CAR según clase). Repetible.", asi: null },
+  "✦ Iniciado en la magia":{ desc: "Elige una clase lanzadora. Aprende 2 trucos y 1 conjuro de nivel 1 de esa lista. Lanzas ese conjuro una vez sin ranura/descanso largo. Repetible.", asi: null },
   "✦ Matón de taberna":    { desc: "Competencia con armas improvisadas y el arma de asta (palo). +1d4 daño con armas improvisadas. En AO con arma improvisada, puedes elegir empujar 1,5 m al objetivo.", asi: null },
   "✦ Músico":              { desc: "Competencia con un instrumento musical. Canción alentadora: tras un descanso corto, los aliados que te hayan oído ganan PG temporales = bon. comp.", asi: null },
   "✦ Sanador":             { desc: "Competencia con kits de curación. Estabilizar como acción bonus. Con kit de curación: restaura 1d8 + niv. del objetivo PG (una vez por criatura por descanso corto).", asi: null },
