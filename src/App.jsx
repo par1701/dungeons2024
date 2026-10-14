@@ -1492,9 +1492,9 @@ const RASGOS_SUBCLASE = {
     17:["Avatar de la Batalla (resistencia al daño contundente, cortante y perforante no mágico)"],
   },
   "Dominio de la Luz": {
-    3: ["Conjuros del Dominio (fuego feérico, manos ardientes, rayo abrasador, ver invisibilidad; +bola de fuego/luz del día en N5; +muro de fuego/ojo arcano en N7; +escudriñar/golpe flamígero en N9)", "Fulgor Protector (reacción al ver criatura a 9m hacer tirada de ataque: imponle desventaja con luz resplandeciente; usos=bon.SAB; recarga en DL)"],
-    6: ["Llama Radiante (resistencia al daño de fuego; 1/turno al causar daño de fuego o radiante con conjuro, suma bon.SAB al daño de un objetivo)"],
-    17:["Corona de Luz (aura de luz brillante 18m en Forma Divina; 1/descanso corto o largo)"],
+    3: ["Conjuros del Dominio (fuego feérico, manos ardientes, rayo abrasador, ver invisibilidad; +bola de fuego/luz del día en N5; +muro de fuego/ojo arcano en N7; +escudriñar/golpe flamígero en N9)", "Fulgor Protector (reacción al ver criatura a 9m hacer tirada de ataque: imponle desventaja con luz resplandeciente; usos=bon.SAB; recarga en DL)", "Resplandor del Amanecer (Canalizar: acción de magia, emanación 9m; disipa toda oscuridad mágica de la zona; criaturas de tu elección en la zona hacen ST CON o reciben 2d10+nivel clérigo daño radiante, la mitad si superan)"],
+    6: ["Fulgor Protector Mejorado (recuperas todos los usos de Fulgor Protector tras descanso corto o largo; además al usar Fulgor Protector puedes conceder al objetivo del ataque PG temporales=2d6+bon.SAB)"],
+    17:["Halo de Luz (acción de magia: aura de luz solar 1 min o hasta disiparla; luz brillante 18m y tenue 9m más allá; enemigos en la zona de luz brillante tienen desventaja en ST contra Resplandor del Amanecer o conjuros de daño de fuego o radiante; usos=bon.SAB; recarga en DL)"],
   },
   "Dominio de la Vida": {
     3: ["Conjuros del Dominio (auxilio, bendición, curar heridas, restablecimiento menor; +palabra de curación en masa/revivir en N5; +aura de vida/guarda contra la muerte en N7; +curar heridas en masa/restablecimiento mayor en N9)", "Discípulo de la Vida (al gastar espacio en conjuro que cura: cura 2+nivel del espacio adicionales)", "Preservar Vida (Canalizar: acción de magia, distribuye 5×nivel clérigo PG entre criaturas maltrechas a 9m; máx la mitad de sus PG máx)"],
@@ -1509,16 +1509,16 @@ const RASGOS_SUBCLASE = {
     14:["Colmado de Luz Estelar (en Forma Estelar: resistencia al daño contundente, cortante y perforante)"],
   },
   "Círculo de la Luna": {
-    3: ["Formas del Círculo de la Luna (Forma Salvaje mejorada: puedes transformarte en bestias de RC hasta nivel/3; puedes usar Forma Salvaje como acción en lugar de acción adicional)","Recuperación Lunar (al iniciar Forma Salvaje: recuperas PG = nivel druida)"],
-    6: ["Forma Elemental (Forma Salvaje en elemental de Aire/Tierra/Fuego/Agua o en criatura CR hasta nivel/3)"],
-    10:["La Bestia en la Luna (en Forma Salvaje: puedes lanzar conjuros con componente verbal; las manos pueden transformarse para lanzar conjuros con somáticos)"],
-    14:["Forma Primordial (Forma Salvaje en bestias de RC hasta nivel/3; ganas PG temporales=3×nivel druida)"],
+    3: ["Conjuros del Círculo de la Luna (curar heridas, rayo de luna, voluta estelar; +conjurar animales en N5; +fuente de luz lunar en N7; +curar heridas en masa en N9; puedes lanzarlos en Forma Salvaje)", "Formas del Círculo (RC máx=nivel/3; CA=13+bon.SAB si superior a CA de la bestia; PG temporales=3×nivel druida al adoptar la forma)"],
+    6: ["Formas del Círculo Mejoradas (Resplandor Lunar: tus ataques en Forma Salvaje pueden causar daño radiante en lugar de su tipo normal; Aguante Aumentado: suma bon.SAB a tus ST de Constitución)"],
+    10:["Paso de la Luz Lunar (acción adicional: teletransporte 9m a espacio visible + ventaja en siguiente tirada de ataque este turno; usos=bon.SAB; recarga DL; recuperar usos gastando espacio N2+ por uso)"],
+    14:["Forma Lunar (Luz Lunar Compartida: al usar Paso de la Luz Lunar puedes teletransportar también a criatura voluntaria a 3m a espacio visible a 3m del destino; Resplandor Lunar Mejorado: 1/turno al acertar ataque en Forma Salvaje, +2d10 daño radiante)"],
   },
   "Círculo de la Tierra": {
-    3: ["Hechizo de la Tierra (puedes lanzar Pasar sin rastro sin espacio; usos=bon.SAB; recarga DL)", "Conjuros del Círculo (bioma: Ártico/Costa/Desierto/Bosque/Pradera/Monte/Pantano/Subsuelo)"],
-    6: ["Paso por la Tierra (sin coste de movimiento para terreno difícil no mágico; ignorar dificultad de trepado/natación)"],
-    10:["Mente de la Naturaleza (puedes lanzar Comunión con la Naturaleza sin espacio; 1/DL)"],
-    14:["Santuario de la Tierra (criaturas de tu elección en el área sagrada tienen ventaja en TS contra conjuros; no pueden ser hechizadas ni asustadas dentro)"],
+    3: ["Ayuda de la Tierra (acción de magia, gasta uso Forma Salvaje: esfera 3m a 18m; criaturas de tu elección hacen ST CON o reciben 2d6 necrótico; una criatura de tu elección en la esfera cura 2d6 PG; ambos aumentan a 3d6 en N10 y 4d6 en N14)", "Conjuros del Círculo de la Tierra (tras cada DL elige terreno — Árido: descarga de fuego/manos ardientes+bola de fuego+marchitar+muro de piedra; Polar: rayo de escarcha/inmovilizar persona/nube de oscurecimiento+tormenta de aguanieve+tormenta de hielo+cono de frío; Templado: agarre electrizante/dormir/paso brumoso+relámpago+libertad de movimiento+paso arbóreo; Tropical: salpicadura ácida/rayo nauseabundo/telaraña+nube apestosa+polimorfar+plaga de insectos)"],
+    6: ["Recuperación Natural (lanzar un conjuro de Círculo preparado sin espacio 1/DL; además tras descanso corto: recuperar espacios gastados cuya suma de niveles ≤ nivel_druida/2 redondeado arriba, máximo N5 cada uno)"],
+    10:["Protección de la Naturaleza (resistencia al daño según terreno elegido: Árido=fuego, Polar=frío, Templado=relámpago, Tropical=veneno; con Tropical también eres inmune al estado envenenado)"],
+    14:["Santuario de la Naturaleza (acción de magia, gasta uso Forma Salvaje: cubo 4,5m a 36m; 1 min; cobertura media para ti y aliados; aliados obtienen resistencia de Protección de la Naturaleza; acción adicional para mover el cubo 18m)"],
   },
   "Círculo del Mar": {
     3: ["Conjuros del Círculo del Mar (hacer añicos, nube de oscurecimiento, ola atronadora, ráfaga de viento, rayo de escarcha; +relámpago/respirar bajo el agua en N5; +controlar agua/tormenta de hielo en N7; +conjurar elemental/inmovilizar monstruo en N9)", "Ira de los Mares (acción adicional, gasta uso Forma Salvaje: emanación de 1,5m de espuma de mar 10 min; criatura visible en emanación hace ST CON o daño frío d6×bon.SAB y si Grande o menor empujada 4,5m)"],
@@ -1540,16 +1540,16 @@ const RASGOS_SUBCLASE = {
     15:["Defensa de Cazador Experto (reacción al recibir daño: resistencia a ese tipo hasta fin de turno)"],
   },
   "Errante Feérico": {
-    3: ["Conjuros de Errante Feérico (hechizar persona N3; paso brumoso N5)", "Glamur Sobrenatural (pruebas de CAR: bon.=mod.SAB; mínimo +1)", "Golpes Pavorosos (al acertar con arma: daño adicional de magia feérica)"],
-    7: ["Giro Seductor (ventaja en ST vs. Asustado y Hechizado)"],
-    11:["Magia Salvaje Feérica (conjuros del Errante Feérico adicionales: vacilación, calmar emociones, llevar/recoger)"],
-    15:["Don Feérico (1/DL: una criatura que toques recibe ventaja en sus pruebas de característica durante 10 min)"],
+    3: ["Conjuros de Errante Feérico (hechizar persona N3; paso brumoso N5; +invocar feérico N9; +puerta dimensional N13; +engañar N17)", "Glamur Sobrenatural (bon.=mod.SAB mínimo +1 en pruebas CAR; ganas competencia en Engaño, Interpretación o Persuasión)", "Golpes Pavorosos (1/turno al acertar con arma: +1d4 daño psíquico; aumenta a 1d6 en N11)"],
+    7: ["Giro Seductor (ventaja en ST vs. Asustado y Hechizado; además reacción cuando tú o aliado a 36m supera ST vs esos estados: otra criatura a 36m hace ST SAB o queda asustada o hechizada 1 min)"],
+    11:["Refuerzos Feéricos (puedes lanzar invocar feérico sin componentes materiales; además 1/DL: lanzarlo sin espacio; si lo modificas al lanzarlo: dura 1 min sin concentración)"],
+    15:["Errante Brumoso (paso brumoso sin espacio, usos=bon.SAB, recarga DL; al lanzarlo puedes llevar contigo a una criatura voluntaria a 1,5m que aparece a 1,5m de tu destino)"],
   },
   "Señor de las Bestias": {
-    3: ["Compañero Primigenio (invocas bestia primigenia: bestia de los mares, de los cielos, o de las tierras; obedece órdenes como acción adicional; ataca si le ordenas; comparte tu iniciativa)"],
-    7: ["Entrenamiento Excepcional (al ordenar a la bestia con acción adicional, también puede realizar la acción Romper o Destrabarse)"],
-    11:["Fuerza del Manada (mientras el compañero está a 1,5m de la criatura, tú tienes ventaja en ataques contra esa criatura; el compañero también)"],
-    15:["Compañero Superior (el compañero primigenio añade tu bon.comp. a sus tiradas de daño)"],
+    3: ["Compañero Primigenio (invocas bestia primigenia: bestia de los mares, de tierra firme o del cielo; acción adicional para ordenarle acción de su perfil; también puedes sacrificar un ataque para ordenarle golpe de bestia; si tienes incapacitado actúa sola)"],
+    7: ["Entrenamiento Excepcional (al ordenar a la bestia con acción adicional, también puede hacer ayudar/correr/destrabarse/esquivar con su acción adicional; sus ataques pueden causar daño de fuerza en lugar del tipo normal)"],
+    11:["Furia Bestial (al ordenar golpe de bestia: puede hacerlo dos veces; 1ª vez que acierta por turno a criatura bajo tu marca del cazador: +daño de fuerza igual al daño adicional del conjuro)"],
+    15:["Compartir Conjuros (al lanzar un conjuro que te haga objetivo a ti mismo: también afecta a tu bestia primigenia si está a 9m o menos de ti)"],
   },
   // ── Guerrero ──────────────────────────────────────────────────────────────
   "Caballero Arcano": {
@@ -1564,7 +1564,7 @@ const RASGOS_SUBCLASE = {
     7: ["Estilo de Combate Adicional (otra dote de estilo de combate)"],
     10:["Guerrero Heroico (en combate: otórgate Inspiración Heroica al inicio de turno si no la tienes)"],
     15:["Crítico Superior (crítico con 18-20 en d20)"],
-    18:["Superviviente (al inicio de tu turno con ≤mitad PG máx: recuperas 5+mod.CON PG)"],
+    18:["Superviviente (Desafiar a la muerte: ventaja en ST de muerte; un 18-20 en esa ST cuenta como 20; Mejoría heroica: al inicio de tu turno maltrecho con ≥1 PG: recuperas 5+mod.CON PG)"],
   },
   "Guerrero Psiónico": {
     3: ["Energía Psiónica (reserva de dados psiónicos d6; Campo Protector: reacción para reducir daño en dado+INT; Golpe Psiónico: 1/turno al acertar, gasta dado+INT daño de fuerza; Movimiento Telequinético: acción de magia, mueve objeto Grande o criatura voluntaria 9m; recarga 1 en descanso corto, todos en DL)"],
@@ -1631,8 +1631,8 @@ const RASGOS_SUBCLASE = {
     17:["Paradigma Elemental (mientras Armonía activa: Golpes potenciados — 1/turno daño adicional de 1 dado Artes marciales mismo tipo; Paso destructivo — al usar Paso del viento: velocidad +6m y criaturas a 1,5m reciben 1 dado Artes marciales de daño elemental; Resistencia al daño — elige tipo cambiable al inicio de turno)"],
   },
   // ── Paladín ───────────────────────────────────────────────────────────────
-  "Juramento de Devoción": {
-    3: ["Conjuros del Juramento (escudo de fe, protección contra el bien y el mal en N3; auxilio, zona de la verdad en N5; disipar magia, señal de esperanza en N9; guardián de la fe, libertad de movimiento en N13; comunión, golpe flamígero en N17)", "Arma Sagrada (Canalizar Divinidad: acción de magia, arma brilla con luz; +bon.CAR a ataques; 1 min; 1/DL o gastar espacio N2+)"],
+  "Juramento de Entrega": {
+    3: ["Conjuros del Juramento (escudo de fe, protección contra el bien y el mal en N3; auxilio, zona de la verdad en N5; disipar magia, señal de esperanza en N9; guardián de la fe, libertad de movimiento en N13; comunión, golpe flamígero en N17)", "Arma Sagrada (Canalizar Divinidad al realizar acción de atacar: +bon.CAR mínimo+1 a ataques con esa arma; al acertar daño normal o radiante a elección; luz brillante 6m y tenue 6m más; 10 min o hasta reusar)"],
     7: ["Aura de Entrega (tus aliados y tú inmunes al estado hechizados dentro del Aura de protección; un aliado hechizado que entre en el aura queda sin efecto mientras esté dentro)"],
     15:["Castigo Protector (siempre que lances castigo divino: tus aliados y tú tenéis cobertura media dentro del aura hasta inicio de tu siguiente turno)"],
     20:["Halo Sagrado (acción adicional, 10 min: enemigos al inicio de su turno en el aura reciben daño radiante=mod.CAR+bon.comp.; luz solar; ventaja en ST contra infernales y muertos vivientes; 1/DL o gastar espacio N5)"],
@@ -1675,8 +1675,8 @@ const RASGOS_SUBCLASE = {
     17:["Reflejos de Ladrón (puedes actuar dos turnos en el 1er asalto de cualquier combate: 1er turno según iniciativa normal, 2º en tu iniciativa menos 10)"],
   },
   "Rebanaalmas": {
-    3: ["Cuchillas Psíquicas (al usar la acción de atacar o ataque de oportunidad: aparece una cuchilla psíquica; 1d6 daño psíquico+mod.característica; propiedades arrojadiza 18/36m y sutil; maestría molestar; tras atacar en tu turno: segunda cuchilla como acción adicional si mano libre, daño 1d4)", "Poder Psiónico (dados de energía psiónica d6; Don psirreforzado: si fallas prueba en habilidad con competencia, tira dado y suma; Susurros psíquicos: acción de magia, hasta bon.comp. criaturas, comunicación telepática por horas=resultado dado; 1ª vez en DL gratis)"],
-    9: ["Cuchillas del Alma (Golpes teledirigidos: si fallas ataque con cuchilla, tira dado y suma; si acierta, gasta el dado; Teletransporte psíquico: acción adicional, gasta dado y tira: teletransportarte 3×resultado metros)"],
+    3: ["Cuchillas Psíquicas (al usar la acción de atacar o ataque de oportunidad: aparece una cuchilla psíquica; 1d6 daño psíquico+mod.característica; propiedades arrojadiza 18/36m y sutil; maestría molestar; tras atacar en tu turno: segunda cuchilla como acción adicional si mano libre, daño 1d4)", "Poder Psiónico (dados de energía psiónica d6→d12 según nivel; Don psirreforzado: si fallas prueba en habilidad con competencia, tira dado y suma; Susurros psíquicos: acción de magia, hasta bon.comp. criaturas, comunicación telepática por horas=resultado dado; 1ª vez en DL gratis; Teletransporte psíquico: acción adicional, gasta dado y tira: lanza cuchilla a 3×resultado metros y teletransportarte a ese espacio)"],
+    9: ["Cuchillas del Alma (Golpes teledirigidos: si fallas ataque con cuchilla, tira dado y suma; si acierta, gasta el dado)"],
     13:["Velo Psíquico (acción de magia: estado invisible 1 hora o hasta disipar; termina si infliges daño o fuerzas ST; 1/DL o gastar dado psiónico)"],
     17:["Desgarro Mental (al usar Cuchillas psíquicas con Ataque furtivo: objetivo hace ST Sabiduría CD 8+DES+bon.comp. o estado aturdido 1 min; repite ST al fin de cada turno; 1/DL o gastar 3 dados psiónicos)"],
   },
@@ -1709,7 +1709,7 @@ const RASGOS_SUBCLASE = {
   "Abjurador": {
     3: ["Experto en Abjuración (añade 2 conjuros de abjuración N2 o inferior al libro de conjuros; al subir nivel de espacios: añade otro conjuro de abjuración al libro sin coste)", "Salvaguarda Arcana (al lanzar conjuro de abjuración con espacio: crea salvaguarda con PG máx=2×nivel mago+mod.INT; la salvaguarda absorbe el daño que recibirías; lanzar conjuro de abjuración con espacio recupera 2×nivel del espacio PG a la salvaguarda; acción adicional: gastar espacio para recuperar 2×nivel PG; 1 salvaguarda por DL)"],
     6: ["Salvaguarda Proyectada (reacción al ver criatura a 9m o menos recibir daño: la salvaguarda arcana absorbe ese daño en su lugar)"],
-    10:["Rompeconjuros (siempre preparados contrahechizo y disipar magia; acción adicional para lanzar disipar magia sumando bon.competencia a la prueba; si neutraliza un conjuro: el espacio no se gasta)"],
+    10:["Rompeconjuros (siempre preparados contrahechizo y disipar magia; acción adicional para lanzar disipar magia sumando bon.competencia a la prueba; 1/descanso corto o largo; al lanzar contrahechizo o disipar magia con espacio: el espacio no se gasta si el conjuro NO consigue neutralizar al otro)"],
     14:["Resistencia a Conjuros (ventaja en tiradas de salvación contra conjuros; resistencia al daño de conjuros)"],
   },
   "Adivino": {
