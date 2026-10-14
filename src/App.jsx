@@ -191,6 +191,25 @@ const TRASFONDOS = [
   "Heredero de la Casa Tharashk",
   "Heredero de la Casa Thuranni",
   "Heredero de la Casa Vadalis",
+  // ── Héroes de Faerún ──────────────────────────────────
+  "Arpista",
+  "Caballero del Guantelete",
+  "Cuidador del Enclave Esmeralda",
+  "Errante Rashemí",
+  "Escudero del Dragón Púrpura",
+  "Expulsado de los Amos de las Sombras",
+  "Filibustero Chondathano",
+  "Guardián de los Mythales",
+  "Iniciado en el Fuego Mágico",
+  "Ladrón de Tumbas Mulhorandín",
+  "Mercenario de los Zhentarim",
+  "Mercenario del Puño Ardiente",
+  "Morador de Tierras sin Magia",
+  "Peregrino de los Manantiales Lunares",
+  "Pescador en Hielo",
+  "Sectario del Dragón",
+  "Tocado por un Genio",
+  "Vasallo de la Alianza de los Lores",
   // ── Arcana Unleashed ──────────────────────────────────
   "Agente del Noveno Plumón",
   "Aprendiz Vidente",
@@ -252,6 +271,7 @@ const SUBCLASES = {
     "Colegio de las Espadas",
     "Colegio de los Susurros",
     "Colegio de los Espíritus",  // Ravenloft: Horrors Within
+    "Colegio de la Luna",        // Héroes de Faerún
   ],
   "Brujo": [
     "✦ Patrón del Gran Antiguo",
@@ -299,6 +319,7 @@ const SUBCLASES = {
     "Conclave del Explorador del Horizonte",
     "Conclave del Navegante Místico",
     "Guardián Hueco",    // Ravenloft: Horrors Within
+    "Caminante Invernal",  // Héroes de Faerún
   ],
   "Guerrero": [
     "✦ Maestro de Batalla",
@@ -310,6 +331,7 @@ const SUBCLASES = {
     "Caballero Púrpura",
     "Samurái",
     "Arquero Arcano",    // Arcana Unleashed
+    "Abanderado",        // Héroes de Faerún
   ],
   "Hechicero": [
     "✦ Linaje Dracónico",
@@ -320,7 +342,8 @@ const SUBCLASES = {
     "Alma del Crepúsculo",
     "Corazón de Fuego",
     "Magia Divina",
-    "Magia de las Sombras",  // Ravenloft: Horrors Within
+    "Magia de las Sombras",          // Ravenloft: Horrors Within
+    "Hechicería del Fuego Mágico",  // Héroes de Faerún
   ],
   "Mago": [
     "✦ Escuela de Abjuración",
@@ -339,6 +362,7 @@ const SUBCLASES = {
     "Encantador",        // Arcana Unleashed
     "Nigromante",        // Arcana Unleashed
     "Transmutador",      // Arcana Unleashed
+    "Hojacantante",      // Héroes de Faerún
   ],
   "Monje": [
     "✦ Tradición del Puño Abierto",
@@ -361,6 +385,7 @@ const SUBCLASES = {
     "Juramento de Redención",
     "Juramento de los Centinelas",
     "Ruptura de Juramento",
+    "Juramento de los Genios Nobles",  // Héroes de Faerún
   ],
   "Pícaro": [
     "✦ Embaucador Arcano",
@@ -371,6 +396,7 @@ const SUBCLASES = {
     "Fantasma",
     "Maestro de los Cuchillos",
     "Mensajero",
+    "Vástago de los Tres",  // Héroes de Faerún
   ],
   "Artificiero": [
     "Alquimista",
@@ -395,6 +421,15 @@ const DOTES_PHB = [
   "✦ Matón de taberna",
   "✦ Músico",
   "✦ Sanador",
+  // ── Dotes de origen — Héroes de Faerún ───────────────
+  "✦ Agente de la Alianza de los Lores",
+  "✦ Agente de los Arpistas",
+  "✦ Aprendiz del Dragón Púrpura",
+  "✦ Chispa del fuego mágico",
+  "✦ Iniciado del Culto del Dragón",
+  "✦ Novato del Guantelete",
+  "✦ Principiante del Enclave Esmeralda",
+  "✦ Rufián de los Zhentarim",
   // ── Generales (nivel 4+) ───────────────────────────────
   "Acechador",
   "Actor",
@@ -439,6 +474,20 @@ const DOTES_PHB = [
   "Triturador",
   "Veloz",
   "Versado en un elemento",
+  // ── Dotes generales — Héroes de Faerún ───────────────
+  "Colaboración de los Arpistas",
+  "Comandante del Dragón Púrpura",
+  "Conjurador de frío",
+  "Determinación señorial",
+  "Dracoseñalado",
+  "Embaucador feérico",
+  "Justicia callejera",
+  "Magia de genio",
+  "Magia del Enclave",
+  "Resistencia de la Orden",
+  "Tácticas de los Zhentarim",
+  "Tocado por los mythales",
+  "Versado en el fuego mágico",
   // ── Estilos de combate ────────────────────────────────
   "Combate con armas a dos manos",
   "Combate con armas arrojadizas",
@@ -467,6 +516,20 @@ const DOTES_PHB = [
   "★ Don de la Potencia de Conjuro Eruptiva",  // Arcana Unleashed
   "★ Don del Dominio de Escuela de Magia",     // Arcana Unleashed
   "★ Don de la Mente de Hierro",               // Arcana Unleashed
+  // ── Dones épicos — Héroes de Faerún ──────────────────
+  "★ Don de la absorción de almas",
+  "★ Don de la comunicación",
+  "★ Don de la furia de la tormenta",
+  "★ Don de la resistencia desesperada",
+  "★ Don de la salud plena",
+  "★ Don de las formas fluidas",
+  "★ Don del derramamiento de sangre",
+  "★ Don del dominio de los venenos",
+  "★ Don del favor de la fortuna",
+  "★ Don del fulgor exquisito",
+  "★ Don del jolgorio",
+  "★ Don del sol brillante",
+  "★ Don del terror",
   // ── Dotes de origen — Ravenloft: Horrors Within ───────
   "✦ Ojo Agudo",       // Sharp Eye
   "✦ Superviviente",   // Survivor
@@ -624,6 +687,43 @@ const DATOS_DOTE = {
   "★ Don del espíritu de la noche":{ desc: "+1 a INT, SAB o CAR. Visión en la oscuridad 24 m. Acción bonus: te vuelves invisible hasta el inicio de tu siguiente turno (solo en penumbra u oscuridad).", asi: { elige: 1 } },
   "★ Don del recuerdo de conjuros":{ desc: "+1 a INT, SAB o CAR. 1/descanso largo: recupera una ranura de conjuro de nivel 5 o inferior.", asi: { elige: 1 } },
   "★ Don del viaje dimensional":{ desc: "+1 a INT, SAB o CAR. Acción bonus: teletranspórtate hasta 9 m a un espacio que puedas ver. Puedes llevar a un aliado voluntario de tu tamaño o menor.", asi: { elige: 1 } },
+  // ── Dotes de origen — Héroes de Faerún ──────────────────────────────────────
+  "✦ Agente de la Alianza de los Lores": { desc: "Golpe inspirador: 1/turno, en crítico contra una criatura puedes otorgar inspiración heroica a un aliado a 9 m que te vea u oiga. Reafirmar el honor: cuando un enemigo dañe a un aliado a 1,5 m de ti, tienes ventaja en tu siguiente ataque contra ese enemigo antes de tu siguiente turno.", asi: null },
+  "✦ Agente de los Arpistas":   { desc: "Conoces la jerga de ladrones. Competencia con un instrumento musical. Melodía distractora: cuando uses Ayudar en una tirada de ataque, el enemigo al que distraigas puede estar a 9 m (no solo 1,5 m) siempre que pueda verte u oírte.", asi: null },
+  "✦ Aprendiz del Dragón Púrpura": { desc: "Súplica: competencia en Interpretación, Perspicacia o Persuasión (elige una). Llamada a las armas: al tirar iniciativa sin el estado de incapacitado, puedes dar inspiración heroica a un número de criaturas a 9 m igual a tu bon. comp. Recarga en descanso largo.", asi: null },
+  "✦ Chispa del fuego mágico":  { desc: "Absorción de magia: 1/turno, cuando recibas daño de conjuro o efecto mágico, reduce el daño en 1d4. Llama del fuego mágico: aprendes el truco llama sagrada (aptitud a elegir). Puedes lanzarlo como acción adicional un número de veces = bon. comp. (recuperas tras descanso largo).", asi: null },
+  "✦ Iniciado del Culto del Dragón": { desc: "Lengua del dragón: conoces dracónico (o un idioma extra si ya lo sabías). Terror del dragón: acción de magia, atemoriza una criatura a 9 m (TS SAB CD 8 + bon. comp. + mod. SAB o queda asustada hasta el fin de tu siguiente turno; inmune 24 h si supera). Inspirado por el miedo: cuando asustes a una criatura, ganas inspiración heroica si no la tenías; 1/descanso corto o largo.", asi: null },
+  "✦ Novato del Guantelete":    { desc: "Mantener firme: reacción para impedir que un aliado a 1,5 m sea empujado o atraído. Vigilante: cuando prepares una acción, la siguiente tirada de ataque contra ti tiene desventaja hasta el inicio de tu siguiente turno.", asi: null },
+  "✦ Principiante del Enclave Esmeralda": { desc: "Hablar con los animales siempre preparado; puedes lanzarlo con cualquier espacio; cuando se lanza como ritual dura 8 horas. Relevo: cuando uses la acción de Ayudar, puedes intercambiar posición con un aliado voluntario a 1,5 m sin provocar ataques de oportunidad.", asi: null },
+  "✦ Rufián de los Zhentarim":  { desc: "Punto vulnerable: al tirar daño en un ataque de oportunidad, tira dos veces los dados y usa el mayor. La familia es lo primero: si tienes inspiración heroica al tirar iniciativa, puedes gastarla para que todos tus aliados (y tú) tengáis ventaja en esa tirada.", asi: null },
+  // ── Dotes generales — Héroes de Faerún ──────────────────────────────────────
+  "Colaboración de los Arpistas": { desc: "+1 a DES o CAR. Req.: dote Agente de los Arpistas. Juego de palabras mordaz: cuando uses Ayudar en un ataque contra un enemigo, ese enemigo también tiene desventaja en la primera TS que haga hasta el inicio de tu siguiente turno. Fuerza de voluntad inspiradora: cuando superes una TS para librarte de asustado o paralizado, puedes libertar de inmediato a un aliado a 9 m con el mismo estado.", asi: { elige: 1, opciones: ["des","car"] } },
+  "Comandante del Dragón Púrpura": { desc: "+1 a FUE o DES. Req.: dote Aprendiz del Dragón Púrpura o competencia con armas marciales. Alentar a aliado: acción adicional, otorga PG temporales = 2d6 + mod. aumento a un aliado a 9 m; usos = bon. comp. (DL). Último esfuerzo: ventaja en ataques mientras estés maltrecho.", asi: { elige: 1, opciones: ["fue","des"] } },
+  "Conjurador de frío":          { desc: "+1 a INT, SAB o CAR. Aprende rayo de escarcha (u otro truco de mago si ya lo tenías); aptitud = atributo aumentado. Congelar: 1/turno, cuando aciertes y causes daño de frío, el objetivo resta 1d4 a la siguiente TS que haga antes del fin de tu siguiente turno.", asi: { elige: 1 } },
+  "Determinación señorial":      { desc: "+1 a FUE o CAR. Req.: dote Agente de la Alianza de los Lores. Adalid: acción adicional, hasta 3 criaturas a 18 m que te vean pueden levantarse (poner fin al estado de derribado) como reacción. Además, se refuerzan durante 1 min: inmunes a ser poseídas, asustadas o hechizadas (o con ventaja en nuevas TS si ya lo estaban). 1/DL.", asi: { elige: 1, opciones: ["fue","car"] } },
+  "Dracoseñalado":               { desc: "+1 a CON o CAR. Req.: dote Iniciado del Culto del Dragón. Resistencia al daño: elige ácido, frío, fuego, rayo o veneno; tienes resistencia a ese tipo. Poder temible: cuando causes daño como parte de Atacar o una acción de magia, puedes usar Terror del dragón como acción adicional ese turno.", asi: { elige: 1, opciones: ["con","car"] } },
+  "Embaucador feérico":          { desc: "+1 a DES o CAR. Trotador de senderos feéricos: al Destrabarte, el terreno difícil no cuesta movimiento extra el resto del turno. Golpe desquiciador: al acertar un ataque, el objetivo falla TS SAB (CD 8 + bon. comp. + mod. atributo) o tiene desventaja en TS hasta el fin de tu siguiente turno; usos = bon. comp. (DL).", asi: { elige: 1, opciones: ["des","car"] } },
+  "Justicia callejera":          { desc: "+1 a FUE o DES. Llave de cabeza: tus aliados tienen ventaja en ataques contra una criatura a la que estés agarrando. Nudo firme: al atar a una criatura con cadena, cuerda o esposas, suma bon. comp. a la CD para liberarse. Discurso contundente: la actitud hostil de una criatura no impone desventaja en tus pruebas de CAR (Intimidación) contra ella.", asi: { elige: 1, opciones: ["fue","des"] } },
+  "Magia de genio":              { desc: "+1 a INT, SAB o CAR. Magia deseada: acción de magia, lanza un conjuro de nivel 1 de la lista de hechicero con tiempo de lanzamiento de 1 acción (1/DL); aptitud = atributo aumentado. A nivel 11 se lanza como nivel 2; a nivel 17 como nivel 3.", asi: { elige: 1 } },
+  "Magia del Enclave":           { desc: "+1 a INT, SAB o CAR. Req.: dote Principiante del Enclave Esmeralda. Amigo de los animales: ventaja en pruebas para influir en bestias. Dos almas, una mente: sentidos de la bestia siempre preparado; puedes lanzarlo 1/DL sin ranura y sin concentración; con ranura sí requiere concentración.", asi: { elige: 1 } },
+  "Resistencia de la Orden":     { desc: "+1 a FUE, SAB o CAR. Req.: dote Novato del Guantelete. Levantarse: ponerse en pie cuesta solo 1,5 m de movimiento. La unión hace la fuerza: si estás a 1,5 m de un aliado no incapacitado, ambos tenéis ventaja en TS de FUE.", asi: { elige: 1, opciones: ["fue","sab","car"] } },
+  "Tácticas de los Zhentarim":   { desc: "+1 a DES o CAR. Req.: dote Rufián de los Zhentarim. Tomar represalias: inmediatamente después de que una criatura a 1,5 m te acierte en cuerpo a cuerpo, puedes hacer un ataque de oportunidad contra ella. Mercenario versátil: tras un descanso largo, elige una habilidad con competencia; tienes pericia en ella hasta el siguiente descanso largo.", asi: { elige: 1, opciones: ["des","car"] } },
+  "Tocado por los mythales":     { desc: "+1 a INT, SAB o CAR. Protección de los mythales: reacción cuando te acierte un ataque de conjuro o falles una TS contra un conjuro; tira 1d20 en la tabla de Magia de los mythales para crear un efecto mágico (CD = 8 + bon. comp. + mod. atributo). Usos = bon. comp. (DL).", asi: { elige: 1 } },
+  "Versado en el fuego mágico":  { desc: "+1 a INT, SAB o CAR. Req.: dote Chispa del fuego mágico o rasgo Magia del pacto. Fuego mágico avivado: 1/turno, cuando causes daño radiante con un conjuro, gasta hasta 2 dados de golpe, tíralos y súmalos al daño. Fuego mágico abrasador: tus tiradas de daño radiante ignoran resistencia a ese daño.", asi: { elige: 1 } },
+  // ── Dones épicos — Héroes de Faerún ─────────────────────────────────────────
+  "★ Don de la absorción de almas": { desc: "+1 a una característica (máx. 30). Resistencia sepulcral: resistencia al daño de frío y necrótico. Extraer vida: reacción cuando un enemigo a 36 m se reduce a 0 PG; recuperas 50 PG. 1/descanso corto o largo.", asi: { elige: 1 } },
+  "★ Don de la comunicación":    { desc: "+1 a INT, SAB o CAR (máx. 30). Orador astuto: sin desventaja en pruebas para influir en criaturas hostiles. Intérprete talentoso: entiendes el significado literal de cualquier idioma. Comunicación mental: telepatía hasta 36 m.", asi: { elige: 1 } },
+  "★ Don de la furia de la tormenta": { desc: "+1 a INT, SAB o CAR (máx. 30). Req.: rasgo Lanzamiento de conjuros o Magia del pacto. Ojo de la tormenta: resistencia al daño de rayo y trueno; inmunidad si estás maltrecho. Fuerza de la tormenta: las criaturas tienen desventaja en TS contra tus conjuros de rayo o trueno.", asi: { elige: 1 } },
+  "★ Don de la resistencia desesperada": { desc: "+1 a FUE o CON (máx. 30). Defensa del cuerpo y la mente: mientras estés maltrecho, resistencia a todos los tipos de daño excepto fuerza.", asi: { elige: 1, opciones: ["fue","con"] } },
+  "★ Don de la salud plena":     { desc: "+1 a una característica (máx. 30). Salud aumentada: cuando obtengas PG temporales, la cantidad aumenta en 5. Recuperación superior: cuando gastes dados de golpe para recuperar PG, puedes usar el máximo de cada dado en lugar de tirar.", asi: { elige: 1 } },
+  "★ Don de las formas fluidas": { desc: "+1 a INT, SAB o CAR (máx. 30). Cambiaformas: acción de magia, adoptas la forma de una bestia, humanoide o monstruosidad de VD ≤10 durante 1 hora; obtienes sus PG temporales. 1/DL. Transformación resistente: +20 a los PG temporales al cambiar de forma.", asi: { elige: 1 } },
+  "★ Don del derramamiento de sangre": { desc: "+1 a una característica (máx. 30). Fortuna del asesino: cuando los PG de un enemigo visible se reduzcan a 0, tienes ventaja en tu siguiente ataque antes del final de tu siguiente turno. Poder doloroso: 1/turno, al atacar mientras estés maltrecho, causa daño adicional = bon. comp. del mismo tipo.", asi: { elige: 1 } },
+  "★ Don del dominio de los venenos": { desc: "+1 a una característica (máx. 30). Antitóxico: inmunidad al daño de veneno y al estado de envenenado. Envenenador perfecto: 1/turno, cuando tires daño de veneno de tu ataque, conjuro o rasgo, puedes usar el máximo de cada dado.", asi: { elige: 1 } },
+  "★ Don del favor de la fortuna": { desc: "+1 a una característica (máx. 30). Repetir tiradas de salvación: cuando falles una TS, puedes repetirla y usar el nuevo resultado. 1/hasta el inicio de tu siguiente turno.", asi: { elige: 1 } },
+  "★ Don del fulgor exquisito":  { desc: "+1 a una característica (máx. 30). Descanso eterno: las criaturas a las que reduzcas a 0 PG no pueden convertirse en muertos vivientes. Fulgor poderoso: cuando tires daño radiante, puedes usar el máximo de cada dado; 1/DL.", asi: { elige: 1 } },
+  "★ Don del jolgorio":          { desc: "+1 a INT, SAB o CAR (máx. 30). A bailar: baile irresistible de Otto siempre preparado; puedes lanzarlo 1/DL sin ranura ni componentes, sin perder la concentración por daño. Mientras la criatura esté hechizada, no puede lanzar conjuros con componentes verbales y, si puede cantar, canta tonterías.", asi: { elige: 1 } },
+  "★ Don del sol brillante":     { desc: "+1 a CON, SAB o CAR (máx. 30). Presencia diurna: acción adicional, irradia emanación de 9 m de luz solar que disipa conjuros de oscuridad; dura hasta que la disipes, mueras o quedes incapacitado. Resplandor fortaleciente: mientras activa, al inicio de cada turno tú y los aliados visibles en el área obtienen 10 PG temporales.", asi: { elige: 1, opciones: ["con","sab","car"] } },
+  "★ Don del terror":            { desc: "+1 a CAR (máx. 30). Intrepidez: inmunidad al estado de asustado. ¡Huid, mentecatos!: reacción cuando una criatura asustada comience su turno a 18 m de ti: si la ves y no está tras cobertura total, TS SAB (CD 8 + bon. comp. + mod. CAR) o emplea su turno en huir de ti; 1/descanso corto o largo. Intimidante: competencia y pericia en Intimidación.", asi: { car: 1 } },
 };
 
 // Datos mecánicos de los trasfondos PHB 2024 (español)
@@ -682,6 +782,25 @@ const DATOS_TRASFONDO = {
   "Pupilo de las Manos Protectoras":  { asi: ["con","sab","car"], habilidades: ["perspicacia","medicina"],    herramienta: "Útiles de cocinero",               dote: "✦ Salvaguarda Arcana" },
   "Recluta del Pacto de la Tumba":    { asi: ["fue","int","sab"], habilidades: ["historia","medicina"],       herramienta: "Herramientas de herbolario",        dote: "✦ Sepulturero Arcano" },
   "Troupero del Circo Fantasmático":  { asi: ["des","con","car"], habilidades: ["engano","actuacion"],        herramienta: "Kit de disfraz",                   dote: "✦ Artista Arcano" },
+  // ── Héroes de Faerún ──────────────────────────────────────────────────────────
+  "Arpista":                       { asi: ["des","int","car"], habilidades: ["actuacion","juego_manos"],      herramienta: "útiles para disfrazarse",              dote: "✦ Agente de los Arpistas" },
+  "Caballero del Guantelete":      { asi: ["fue","int","sab"], habilidades: ["atletismo","medicina"],         herramienta: "herramientas de herrero",               dote: "✦ Novato del Guantelete" },
+  "Cuidador del Enclave Esmeralda":{ asi: ["con","int","sab"], habilidades: ["naturaleza","supervivencia"],   herramienta: "útiles de herborista",                 dote: "✦ Principiante del Enclave Esmeralda" },
+  "Errante Rashemí":               { asi: ["fue","con","car"], habilidades: ["intimidacion","percepcion"],    herramienta: "herramientas de cartógrafo",            dote: "✦ Duro" },
+  "Escudero del Dragón Púrpura":   { asi: ["fue","sab","car"], habilidades: ["perspicacia","trato_animales"], herramienta: "herramientas de navegante",             dote: "✦ Aprendiz del Dragón Púrpura" },
+  "Expulsado de los Amos de las Sombras": { asi: ["des","int","car"], habilidades: ["acrobacia","sigilo"],   herramienta: "herramientas de ladrón",                dote: "✦ Atacante salvaje" },
+  "Filibustero Chondathano":       { asi: ["fue","des","sab"], habilidades: ["atletismo","juego_manos"],      herramienta: "herramientas de tejedor",               dote: "✦ Habilidoso" },
+  "Guardián de los Mythales":      { asi: ["int","sab","car"], habilidades: ["arcanos","historia"],           herramienta: "herramientas de joyero",                dote: "✦ Fabricante" },
+  "Iniciado en el Fuego Mágico":   { asi: ["con","int","car"], habilidades: ["arcanos","percepcion"],         herramienta: "Juego de mesa (elige)",                 dote: "✦ Chispa del fuego mágico" },
+  "Ladrón de Tumbas Mulhorandín":  { asi: ["des","con","int"], habilidades: ["investigacion","religion"],     herramienta: "herramientas de albañil",               dote: "✦ Afortunado" },
+  "Mercenario de los Zhentarim":   { asi: ["fue","des","car"], habilidades: ["intimidacion","percepcion"],    herramienta: "útiles para falsificar",                dote: "✦ Rufián de los Zhentarim" },
+  "Mercenario del Puño Ardiente":  { asi: ["fue","con","car"], habilidades: ["intimidacion","percepcion"],    herramienta: "herramientas de herrero",               dote: "✦ Duro" },
+  "Morador de Tierras sin Magia":  { asi: ["fue","con","sab"], habilidades: ["medicina","supervivencia"],     herramienta: "herramientas de curtidor",              dote: "✦ Sanador" },
+  "Peregrino de los Manantiales Lunares": { asi: ["con","sab","car"], habilidades: ["naturaleza","actuacion"], herramienta: "suministros de pintor",               dote: "✦ Iniciado en la magia" },
+  "Pescador en Hielo":             { asi: ["fue","des","con"], habilidades: ["atletismo","trato_animales"],   herramienta: "herramientas de ebanista",              dote: "✦ Alerta" },
+  "Sectario del Dragón":           { asi: ["des","con","int"], habilidades: ["engano","sigilo"],              herramienta: "suministros de calígrafo",              dote: "✦ Iniciado del Culto del Dragón" },
+  "Tocado por un Genio":           { asi: ["des","sab","car"], habilidades: ["percepcion","persuasion"],      herramienta: "herramientas de soplador de vidrio",   dote: "✦ Iniciado en la magia" },
+  "Vasallo de la Alianza de los Lores": { asi: ["fue","int","car"], habilidades: ["perspicacia","persuasion"], herramienta: "suministros de calígrafo",             dote: "✦ Agente de la Alianza de los Lores" },
   // Trasfondo personalizado: el jugador elige las 3 características y la dote de origen
   "Personalizado": { asi: [], habilidades: [], herramienta: "(libre)", dote: null },
 };
@@ -699,6 +818,15 @@ const DOTES_ORIGEN = [
   "✦ Presagios Arcanos", "✦ Sobrecarga Arcana", "✦ Salvaguarda Arcana",
   "✦ Sepulturero Arcano", "✦ Amigo Familiar", "✦ Saltador de Portal",
   "✦ Anatomía Transmutada",
+  // Héroes de Faerún
+  "✦ Agente de la Alianza de los Lores",
+  "✦ Agente de los Arpistas",
+  "✦ Aprendiz del Dragón Púrpura",
+  "✦ Chispa del fuego mágico",
+  "✦ Iniciado del Culto del Dragón",
+  "✦ Novato del Guantelete",
+  "✦ Principiante del Enclave Esmeralda",
+  "✦ Rufián de los Zhentarim",
 ];
 
 // ─── Armas PHB 2024 ───────────────────────────────────────────────────────────
@@ -1452,6 +1580,54 @@ const RASGOS_SUBCLASE = {
     6: ["Toque de la Tumba (Necrosis Arcana: daño necrótico ignora Resistencia; Necrosis Aterradora: +1 dado daño necrótico en Forma de Pavor; No Necesita Dormir ni ser envenenado/deshidratado)"],
     10:["Cuerpo Mortal (Resistencia a necrótico; en Forma de Pavor: Inmunidad necrótico; Resurrección Impía: al caer a 0 PG, 2d10+CAR daño necrótico en 30 ft, PG=2×nv Brujo, +1 Agotamiento 1/descanso)"],
     14:["Forma de Pavor Mejorada (Resistencia a golpe/filo/perforante; Vuelo Fantasmal: vuelo=velocidad, Movimiento Incorpóreo; Lanzamiento Profano: sin componentes V/S/M en conjuros Conjuración/Nigromancia salvo costosos)"],
+  },
+  // ── Héroes de Faerún ──────────────────────────────────────────────────────
+  "Colegio de la Luna": {
+    3: ["Conjuros del Colegio de la Luna (siempre preparados: Luz Lunar, Relámpago Cromático, Caída de Plumas, Detectar Magia; nv5: Nube de Dagas, Rayo, Levitar; nv7: Invocar Elemental del Aire, Relámpago; nv9: Convocar Dragón, Teletransporte)","Imagen de la Luna (Acción: creas un espejismo visual y auditivo de hasta 9 m³ a 9 m; dura 1 min; CD SAB = 8+bon. comp+INT; usos = bon. comp.; recupera tras DL)"],
+    6: ["Magia de la Luna (Acción Bonus: puedes lanzar un conjuro de colegio de nivel 1-5 sin gastar ranura 1/turno; recuperas usos = bon. comp. tras DL)"],
+    14:["Forma Lunar (Acción: te transformas en un lobo lunar de VD 3 durante 1 hora; ganas PG temp = nv bardo × 3; mantienes rasgos de clase; vuelta a la normalidad si caes a 0 PG; 1/DL)"],
+  },
+  "Dominio del Conocimiento": {
+    3: ["Conjuros de Dominio del Conocimiento (Identificar, Proyectil Mágico; nv3: Sugestión, Levitar; nv5: Disipar Magia, Volar; nv7: Confusión, Arcanista Secreto; nv9: Telepatía, Muro de Fuerza)","Bendiciones del Conocimiento (pericia en 2 habilidades de Arcanos, Historia, Naturaleza o Religión)","Canal Divino: Conocimiento de las Edades (acción bonus: dominas una habilidad o herramienta durante 10 min; 1/descanso)"],
+    6: ["Canal Divino: Leer Pensamientos (acción: leer los pensamientos de una criatura a 18 m; TS SAB CD = 8+bon. comp.+SAB; si falla quedas enterado de sus pensamientos superficiales durante 1 min y puedes lanzar Sugestión sin ranura; 1/descanso)"],
+    17:["Visiones del Pasado (acción: concentración 1 min, ves el pasado de un objeto o lugar a tu alrededor; 1/DL)"],
+  },
+  "Caminante Invernal": {
+    3: ["Conjuros del Caminante Invernal (Crear o Destruir Agua como Escarcha, Velocidad de la Hoja de Viento, Detectar Magia; nv3: Rayo de Frío, Oscuridad; nv5: Contrahechizo, Ventisca de Espadas; nv7: Libertad de Movimiento, Tormenta de Granizo; nv9: Conjurar Elemental [Aire/Agua], Cono de Frío)","Uno con el Hielo (ventaja en TS CON contra frío; resistencia al daño de frío; ignoras terreno difícil causado por hielo o nieve)","Envolvente Helado (reacción cuando golpeas con ataque: 1d8 daño frío adicional y objetivo reduce velocidad 3 m hasta inicio de tu siguiente turno; usos = bon. comp.; recupera tras DL)"],
+    7: ["Presencia Aterradora del Invierno (aura 9 m: criaturas hostiles en el aura al inicio de su turno hacen TS SAB CD = 8+bon. comp.+SAB o no pueden tomar reacciones y mueven a la mitad hasta inicio de tu siguiente turno)"],
+    11:["Glaciar (acción: concentración 1 min, área de 18 m de hielo a 30 m de ti; difícil para enemigos, no para aliados; 1/DL)"],
+    15:["Heraldo del Invierno (inmunidad al daño de frío; tus conjuros de frío ignoran resistencia e inmunidad)"],
+  },
+  "Abanderado": {
+    3: ["Presencia Galvanizadora (aura 9 m mientras estés consciente: aliados ganan bon. comp. en tiradas de iniciativa)","Posición Heroica (reacción cuando un aliado a 9 m es atacado: concedes +5 CA al aliado hasta el inicio de tu siguiente turno; usos = bon. comp.; recupera tras DL)"],
+    7: ["Pancarta Protectora (los aliados en tu aura tienen ventaja en TS contra ser asustados o hechizados)"],
+    10:["Inspiración Marcial (acción bonus: todos los aliados a 9 m que puedan verte u oírte obtienen inspiración heroica; 1/DL)"],
+    15:["Pancarta Fortalecida (los aliados en tu aura obtienen +2 a las tiradas de ataque y TS mientras tú estés consciente)"],
+    18:["Campeón Supremo (cuando usas Posición Heroica, también obtienes tú +5 CA hasta el inicio de tu siguiente turno)"],
+  },
+  "Hechicería del Fuego Mágico": {
+    3: ["Conjuros del Fuego Mágico (Llama Sagrada truco; Ráfaga de Color, Detectar Magia; nv3: Arma Espiritual, Ceguera/Sordera; nv5: Disipar Magia, Luz del Día; nv7: Mano del Guardián, Purificar; nv9: Ira de la Naturaleza, Comunión)","Llama del Fuego Mágico (tu Llama Sagrada truco usa tu modificador de aptitud de Hechicero; 1/turno al impactar con un conjuro, puedes gastar 1 PC para añadir 1d6 daño radiante)","Escudo de Fuego Mágico (reacción cuando recibes daño: gastas 1 PC para reducir el daño en 1d6 + bon. comp.)"],
+    6: ["Purificación de Fuego Mágico (la llama elimina un efecto mágico adverso en un aliado a 9 m; usos = bon. comp.; recupera tras DL)"],
+    14:["Fuego Mágico Avivado (tus dados de daño de llama mágica son d8; gastas PC para añadir dados d8 adicionales; al impactar criatura con PG máx, añades bon. comp. al daño)"],
+    18:["Ascensión del Fuego Mágico (1 acción: te envuelves en fuego mágico durante 1 min; vuelas velocidad caminata; inmunidad daño radiante; irradias 9 m de luz; criaturas hostiles que terminen turno en luz hacen TS CON CD = 8+bon. comp.+CAR o quedan cegadas; 1/DL)"],
+  },
+  "Hojacantante": {
+    3: ["Conjuros del Hojacantante (Mensaje truco; Comprensión de Idiomas, Detectar Magia; nv3: Sugestión, Ver la Invisibilidad; nv5: Disipar Magia, Hablar con Muertos; nv7: Arcano Secreto, Plano Astral; nv9: Proyección Astral, Teletransporte)","Escritura Arcana (creas pergaminos de conjuro de nivel 1 a 5 gastando ranura + 1 hora por nivel; el pergamino lanza el conjuro a nivel base o al nivel deseado con ranura adicional)","Palabras de Poder (1/DL: al lanzar un conjuro del Hojacantante, puedes añadir un efecto adicional: marcar, silenciar o revelar la ubicación de la criatura)"],
+    6: ["Escudo de Palabras (reacción cuando fallarías una TS de INT, SAB o CAR: puedes usar INT en su lugar; bon. comp. usos; recupera tras DL)"],
+    10:["Pergamino Maestro (tus pergaminos pueden contener conjuros hasta nivel 7; CD de conjuro = tu CD de conjuro)"],
+    14:["Arcanista Supremo (1/DL: lanza un conjuro del Hojacantante de cualquier nivel sin gastar ranura ni componentes materiales)"],
+  },
+  "Juramento de los Genios Nobles": {
+    3: ["Conjuros del Juramento (Ráfaga de Color, Detectar Magia; nv3: Ver la Invisibilidad, Viento; nv5: Disipar Magia, Vuelo; nv7: Dimensión Puerta, Éter; nv9: Dominar Persona, Prisionero del Plano)","Canal Divino: Destierro de los Genios (acción: desterrar a una criatura a una semiesfera del Plano Elemental por 1 min; TS CAR CD = 8+bon. comp.+CAR; regresa si rompe concentración; 1/descanso)","Canal Divino: Deseos Concedidos (acción bonus: un aliado a 9 m recibe 1 deseo menor: PG temp = 10+nv paladín, ventaja en siguiente tirada, o velocidad +9 m hasta fin de turno; 1/descanso)"],
+    7: ["Aura de los Genios (aura 9 m: aliados tienen resistencia a daño de ácido, frío, fuego, rayo o trueno —el tipo que elijas al obtener esta subclase—)"],
+    15:["Capricho de los Genios (cuando un aliado en tu aura haga una tirada de ataque, prueba de característica o TS y obtenga un 1, puede repetirla; 1/aliado por descanso corto o largo)"],
+    20:["Forma del Genio (acción: adoptas una forma etérea de genio durante 1 min; vuelas velocidad caminata; inmunidad al tipo de tu aura; gastas Canal Divino extra para lanzar Deseos Menores; 1/DL)"],
+  },
+  "Vástago de los Tres": {
+    3: ["Don de los Tres (al nivel 3, elige un rasgo de Ladrón, Asesino o Embaucador Arcano; al nivel 9 elige un segundo don)","Acto Versátil (cuando aciertas Ataque Furtivo, elige un efecto adicional: +1d6 daño; cegar hasta fin de tu sig. turno; o reducir velocidad a 0 hasta inicio de tu sig. turno)"],
+    9: ["Don de los Tres Mejorado (elige el segundo don de Ladrón, Asesino o Embaucador Arcano)","Acto Refinado (tus efectos de Acto Versátil no requieren acción adicional)"],
+    13:["Síntesis de los Tres (cuando uses los tres rasgos en el mismo turno, recuperas usos de Acto Versátil gastados = bon. comp.)"],
+    17:["Maestría Absoluta (1/DL: cuando no tengas inspiración heroica al inicio de tu turno, ganas inspiración heroica; además, Ataque Furtivo añade 2 dados de daño en lugar de 1 si ya tienes ventaja)"],
   },
 };
 
