@@ -231,6 +231,53 @@ const PROF_CLASE = {
   "Pícaro":     { salv:["des","int"], ops:["acrobacia","atletismo","engano","perspicacia","intimidacion","investigacion","percepcion","actuacion","persuasion","juego_manos","sigilo"], n:4 },
   "Artificiero":{ salv:["con","int"], ops:["arcanos","historia","investigacion","medicina","naturaleza","percepcion","juego_manos"], n:2 },
 };
+// Proficiencia con armas por clase (simple siempre incluye marcial si marcial: true)
+const PROF_ARMAS_CLASE = {
+  "Bárbaro":    { simple: true, marcial: true  },
+  "Bardo":      { simple: true, marcial: false },
+  "Brujo":      { simple: true, marcial: false },
+  "Clérigo":    { simple: true, marcial: false },
+  "Druida":     { simple: true, marcial: false },
+  "Explorador": { simple: true, marcial: true  },
+  "Guerrero":   { simple: true, marcial: true  },
+  "Hechicero":  { simple: true, marcial: false },
+  "Mago":       { simple: true, marcial: false },
+  "Monje":      { simple: true, marcial: false },
+  "Paladín":    { simple: true, marcial: true  },
+  "Pícaro":     { simple: true, marcial: false },
+  "Artificiero":{ simple: true, marcial: false },
+};
+
+// ¿Tiene el personaje competencia con un arma de categoría dada?
+const tieneProfArma = (progresion, cat) => {
+  if (cat === "simple") return true; // todas las clases
+  return progresion.some(p => PROF_ARMAS_CLASE[p.clase]?.marcial);
+};
+
+// Calcula bono de ataque y daño total para un arma equipada
+const calcAtaqueArma = (arma, char) => {
+  const nT   = nivelTotal(char.progresion);
+  const prof  = calcProf(nT);
+  const finura = (arma.props || "").toLowerCase().includes("finura");
+  const ranged = arma.tipo === "ranged";
+  const modFue = calcMod(char.fue || 10);
+  const modDes = calcMod(char.des || 10);
+  const attr   = (finura || ranged) ? (modDes >= modFue || ranged ? "des" : "fue") : "fue";
+  const mod    = calcMod(char[attr] || 10);
+  const bonus  = arma.bonus || 0;
+  const conProf = tieneProfArma(char.progresion, arma.cat);
+  const bonoAtaque = mod + bonus + (conProf ? prof : 0);
+  // Extraer dado de daño (ej. "1d8 filo" → "1d8") y añadir modificadores
+  const partsDano = (arma.dano || "").split(" ");
+  const dado      = partsDano[0] || "—";
+  const tipoDano  = partsDano.slice(1).join(" ");
+  const modTotal  = mod + bonus;
+  const danoStr   = dado !== "—"
+    ? `${dado}${modTotal >= 0 ? "+" : ""}${modTotal} ${tipoDano}`.trim()
+    : "—";
+  return { bonoAtaque, danoStr, attr, conProf, dado, tipoDano };
+};
+
 // Aptitud mágica por clase (para cálculo automático de CD y bono de ataque)
 const CASTING_ABILITY = {
   "Bardo":      "car", "Brujo":      "car", "Hechicero":  "car", "Paladín":    "car",
@@ -2661,8 +2708,28 @@ function TabCombate({ char, u }) {
               </tr>
             </thead>
             <tbody>
+              {/* Filas automáticas: armas equipadas */}
+              {(char.armas || []).filter(a => a.equipada).map((a, i) => {
+                const { bonoAtaque, danoStr, attr, conProf } = calcAtaqueArma(a, char);
+                const bonoStr = bonoAtaque >= 0 ? `+${bonoAtaque}` : `${bonoAtaque}`;
+                return (
+                  <tr key={`auto-${i}`} style={{ borderBottom: `1px solid ${P.borderDim}`,
+                    background: `${P.gold}0d` }}>
+                    <td style={{ padding: "4px 6px" }}>
+                      <span style={{ fontWeight: 700, color: P.gold }}>{a.nombre}</span>
+                      {!conProf && <span style={{ fontSize: 9, color: P.crimsonLt, marginLeft: 4 }}>sin comp.</span>}
+                      {a.bonus > 0 && <span style={{ fontSize: 9, color: "#6fa8dc", marginLeft: 4 }}>+{a.bonus} mág.</span>}
+                    </td>
+                    <td style={{ padding: "4px 6px", fontWeight: 700, color: P.gold, fontSize: 14 }}>{bonoStr}</td>
+                    <td style={{ padding: "4px 6px" }}>{danoStr}</td>
+                    <td style={{ padding: "4px 6px", color: P.textDim, fontSize: 11 }}>{a.maestria}</td>
+                    <td style={{ padding: "4px 6px", fontSize: 9, color: P.textDim, fontStyle: "italic" }}>auto</td>
+                  </tr>
+                );
+              })}
+              {/* Filas manuales */}
               {char.ataques.map((a, i) => (
-                <tr key={i} style={{ borderBottom: `1px solid ${P.borderDim}` }}>
+                <tr key={`manual-${i}`} style={{ borderBottom: `1px solid ${P.borderDim}` }}>
                   {["nombre", "bono", "dano"].map(k => (
                     <td key={k} style={{ padding: "3px 4px" }}>
                       <input value={a[k]} onChange={e => updAtaque(i, k, e.target.value)}
@@ -2685,8 +2752,13 @@ function TabCombate({ char, u }) {
             </tbody>
           </table>
         </div>
+        {(char.armas || []).filter(a => a.equipada).length === 0 && char.ataques.length === 0 && (
+          <div style={{ fontSize: 11, color: P.textDim, fontStyle: "italic", marginTop: 6 }}>
+            Equipa armas en la pestaña Equipo para verlas aquí calculadas automáticamente.
+          </div>
+        )}
         <div style={{ marginTop: 10 }}>
-          <Btn onClick={addAtaque} variant="gold">+ Añadir ataque</Btn>
+          <Btn onClick={addAtaque} variant="gold">+ Añadir ataque manual</Btn>
         </div>
       </Card>
 
@@ -3228,7 +3300,7 @@ function TabEquipo({ char, u, un }) {
   const addArma = () => {
     const base = ARMAS_DB.find(a => a.nombre === nuevoArma);
     if (!base) return;
-    u("armas", [...(char.armas || []), { ...base, bonus: 0, notas: "" }]);
+    u("armas", [...(char.armas || []), { ...base, bonus: 0, notas: "", equipada: false }]);
     setNuevoArma("");
   };
 
@@ -3281,6 +3353,7 @@ function TabEquipo({ char, u, un }) {
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr>
+                  <th style={{ ...thStyle, width: 36, textAlign: "center" }}>⚔️</th>
                   <th style={thStyle}>Arma</th>
                   <th style={thStyle}>Daño</th>
                   <th style={thStyle}>Tipo</th>
@@ -3294,7 +3367,12 @@ function TabEquipo({ char, u, un }) {
               <tbody>
                 {(char.armas || []).map((a, i) => (
                   <tr key={i} style={{ background: i % 2 === 0 ? P.surface : "transparent" }}>
-                    <td style={{ ...tdStyle, fontWeight: 700, color: P.goldLt }}>{a.nombre}</td>
+                    <td style={{ ...tdStyle, textAlign: "center" }}>
+                      <input type="checkbox" checked={!!a.equipada}
+                        onChange={e => u("armas", (char.armas||[]).map((x,j) => j===i ? {...x, equipada: e.target.checked} : x))}
+                        style={{ width: 16, height: 16, accentColor: P.gold, cursor: "pointer" }} />
+                    </td>
+                    <td style={{ ...tdStyle, fontWeight: 700, color: a.equipada ? P.gold : P.goldLt }}>{a.nombre}</td>
                     <td style={tdStyle}>{a.dano}</td>
                     <td style={{ ...tdStyle, fontSize: 10, color: P.textDim }}>
                       {a.cat === "marcial" ? "Marcial" : "Simple"} {a.tipo === "melee" ? "CaC" : "Dist."}
