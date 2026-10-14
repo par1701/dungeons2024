@@ -153,21 +153,6 @@ const TRASFONDOS = [
   "Noble",
   "Soldado",
   "Vagabundo",
-  // ── Sword Coast Adventurer's Guide ────────────────────
-  "Artesano del Clan",
-  "Ciudad Vigilante",
-  "Contrabandista",
-  "Faccioso de la Ciudad",
-  "Heredero",
-  "Iniciado de Harpers",
-  "Investigador",
-  "Mercenario Veterano",
-  "Navegante",
-  "Orfebre",
-  "Pirata",
-  "Viajero Lejano",
-  // ── Xanathar's Guide to Everything ───────────────────
-  "Secuaz del Crimen Organizado",
   // ── Ravenloft: Horrors Within ─────────────────────────
   "El Acosado",
   "Errante de la Niebla",
@@ -1440,11 +1425,11 @@ const RASGOS_SUBCLASE = {
     10:["Represalia (al ser dañado, bonus de ataque)"],
     14:["Matador (irrumpir en Frenesí sin agotamiento 1/descanso largo)"],
   },
-  "Camino del Totem": {
-    3: ["Guía de Espíritu","Tótem del Guerrero (oso/águila/lobo)"],
-    6: ["Aspecto del Bestia"],
-    10:["Caminante de Espíritu"],
-    14:["Tótem de Ataque"],
+  "Camino del Corazón Salvaje": {
+    3: ["Hablar con Animales (sin ranura, usos=bon. comp.; recupera en DL)","Furia de las Bestias (elige aspecto al entrar en Rabia — Oso: resistencia a todo daño salvo psíquico; Águila: los ataques de oportunidad contra ti tienen desventaja; Alce: tu movimiento puede empujar criaturas adyacentes; Lobo: los aliados tienen ventaja vs. criaturas adyacentes a ti)"],
+    6: ["Aspecto de la Bestia (elige un 2º aspecto de Furia de las Bestias)"],
+    10:["Comunión con la Naturaleza (Comunión con la Naturaleza sin ranura; 1/DL)"],
+    14:["Poder de las Bestias (mientras rages, tu aspecto activo otorga un beneficio adicional mejorado según el animal elegido)"],
   },
   // ── Paladín ───────────────────────────────────────────────────────────────
   "Juramento de Devoción": {
@@ -1477,11 +1462,11 @@ const RASGOS_SUBCLASE = {
     11:["Paz Tranquila (vacío durante movimiento, evita AO)"],
     17:["Palma de Temblor (3 ki; mata o inflige 10d10 necrótico diferido)"],
   },
-  "Tradición de las Cuatro Estaciones": {
-    3: ["Elemental Discipline (ki para conjuros elementales básicos)"],
-    6: ["Golpes Elementales (ki extra en Aguacero para daño elemental)"],
-    11:["Zancada del Viento (vuelo temporal)"],
-    17:["Avatar del Elemento"],
+  "Guerrero de los Elementos": {
+    3: ["Sintonía Elemental (conoces el truco Llamarada; cuando usas Aguacero, 1 golpe puede infligir daño de Ácido/Frío/Fuego/Rayo/Trueno; gasta 1 PC para empujar 4,5 m o derribar al objetivo)","Manipular Elementos (gasta PC para lanzar conjuros elementales: Forma Gaseosa, Muro de Fuego, etc.)"],
+    6: ["Golpe Elemental (al impactar con Aguacero gastando 2 PC extra: explosión elemental en radio 6 m centrado en el objetivo, daño elemental elegido)"],
+    11:["Zancada Elemental (acción adicional, 2 PC: velocidad de vuelo y natación = velocidad de movimiento durante 10 min)"],
+    17:["Epítome Elemental (resistencia a un tipo de daño elemental elegido; 1/turno al acertar con golpe de Aguacero elemental, añades 1d6 extra de ese tipo)"],
   },
   // ── Hechicero ─────────────────────────────────────────────────────────────
   "Origen Dracónico": {
